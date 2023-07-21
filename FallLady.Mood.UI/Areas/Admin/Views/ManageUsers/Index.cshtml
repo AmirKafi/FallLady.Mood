@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "مدیریت کاربران";
+}
+<div class="card">
+    @Html.AntiForgeryToken()
+
+
+    <div class="row">
+        <div id="toolbar">
+
+        </div>
+        <table data-toolbar="#toolbar"
+               data-toggle="table"
+               data-striped="true"
+               data-show-refresh="true"
+               data-height="600"
+               data-id-field="userId"
+               data-click-to-select="true"
+               data-side-pagination="server"
+               data-pagination="true"
+               data-buttons-align="right"
+               data-single-select="true"
+               data-toolbar-align="right"
+               data-ajax="window.ajaxRequest"
+               data-response-handler="window.responseHandler"
+               data-url="@Url.Action("LoadAllUsers","ManageUsers")">
+            <thead>
+                <tr>
+                    <th data-field="rowNumber" data-width="60">رديف</th>
+                    <th data-field="userName">نام کاربری</th>
+                    <th data-field="firstName">نام</th>
+                    <th data-field="lastName">نام خانوادگی</th>
+                    <th data-field="phoneNumber">شماره موبایل</th>
+                    <th data-field="email">ایمیل</th>
+                    <th data-field="isActive" data-halign="center" data-align="center" data-width="60">فعال</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+</div>

@@ -1,0 +1,47 @@
+﻿@using FallLady.Mood.Core.Enums
+@using FallLady.Mood.Core.Utilities
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model CourseViewModel
+
+<form class="row" method="post" asp-antiforgery="true" autocomplete="off" enctype="multipart/form-data">
+
+    <div asp-validation-summary="All" class="text-danger">
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label" asp-for="Title"></label>
+        <input type="text" class="form-control form-control-sm" asp-for="Title">
+        <span asp-validation-for="Title"></span>
+    </div>
+
+    <div class="col-md-12">
+        <label class="form-label" asp-for="Description"></label>
+        <textarea class="form-control form-control-sm" asp-for="Description"></textarea>
+        <span asp-validation-for="Description"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label" asp-for="Price"></label>
+        <input type="number" class="form-control form-control-sm" asp-for="Price">
+        <span asp-validation-for="Price"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label" asp-for="CourseType"></label><b class="text-danger">*</b>
+        @Html.DropDownListFor(entry => entry.CourseType,(EnumDisplayValueConverter.EnumToList(typeof(CourseType))),new { @class = "form-control"})
+        <span asp-validation-for="CourseType"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label" asp-for="OriginalImageFile"></label>
+        <input class="form-control form-control-sm" asp-for="OriginalImageFile" type="file">
+        <span asp-validation-for="OriginalImageFile"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label" asp-for="LicenseId"></label>
+        <input type="text" class="form-control form-control-sm" asp-for="LicenseId">
+        <span asp-validation-for="LicenseId"></span>
+    </div>
+
+</form>

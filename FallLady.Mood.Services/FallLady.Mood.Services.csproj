@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FallLady.Mood.Data\FallLady.Mood.Data.csproj" />
+    <ProjectReference Include="..\FallLady.Mood.Infrastructure\FallLady.Mood.Infrastructure.csproj" />
+    <ProjectReference Include="..\FallLady.Mood.Models\FallLady.Mood.Models.csproj" />
+  </ItemGroup>
+
+</Project>

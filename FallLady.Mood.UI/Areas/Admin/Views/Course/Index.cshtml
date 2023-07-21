@@ -1,0 +1,43 @@
+﻿@using FallLady.Mood.Core.Utilities
+@model List<CourseViewModel>
+@{
+    ViewBag.Title = "دوره ها";
+}
+<div class="card">
+    @Html.AntiForgeryToken()
+
+
+    <div class="mainDiv">
+        <div id="toolbar">
+            <a href="javascript:void(0)" data-url="@Url.Action("Create","Course")" class="btn btn-default createItem columns-right" data-dialog-mode="medium" data-dialog-title="افزودن دوره" title="افزودن"><span class="glyphicon glyphicon-plus"></span> افزودن</a>
+            <a href="javascript:void(0)" data-url="@Url.Action("Edit","Course")" class="btn btn-default columns-right editItem" data-dialog-mode="small" data-dialog-title="ویرایش دوره" title="ويرايش اولين مورد انتخاب شده"><span class="glyphicon glyphicon-pencil "></span> ويرايش</a>
+            <a href="javascript:void(0)" data-url="@Url.Action("Delete","Course")" class="btn btn-danger removeItem columns-right" title="حذف موارد انتخاب شده"><span class="glyphicon glyphicon-remove"></span> حذف</a>
+        </div>
+        <table data-toolbar="#toolbar"
+               data-toggle="table"
+               data-striped="true"
+               data-show-refresh="true"
+               data-height="600"
+               data-id-field="id"
+               data-click-to-select="true"
+               data-side-pagination="server"
+               data-pagination="true"
+               data-buttons-align="right"
+               data-single-select="true"
+               data-toolbar-align="right"
+               data-ajax="window.ajaxRequest"
+               data-response-handler="window.responseHandler"
+               data-url="@Url.Action("LoadAllCourses","Course")">
+            <thead>
+                <tr>
+                    <th data-field="state" data-checkbox="true" data-width="1" data-halign="center" data-align="center"></th>
+                    <th data-field="rowNumber" data-width="60">رديف</th>
+                    <th data-field="title">عنوان دوره</th>
+                    <th data-field="description">توضیحات</th>
+                    <th data-field="price">قیمت</th>
+                    <th data-field="courseTypeTitle">نوع دوره</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
