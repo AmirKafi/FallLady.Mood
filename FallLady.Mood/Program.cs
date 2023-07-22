@@ -1,5 +1,14 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using FallLady.Mood;
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
+        .ConfigureContainer<ContainerBuilder>(b =>
+        {
+            b.RegisterModule(new AutofacModule());
+        });
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

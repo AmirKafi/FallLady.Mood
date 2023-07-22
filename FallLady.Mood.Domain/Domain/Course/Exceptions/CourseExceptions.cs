@@ -15,5 +15,19 @@ namespace FallLady.Mood.Domain.Domain.Course.Exceptions
 
             }
         }
+        public class CourseTypeRequired : Exception
+        {
+            public CourseTypeRequired(string message = "لطفا نوع دوره را انتخاب کنید") : base(message)
+            {
+
+            }
+        }
+        public class PriceRequired : Exception
+        {
+            public PriceRequired(string message = "لطفا قیمت دوره را وارد کنید") : base(message)
+            {
+
+            }
+        }
     }
 }

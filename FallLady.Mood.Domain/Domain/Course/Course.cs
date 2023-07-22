@@ -1,7 +1,9 @@
 ﻿using FallLady.Mood.Domain.Domain.Course.Exceptions;
+using FallLady.Mood.Domain.Enums;
 using FallLady.Mood.Framework.Core;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,18 +34,17 @@ namespace FallLady.Mood.Domain.Domain.Course
 
         #endregion
 
-        #region Guards
+        #region Methods
 
-        private static void GuardAgainstTitleBeingNullOrEmptyOrSpace(string title)
+        public Course Update(string title, CourseTypeEnum courseType, float price, string description, string licenseKey)
         {
-            if (string.IsNullOrEmpty(title) || title.Trim() == "")
-                throw new CourseExceptions.TitleRequired();
-        }
+            Title = title;
+            CourseType = courseType;
+            Price = price;
+            Description = description;
+            LicenseKey = licenseKey;
 
-        private static void GuardAgainstCourseTypeBeingNullOrEmptyOrSpace(string title)
-        {
-            if (string.IsNullOrEmpty(title) || title.Trim() == "")
-                throw new CourseExceptions.TitleRequired();
+            return this;
         }
 
         #endregion

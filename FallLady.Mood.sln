@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FallLady.Mood", "FallLady.Mood\FallLady.Mood.csproj", "{391B4BAB-D407-44D6-A06C-4FBAAC9273E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FallLady.Mood", "FallLady.Mood\FallLady.Mood.csproj", "{391B4BAB-D407-44D6-A06C-4FBAAC9273E8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00-Framework", "00-Framework", "{675D246A-9F99-4C07-8D22-BB13F41AFC4C}"
 EndProject
@@ -13,19 +13,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02-Infrastructure", "02-Inf
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03-Application", "03-Application", "{CB8BE3D2-02C6-4AC0-9E6E-862F2CD708B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FallLady.Mood.Utility", "FallLady.Mood.Utility\FallLady.Mood.Utility.csproj", "{D3E0C19D-59B4-4032-A48D-BC985C9D5C03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FallLady.Mood.Utility", "FallLady.Mood.Utility\FallLady.Mood.Utility.csproj", "{D3E0C19D-59B4-4032-A48D-BC985C9D5C03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FallLady.Mood.Domain", "FallLady.Mood.Domain\FallLady.Mood.Domain.csproj", "{F46A85F8-B9B3-460E-B1D2-FDEA67E84419}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FallLady.Mood.Domain", "FallLady.Mood.Domain\FallLady.Mood.Domain.csproj", "{F46A85F8-B9B3-460E-B1D2-FDEA67E84419}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FallLady.Mood.Config", "FallLady.Mood.Config\FallLady.Mood.Config.csproj", "{B5A7DC43-CA2C-402B-A062-EA1296C4CA74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FallLady.Persistance", "FallLady.Persistance\FallLady.Persistance.csproj", "{9BF24894-717A-49C5-9C36-2BBC8A202231}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FallLady.Persistance", "FallLady.Persistance\FallLady.Persistance.csproj", "{9BF24894-717A-49C5-9C36-2BBC8A202231}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FallLady.Mood.Application", "FallLady.Mood.Application\FallLady.Mood.Application.csproj", "{D40F02FE-2031-4E14-B73F-80B8CE859028}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FallLady.Mood.Application", "FallLady.Mood.Application\FallLady.Mood.Application.csproj", "{D40F02FE-2031-4E14-B73F-80B8CE859028}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FallLady.Mood.Application.Contract", "FallLady.Mood.Application.Contract\FallLady.Mood.Application.Contract.csproj", "{BB10E500-027C-4F9D-A2D9-C473B854ED95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FallLady.Mood.Application.Contract", "FallLady.Mood.Application.Contract\FallLady.Mood.Application.Contract.csproj", "{BB10E500-027C-4F9D-A2D9-C473B854ED95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FallLady.Mood.Framework.Core", "FallLady.Mood.Framework.Core\FallLady.Mood.Framework.Core.csproj", "{49FE697E-4636-409C-827B-9B0CFC74DE0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FallLady.Mood.Framework.Core", "FallLady.Mood.Framework.Core\FallLady.Mood.Framework.Core.csproj", "{49FE697E-4636-409C-827B-9B0CFC74DE0D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FallLady.Mood.Config", "FallLady.Mood.Config\FallLady.Mood.Config.csproj", "{B1F980DA-6944-45EF-A422-AAE6FEB89756}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,10 +45,6 @@ Global
 		{F46A85F8-B9B3-460E-B1D2-FDEA67E84419}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F46A85F8-B9B3-460E-B1D2-FDEA67E84419}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F46A85F8-B9B3-460E-B1D2-FDEA67E84419}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B5A7DC43-CA2C-402B-A062-EA1296C4CA74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B5A7DC43-CA2C-402B-A062-EA1296C4CA74}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B5A7DC43-CA2C-402B-A062-EA1296C4CA74}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B5A7DC43-CA2C-402B-A062-EA1296C4CA74}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9BF24894-717A-49C5-9C36-2BBC8A202231}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9BF24894-717A-49C5-9C36-2BBC8A202231}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BF24894-717A-49C5-9C36-2BBC8A202231}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -65,6 +61,10 @@ Global
 		{49FE697E-4636-409C-827B-9B0CFC74DE0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49FE697E-4636-409C-827B-9B0CFC74DE0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49FE697E-4636-409C-827B-9B0CFC74DE0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1F980DA-6944-45EF-A422-AAE6FEB89756}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1F980DA-6944-45EF-A422-AAE6FEB89756}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1F980DA-6944-45EF-A422-AAE6FEB89756}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1F980DA-6944-45EF-A422-AAE6FEB89756}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,11 +72,11 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{D3E0C19D-59B4-4032-A48D-BC985C9D5C03} = {675D246A-9F99-4C07-8D22-BB13F41AFC4C}
 		{F46A85F8-B9B3-460E-B1D2-FDEA67E84419} = {5B9E490D-4549-4A7E-9404-45FA4B480276}
-		{B5A7DC43-CA2C-402B-A062-EA1296C4CA74} = {7273354E-9303-4FC3-A490-EB0D5235617D}
 		{9BF24894-717A-49C5-9C36-2BBC8A202231} = {7273354E-9303-4FC3-A490-EB0D5235617D}
 		{D40F02FE-2031-4E14-B73F-80B8CE859028} = {CB8BE3D2-02C6-4AC0-9E6E-862F2CD708B6}
 		{BB10E500-027C-4F9D-A2D9-C473B854ED95} = {CB8BE3D2-02C6-4AC0-9E6E-862F2CD708B6}
 		{49FE697E-4636-409C-827B-9B0CFC74DE0D} = {675D246A-9F99-4C07-8D22-BB13F41AFC4C}
+		{B1F980DA-6944-45EF-A422-AAE6FEB89756} = {7273354E-9303-4FC3-A490-EB0D5235617D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6FC6A50D-2D7C-4527-83C7-6DBD4B426046}

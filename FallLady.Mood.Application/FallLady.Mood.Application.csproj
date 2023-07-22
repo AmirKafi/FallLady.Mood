@@ -6,4 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FallLady.Mood.Application.Contract\FallLady.Mood.Application.Contract.csproj" />
+    <ProjectReference Include="..\FallLady.Mood.Domain\FallLady.Mood.Domain.csproj" />
+    <ProjectReference Include="..\FallLady.Mood.Framework.Core\FallLady.Mood.Framework.Core.csproj" />
+    <ProjectReference Include="..\FallLady.Mood.Utility\FallLady.Mood.Utility.csproj" />
+    <ProjectReference Include="..\FallLady.Persistance\FallLady.Persistance.csproj" />
+  </ItemGroup>
+
 </Project>
