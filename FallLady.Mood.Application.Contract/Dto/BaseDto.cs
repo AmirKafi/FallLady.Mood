@@ -8,7 +8,7 @@ namespace FallLady.Mood.Application.Contract.Dto
 {
     public class BaseDto
     {
-        public int PageNumber { get; set; }
-        public int PageSize { get; set; }
+        public int offset { get; set; }
+        public int limit { get; set; }
     }
 }

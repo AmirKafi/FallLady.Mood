@@ -1,0 +1,19 @@
+﻿@model FallLady.Mood.Application.Contract.Dto.Course.CourseCreateDto
+@{
+    ViewBag.Title = "ثبت دوره";
+}
+<div class="card">
+    <div class="card-body">
+        <form autocomplete="off" action="@Url.Action("Create","Course")">
+
+            <div class="mb-3">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Title" class="form-label"></label><b class="text-danger">*</b>
+                        <input type="text" class="form-control" asp-for="Title">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

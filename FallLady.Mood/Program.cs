@@ -1,6 +1,8 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using FallLady.Mood;
+using FallLady.Mood.Application.Contract.Interfaces;
+using FallLady.Mood.Application.Services.Course;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,9 +13,9 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
         });
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<ICourseService,CourseService>();
 
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

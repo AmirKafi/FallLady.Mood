@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FallLady.Mood.Domain\FallLady.Mood.Domain.csproj" />
+    <ProjectReference Include="..\FallLady.Mood.Framework.Core\FallLady.Mood.Framework.Core.csproj" />
     <ProjectReference Include="..\FallLady.Mood.Utility\FallLady.Mood.Utility.csproj" />
   </ItemGroup>
 

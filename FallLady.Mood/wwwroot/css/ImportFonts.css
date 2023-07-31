@@ -42,43 +42,32 @@ import RTL Styles
 @import url(/Content/css/master_style_rtl.css);
 
 /******************* 
-import Theme Color Styles 
-*******************/
-@import url(/Content/css/color-theme.css);
-
-/******************* 
-import Skin Color Styles 
-*******************/
-@import url(/Content/css/skin-color.css);
-
-
-/******************* 
 import icon and fonts Styles 
 *******************/
-@import url(/Content/css/icons/font-awesome/css/font-awesome.css);
-@import url(/Content/css/icons/Ionicons/css/ionicons.css);
-@import url(/Content/css/icons/themify-icons/themify-icons.css);
-@import url(/Content/css/icons/linea-icons/linea.css);
-@import url(/Content/css/icons/glyphicons/glyphicon.css);
-@import url(/Content/css/icons/flag-icon-css/css/flag-icon.css);
-@import url(/Content/css/icons/material-design-iconic-font/css/materialdesignicons.css);
-@import url(/Content/css/icons/simple-line-icons/css/simple-line-icons.css);
-@import url(/Content/css/icons/cryptocoins-master/cryptocoins.css);
-@import url(/Content/css/icons/weather-icons/css/weather-icons.min.css);
-@import url(/Content/css/icons/iconmind/iconmind.css);
-@import url(/Content/css/icons/MaterialIcons/css/materialIcons.css);
+@import url(../Content/css/icons/font-awesome/css/font-awesome.css);
+@import url(../Content/css/icons/Ionicons/css/ionicons.css);
+@import url(../Content/css/icons/themify-icons/themify-icons.css);
+@import url(../Content/css/icons/linea-icons/linea.css);
+@import url(../Content/css/icons/glyphicons/glyphicon.css);
+@import url(../Content/css/icons/flag-icon-css/css/flag-icon.css);
+@import url(../Content/css/icons/material-design-iconic-font/css/materialdesignicons.css);
+@import url(../Content/css/icons/simple-line-icons/css/simple-line-icons.css);
+@import url(../Content/css/icons/cryptocoins-master/cryptocoins.css);
+@import url(../Content/css/icons/weather-icons/css/weather-icons.min.css);
+@import url(../Content/css/icons/iconmind/iconmind.css);
+@import url(../Content/css/icons/MaterialIcons/css/materialIcons.css);
 
 @import url(/Content/css/animate.css);
 
 @font-face {
     font-family: "YekanNumbers";
-    src: url(/Content/fonts/YekanNumbers-Regular.eot);
-    src: url(/Content/fonts/YekanNumbers-Regular.eot?#iefix)format("embedded-opentype"), url(/Content/fonts/YekanNumbers-Regular.woff) format("woff"), url(/Content/fonts/YekanNumbers-Regular.ttf) format("truetype");
+    src: url(../Content/fonts/YekanNumbers-Regular.eot);
+    src: url(../Content/fonts/YekanNumbers-Regular.eot?#iefix)format("embedded-opentype"), url(../Content/fonts/YekanNumbers-Regular.woff) format("woff"), url(../Content/fonts/YekanNumbers-Regular.ttf) format("truetype");
     font-weight: 400;
     font-style: inherit;
 }
 
 @font-face {
     font-family: "IRANSansDN";
-    src: url(/Content/fonts/IRANSansWeb.woff2) format('truetype');
+    src: url(../Content/fonts/IRANSansWeb.woff2) format('truetype');
 }

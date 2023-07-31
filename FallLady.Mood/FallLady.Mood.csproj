@@ -3389,16 +3389,26 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.8" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FallLady.Mood.Application.Contract\FallLady.Mood.Application.Contract.csproj" />
+    <ProjectReference Include="..\FallLady.Mood.Application\FallLady.Mood.Application.csproj" />
     <ProjectReference Include="..\FallLady.Mood.Config\FallLady.Mood.Config.csproj" />
+    <ProjectReference Include="..\FallLady.Mood.Framework.Core\FallLady.Mood.Framework.Core.csproj" />
     <ProjectReference Include="..\FallLady.Persistance\FallLady.Persistance.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\AdminTemplateAssets\" />
+    <Folder Include="wwwroot\Content\css\" />
+    <Folder Include="wwwroot\Content\js\" />
   </ItemGroup>
 
 </Project>

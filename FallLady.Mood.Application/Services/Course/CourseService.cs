@@ -30,7 +30,7 @@ namespace FallLady.Mood.Application.Services.Course
             var result = new ServiceResponse<List<CourseListDto>>();
             try
             {
-                var data = await _repository.GetList(dto.PageNumber, dto.PageSize);
+                var data = await _repository.GetList(dto.offset, dto.limit);
                 result.SetData(data.ToDto());
             }
             catch (Exception ex)
