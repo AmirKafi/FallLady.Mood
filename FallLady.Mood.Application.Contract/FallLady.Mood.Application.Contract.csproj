@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\FallLady.Mood.Domain\FallLady.Mood.Domain.csproj" />
     <ProjectReference Include="..\FallLady.Mood.Framework.Core\FallLady.Mood.Framework.Core.csproj" />
     <ProjectReference Include="..\FallLady.Mood.Utility\FallLady.Mood.Utility.csproj" />

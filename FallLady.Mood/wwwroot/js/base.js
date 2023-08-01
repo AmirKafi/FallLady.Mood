@@ -76,6 +76,11 @@ window.inputmasks = function () {
         regex: "[0-9]*"
     });
 
+    $(".price").inputmask("Regex", {
+        regex: "[0-9]*",
+        scale : 3
+    });
+
     $(".captchaField").inputmask("Regex", {
         regex: "[0-9]*"
     });

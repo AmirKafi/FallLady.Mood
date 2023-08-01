@@ -6,11 +6,31 @@
     <div class="card-body">
         <form autocomplete="off" action="@Url.Action("Create","Course")">
 
-            <div class="mb-3">
-                <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label asp-for="Title" class="form-label"></label><b class="text-danger">*</b>
                         <input type="text" class="form-control" asp-for="Title">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="CourseType" class="form-label"></label><b class="text-danger">*</b>
+                        <select asp-for="CourseType" class="form-select" asp-items="Model.CourseTypes"></select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Price" class="form-label"></label><b class="text-danger">*</b>
+                        <input type="text" class="form-control price" asp-for="Price">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="Description" class="form-label"></label><b class="text-danger">*</b>
+                        <textarea asp-for="Description" class="form-control"></textarea>
                     </div>
                 </div>
             </div>

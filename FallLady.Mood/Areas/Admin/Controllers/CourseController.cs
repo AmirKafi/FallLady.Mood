@@ -1,11 +1,13 @@
 ﻿using FallLady.Mood.Application.Contract.Dto.Course;
 using FallLady.Mood.Application.Contract.Interfaces;
+using FallLady.Mood.Controllers.Base;
+using FallLady.Mood.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FallLady.Mood.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CourseController : Controller
+    public class CourseController : BaseController
     {
         #region Constrcutor
         private readonly ICourseService _courseService;
@@ -38,6 +40,7 @@ namespace FallLady.Mood.Areas.Admin.Controllers
         {
             ViewBag.ActivePage = "Course" ;
             var model = new CourseCreateDto();
+            model.CourseTypes = EnumToList(typeof(CourseTypeEnum), null);
 
             return PartialView("Create",model);
         }
