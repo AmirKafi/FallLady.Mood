@@ -152,7 +152,7 @@ $(document).on("click", ".btn.createItem[data-url]", function (e) {
                         }).done(function (data, textStatus, jqXHR) {
                             var _ref3;
                             autoDestroyToastr();
-                            if (data.resultStatus !== "Successful") {
+                            if (data.resultStatus !== 1 && data.resultStatus !== -2) {
                                 toastr["error"]((_ref3 = data.message) != null ? _ref3 : resource.exception.saveError);
                                 return;
                             }
@@ -185,6 +185,8 @@ $(document).on("click", ".btn.createItem[data-url]", function (e) {
                     var persianCalendar;
                     $('form').validateBootstrap(true);
                     window.inputmasks();
+
+
                     $(".dialog-body select").selectpicker({
                         container: "body"
                     });

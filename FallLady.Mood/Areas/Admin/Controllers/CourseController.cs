@@ -3,6 +3,7 @@ using FallLady.Mood.Application.Contract.Interfaces;
 using FallLady.Mood.Controllers.Base;
 using FallLady.Mood.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FallLady.Mood.Areas.Admin.Controllers
 {
@@ -34,15 +35,27 @@ namespace FallLady.Mood.Areas.Admin.Controllers
             return Json(model);
         }
 
-        [Route("/Course/Create")]
         [HttpGet]
+        [Route("/Course/Create")]
         public async Task<ActionResult> Create()
         {
             ViewBag.ActivePage = "Course" ;
             var model = new CourseCreateDto();
             model.CourseTypes = EnumToList(typeof(CourseTypeEnum), null);
+            model.CourseTypes.Insert(0, new SelectListItem());
 
             return PartialView("Create",model);
+        }
+
+        [HttpPost]
+        [Route("/Course/Create")]
+        public async Task<ActionResult> Create(CourseCreateDto dto)
+        {
+            ViewBag.ActivePage = "Course";
+
+            var result = await _courseService.AddCourse(dto).ConfigureAwait(false);
+
+            return Json(result);
         }
     }
 }

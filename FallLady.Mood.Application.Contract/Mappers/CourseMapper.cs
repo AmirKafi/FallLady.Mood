@@ -12,7 +12,7 @@ namespace FallLady.Mood.Application.Contract.Mappers
     {
         public static Course ToModel(this CourseCreateDto dto)
         {
-            return new Course(dto.Title,dto.CourseType,dto.Price,dto.Description,dto.LicenseKey);
+            return new Course(dto.Title,dto.CourseType.Value,dto.Price.Value, dto.Description,dto.LicenseKey);
         }
 
         public static List<CourseListDto> ToDto(this IEnumerable<Course>? model)
