@@ -12878,7 +12878,7 @@ button.toast-close-button {
 }
 
 .rtl .bootstrap-select.btn-group .dropdown-toggle .filter-option {
-    text-align: right;
+    text-align: center;
     /* white-space: normal !important;*/
 }
 
