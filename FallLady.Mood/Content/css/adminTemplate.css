@@ -19217,7 +19217,6 @@ textarea.form-control-lg {
 
 .left-sidebar {
     width: 270px;
-    background-color: #fff;
     position: absolute;
     -webkit-transition: 0.2s ease-in;
     transition: 0.2s ease-in;
@@ -19909,3 +19908,7 @@ ul {
     .timeline-widget .timeline-item .timeline-badge.badge-primary {
         border: 2px solid #5D87FF
     }
+
+a.sidebar-link.active{
+    overflow:hidden;
+}
