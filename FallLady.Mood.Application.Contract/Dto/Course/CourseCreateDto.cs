@@ -1,4 +1,5 @@
 ﻿using FallLady.Mood.Domain.Enums;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -26,6 +27,10 @@ namespace FallLady.Mood.Application.Contract.Dto.Course
         [DisplayName("کد لایسنس")]
         [Required(ErrorMessage = "فیلد عنوان دوره اجباری می باشد")]
         public string? LicenseKey { get; set; }
+
+        [DisplayName("تصویر")]
+        public string FileName { get; set; }
+        public IFormFile File { get; set; }
 
         public List<SelectListItem> CourseTypes { get; set; }
     }

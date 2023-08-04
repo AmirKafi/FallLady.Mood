@@ -6517,26 +6517,6 @@ textarea.form-control-lg {
     }
 }
 
-.progress, .progress-stacked {
-    --bs-progress-height: 1rem;
-    --bs-progress-font-size: 0.65625rem;
-    --bs-progress-bg: var(--bs-secondary-bg);
-    --bs-progress-border-radius: var(--bs-border-radius);
-    --bs-progress-box-shadow: var(--bs-box-shadow-inset);
-    --bs-progress-bar-color: #fff;
-    --bs-progress-bar-bg: #5D87FF;
-    --bs-progress-bar-transition: width 0.6s ease;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    height: var(--bs-progress-height);
-    overflow: hidden;
-    font-size: var(--bs-progress-font-size);
-    background-color: var(--bs-progress-bg);
-    border-radius: var(--bs-progress-border-radius);
-    -webkit-box-shadow: var(--bs-progress-box-shadow);
-    box-shadow: var(--bs-progress-box-shadow)
-}
 
 .progress-bar {
     display: -webkit-box;
@@ -19219,6 +19199,7 @@ textarea.form-control-lg {
 
 .left-sidebar {
     width: 270px;
+    background-color: #fff;
     position: absolute;
     -webkit-transition: 0.2s ease-in;
     transition: 0.2s ease-in;

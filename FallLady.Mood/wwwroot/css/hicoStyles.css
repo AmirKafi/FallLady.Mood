@@ -2993,7 +2993,6 @@ button.toast-close-button {
 
 .rtl .bootstrap-select.btn-group .dropdown-toggle .filter-option {
     text-align: right;
-    /* white-space: normal !important;*/
 }
 
 .rtl .bootstrap-select.btn-group .dropdown-toggle .caret {

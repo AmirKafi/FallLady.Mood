@@ -2623,7 +2623,7 @@
         showPreview: true,
         showRemove: true,
         showUpload: true,
-        showCancel: true,
+        showCancel: false,
         showClose: true,
         showUploadedThumbs: true,
         autoReplace: false,

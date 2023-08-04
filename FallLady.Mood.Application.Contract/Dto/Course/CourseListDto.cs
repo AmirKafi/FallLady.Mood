@@ -16,5 +16,8 @@ namespace FallLady.Mood.Application.Contract.Dto.Course
         public string? CourseTypeTitle => CourseType.GetDisplayName();
         public float Price { get; set; }
         public string Description { get; set; }
+
+        public string FilePath { get; set; }
+        public string FileName { get; set; }
     }
 }

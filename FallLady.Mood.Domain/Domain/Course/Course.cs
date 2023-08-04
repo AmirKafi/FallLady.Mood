@@ -16,13 +16,14 @@ namespace FallLady.Mood.Domain.Domain.Course
         {
 
         }
-        public Course(string title, CourseTypeEnum courseType, float price, string description, string licenseKey)
+        public Course(string title, CourseTypeEnum courseType, float price, string description, string licenseKey, string fileName)
         {
             Title = title;
             CourseType = courseType;
             Price = price;
             Description = description;
             LicenseKey = licenseKey;
+            FileName = fileName;
         }
 
         #region Properties
@@ -31,18 +32,20 @@ namespace FallLady.Mood.Domain.Domain.Course
         public float Price { get; private set; }
         public string Description { get; private set; }
         public string LicenseKey { get; private set; }
+        public string FileName { get; set; }
 
         #endregion
 
         #region Methods
 
-        public Course Update(string title, CourseTypeEnum courseType, float price, string description, string licenseKey)
+        public Course Update(string title, CourseTypeEnum courseType, float price, string description, string licenseKey,string fileName)
         {
             Title = title;
             CourseType = courseType;
             Price = price;
             Description = description;
             LicenseKey = licenseKey;
+            FileName = fileName;
 
             return this;
         }

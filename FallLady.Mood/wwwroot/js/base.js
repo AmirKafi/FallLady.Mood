@@ -226,4 +226,12 @@ $(document).ajaxStop(function () {
     $("#loading").hide();
 });
 
+window.showImageFormatter = function (filePath) {
+    return "<button class='btn btn-sm btn-dark m-1 showImage' data-path='" + filePath + "'><span class='glyphicon glyphicon-eye-open'></span> مشاهده</button> ";
+}
+window.showImageEvents = {
+    'click button.showImage': function () {
+        window.open($(this).data("path"), '_blank');
+    }
+}
 

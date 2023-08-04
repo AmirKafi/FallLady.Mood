@@ -120,7 +120,7 @@ select.selectpicker {
 .bootstrap-select.btn-group .dropdown-toggle .filter-option {
   display: inline-block;
   overflow: hidden;
-  width: 100%;
+  width: 97%;
   text-align: left;
 }
 .bootstrap-select.btn-group .dropdown-toggle .caret {
@@ -229,7 +229,7 @@ select.selectpicker {
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
   border-bottom: 7px solid rgba(204, 204, 204, 0.2);
-  position: absolute;
+  position: inherit;
   bottom: -4px;
   left: 9px;
   display: none;

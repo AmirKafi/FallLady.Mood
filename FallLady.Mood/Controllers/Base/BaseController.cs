@@ -1,11 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FallLady.Mood.Framework.Core.Enum;
+using FallLady.Mood.Utility.ServiceResponse;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace FallLady.Mood.Controllers.Base
 {
     public class BaseController : Controller
     {
-
+        protected string GetBaseRoot()
+          => HttpContext.Request.Scheme + "://" + HttpContext.Request.Host;
+        
         protected string GetEnumDisplayValue(Enum enumName)
         {
             var type = enumName.GetType();
@@ -35,6 +41,40 @@ namespace FallLady.Mood.Controllers.Base
                 ? items.OrderBy(item => item.Text)
                     .ToList()
                 : items.ToList();
+        }
+
+        protected ServiceResponse<string> SaveFile(IFormFile file,FileFoldersEnum folderName)
+        {
+            var result = new ServiceResponse<string>();
+
+            if (file is null)
+                result.SetException("انتخاب فایل اجباری می باشد");
+
+            var path = Path.Combine(@"wwwroot", "InAppImages", folderName.ToString());
+
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            var newFileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
+
+            string fileNameWithPath = Path.Combine(path, newFileName);
+
+            using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
+            {
+                file.CopyTo(stream);
+            }
+            result.SetData(newFileName);
+
+            return result;
+        }
+
+        protected virtual string GetFileUrl(string fileName, FileFoldersEnum folderName)
+        {
+            var path = Path.Combine(GetBaseRoot(), "InAppImages", folderName.ToString(), fileName);
+            if (!Path.HasExtension(path))
+                path += ".jpg";
+
+            return path;
         }
     }
 }

@@ -510,7 +510,7 @@ select.selectpicker {
 .bootstrap-select.btn-group .dropdown-toggle .filter-option {
   display: inline-block;
   overflow: hidden;
-  width: 100%;
+  width: 97%;
   text-align: left;
 }
 .bootstrap-select.btn-group .dropdown-toggle .caret {
@@ -619,7 +619,7 @@ select.selectpicker {
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
   border-bottom: 7px solid rgba(204, 204, 204, 0.2);
-  position: absolute;
+  position: inherit;
   bottom: -4px;
   left: 9px;
   display: none;
@@ -12878,8 +12878,7 @@ button.toast-close-button {
 }
 
 .rtl .bootstrap-select.btn-group .dropdown-toggle .filter-option {
-    text-align: center;
-    /* white-space: normal !important;*/
+    text-align: right;
 }
 
 .rtl .bootstrap-select.btn-group .dropdown-toggle .caret {
@@ -13462,4 +13461,13 @@ nav.sidebar-nav.scroll-sidebar {
 
 input,textarea,select{
     margin-bottom:5px
+}
+
+.form-control.file-caption.kv-fileinput-caption{
+    border-radius: 10px !important;
+    padding:inherit !important;
+}
+
+button.btn.btn-default.hide.fileinput-cancel.fileinput-cancel-button{
+    display:none;
 }

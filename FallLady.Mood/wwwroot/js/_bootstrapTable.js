@@ -80,8 +80,12 @@ window.ajaxRequest = function (params) {
     additionalParams = window.$table.data("additionalParams");
     setTimeout(function () {
         $.ajax(params).done(function (data, textStatus, jqXHR) {
-            console.log(data);
             var objects, _ref;
+
+            if (data.resultStatus !== 1 && data.resultStatus !== -2) {
+                toastr["error"]((_ref3 = data.message) != null ? _ref3 : resource.exception.saveError);
+                return;
+            }
 
             objects = {
                 total: data.total,
@@ -405,21 +409,23 @@ $(document).on("click", "#toolbar .btn.editItem[data-url]", function (e) {
                         $(imageFile).fileinput({
                             language: "fa",
                             showUpload: false,
+                            showCancel:false,
                             uploadAsync: true,
                             allowedFileExtensions: ["jpg", "png", "pdf", "xlsx", "docx"],
                             fileActionSettings: {
-                                showDrag: false
+                                showDrag: true
                             }
                         });
                         fileName = $("#" + ((_ref = $(imageFile).data('fileName')) != null ? _ref : 'FileName')).val();
+                        filePath = $(imageFile).data('filePath');
                         if (fileName === "undefined" || fileName === void 0 || fileName === "") {
                             fileName = [];
                         }
                         if (fileName.length > 0) {
                             imagePreview = $("" + ($(imageFile).data('previewTarget')));
                             imageThumbnails = imagePreview.find(".file-preview-thumbnails");
-                            imagePreview.removeClass("hidden");
-                            imageThumbnails.append("<div class='file-preview-frame krajee-default kv-preview-thumb' data-fileindex='" + index + "' data-template='image'> <div class='kv-file-content'> <img src='" + ($(imageFile).data('url')) + "/" + fileName + "' class='kv-preview-data file-preview-image' style='width:auto;height:160px;' /> </div> <div> <div class='file-footer-buttons'> <button type='button' data-id='" + fileName + "' class='kv-file-remove btn btn-xs btn-default'><i class='glyphicon glyphicon-trash text-danger'></i></button> </div> <div class='clearfix'></div> </div> </div>");
+                            imagePreview.removeAttr("hidden");
+                            imageThumbnails.append("<div class='file-preview-frame krajee-default kv-preview-thumb' data-fileindex='" + index + "' data-template='image'> <div class='kv-file-content'> <img src='" + filePath + "' class='kv-preview-data file-preview-image' style='width:auto;height:160px;' /> </div> <div> <div class='file-footer-buttons'> <button type='button' data-id='" + fileName + "' class='kv-file-remove btn btn-xs btn-default'><i class='glyphicon glyphicon-trash text-danger'></i></button> </div> <div class='clearfix'></div> </div> </div>");
                             $(document).off("click", "" + ($(imageFile).data('previewTarget')) + " .close.fileinput-remove");
                             $(document).on("click", "" + ($(imageFile).data('previewTarget')) + " .close.fileinput-remove", function () {
                                 bootbox.confirm("آیا واقعا میخواهید همه فایل ها را حذف کنید؟", function (result) {
@@ -427,7 +433,7 @@ $(document).on("click", "#toolbar .btn.editItem[data-url]", function (e) {
                                     if (result === true) {
                                         $("#" + ((_ref1 = $(imageFile).data('fileName')) != null ? _ref1 : 'FileName')).val("");
                                         imageThumbnails.empty();
-                                        return imagePreview.addClass("hidden");
+                                        return imagePreview.attr("hidden");
                                     }
                                 });
                             });
@@ -442,7 +448,7 @@ $(document).on("click", "#toolbar .btn.editItem[data-url]", function (e) {
                                         $("#" + ((_ref1 = $(imageFile).data('fileName')) != null ? _ref1 : 'FileName')).val("");
                                         $this.closest(".file-preview-frame").remove();
                                         if (((_ref2 = imageThumbnails.find(".file-preview-frame")) != null ? _ref2.length : void 0) === 0) {
-                                            return imagePreview.addClass("hidden");
+                                            return imagePreview.attr("hidden");
                                         }
                                     }
                                 });

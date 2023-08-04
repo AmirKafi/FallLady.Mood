@@ -79,7 +79,7 @@ namespace FallLady.Mood.Application.Services.Course
             try
             {
                 var course = await _repository.Get(dto.Id);
-                course.Update(dto.Title, dto.CourseType, dto.Price, dto.Description, dto.LicenseKey);
+                course.Update(dto.Title, dto.CourseType, dto.Price, dto.Description, dto.LicenseKey,dto.FileName);
 
                 await _repository.Update(course);
 

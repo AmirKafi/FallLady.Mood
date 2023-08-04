@@ -535,3 +535,12 @@ nav.sidebar-nav.scroll-sidebar {
 input,textarea,select{
     margin-bottom:5px
 }
+
+.form-control.file-caption.kv-fileinput-caption{
+    border-radius: 10px !important;
+    padding:inherit !important;
+}
+
+button.btn.btn-default.hide.fileinput-cancel.fileinput-cancel-button{
+    display:none;
+}

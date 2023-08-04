@@ -12,7 +12,7 @@ namespace FallLady.Mood.Application.Contract.Mappers
     {
         public static Course ToModel(this CourseCreateDto dto)
         {
-            return new Course(dto.Title,dto.CourseType.Value,dto.Price.Value, dto.Description,dto.LicenseKey);
+            return new Course(dto.Title,dto.CourseType.Value,dto.Price.Value, dto.Description,dto.LicenseKey,dto.FileName);
         }
 
         public static List<CourseListDto> ToDto(this IEnumerable<Course>? model)
@@ -26,7 +26,8 @@ namespace FallLady.Mood.Application.Contract.Mappers
                 Title = x.Title,
                 CourseType = x.CourseType,
                 Price = x.Price,
-                Description = x.Description
+                Description = x.Description,
+                FileName = x.FileName
             }).ToList();
         }
 
@@ -39,7 +40,8 @@ namespace FallLady.Mood.Application.Contract.Mappers
                 CourseType = model.CourseType,
                 Price = model.Price,
                 Description = model.Description,
-                LicenseKey = model.LicenseKey
+                LicenseKey = model.LicenseKey,
+                FileName = model.FileName
             };
         }
     }
