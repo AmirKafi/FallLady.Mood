@@ -1,4 +1,14 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
+﻿//#region Course
+$(document).on("change", "select#CourseType", function (e) {
+    if ($(this).val() === "Online") {
+        $(".course-create .offlineCourse").css("display", "none");
+        $(".course-create .onlineCourse").css("display", "flex");
+    } else if ($(this).val() === "Offline") {
+        $(".course-create .onlineCourse").css("display", "none");
+        $(".course-create .offlineCourse").css("display", "flex");
+    } else {
+        $(".course-create .onlineCourse").css("display", "none");
+        $(".course-create .offlineCourse").css("display", "none");
+    }
+});
+//#endregion

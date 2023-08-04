@@ -3,6 +3,7 @@ using FallLady.Mood.Application.Contract.Interfaces;
 using FallLady.Mood.Controllers.Base;
 using FallLady.Mood.Domain.Enums;
 using FallLady.Mood.Framework.Core.Enum;
+using FallLady.Mood.Utility.Extentions.Datetime;
 using FallLady.Mood.Utility.ServiceResponse;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -45,8 +46,11 @@ namespace FallLady.Mood.Areas.Admin.Controllers
         {
             ViewBag.ActivePage = "Course" ;
             var model = new CourseCreateDto();
-            model.CourseTypes = EnumToList(typeof(CourseTypeEnum), null);
-            model.CourseTypes.Insert(0, new SelectListItem());
+
+            ViewBag.EventDaysList = EnumToList(typeof(WeekDaysEnum), null, false);
+            ViewBag.CourseTypes = EnumToList(typeof(CourseTypeEnum), null);
+            ((List<SelectListItem>)ViewBag.EventDaysList).Insert(0, new SelectListItem());
+            ((List<SelectListItem>)ViewBag.CourseTypes).Insert(0, new SelectListItem());
 
             return PartialView("Create",model);
         }
@@ -57,16 +61,43 @@ namespace FallLady.Mood.Areas.Admin.Controllers
         {
             ViewBag.ActivePage = "Course";
 
-            if(dto.File is null)
+            var result = new ServiceResponse<bool>();
+
+            if (dto.File is null)
             {
                 var res = new ServiceResponse<bool>();
                 res.SetException("انتخاب تصویر اجباری می باشد");
                 return Json(res);
             }
+            if (dto.CourseType == CourseTypeEnum.Online && dto.LicenseKey is null)
+            {
+                result.SetException("فیلد کد لایسنس اجباری می باشد");
+                return Json(result);
+            }
+            else
+            {
+                if (dto.EventDays is null)
+                    ModelState.AddModelError("", "انتخاب روز های برگزاری اجباری می باشد");
+                if (dto.FromTime is null)
+                    ModelState.AddModelError("", "فیلد از ساعت اجباری می باشد");
+                if (dto.ToTime is null)
+                    ModelState.AddModelError("", "فیلد تا ساعت اجباری می باشد");
+                if (dto.FromDateLocal is null)
+                    ModelState.AddModelError("", "فیلد از تاریخ اجباری می باشد");
+                if (dto.ToDateLocal is null)
+                    ModelState.AddModelError("", "فیلد تا تاریخ اجباری می باشد");
+                if (!ModelState.IsValid)
+                {
+                    result.SetException(GetErrorMessages());
+                    return Json(result);
+                }
+                dto.FromDate = dto.FromDateLocal.ToEn().AsDateOnly();
+                dto.ToDate = dto.ToDateLocal.ToEn().AsDateOnly();
+            }
 
             var fileName = SaveFile(dto.File, FileFoldersEnum.Course);
             dto.FileName = fileName.Data;
-            var result = await _courseService.AddCourse(dto).ConfigureAwait(false);
+            result = await _courseService.AddCourse(dto).ConfigureAwait(false);
 
             return Json(result);
         }
@@ -81,8 +112,17 @@ namespace FallLady.Mood.Areas.Admin.Controllers
 
             var model = course.Data;
             model.FilePath = GetFileUrl(model.FileName, FileFoldersEnum.Course);
-            model.CourseTypes = EnumToList(typeof(CourseTypeEnum), null);
-            model.CourseTypes.Insert(0, new SelectListItem());
+            if(model.CourseType == CourseTypeEnum.Offline)
+            {
+                model.FromDateLocal = model.FromDate.AsDateTime().ToFa();
+                model.ToDateLocal = model.ToDate.AsDateTime().ToFa();
+            }
+
+
+            ViewBag.EventDaysList = EnumToList(typeof(WeekDaysEnum), null, false);
+            ViewBag.CourseTypes = EnumToList(typeof(CourseTypeEnum), null);
+            ((List<SelectListItem>)ViewBag.EventDaysList).Insert(0, new SelectListItem());
+            ((List<SelectListItem>)ViewBag.CourseTypes).Insert(0, new SelectListItem());
 
             return PartialView("Edit", model);
         }
@@ -93,16 +133,40 @@ namespace FallLady.Mood.Areas.Admin.Controllers
         {
             ViewBag.ActivePage = "Course";
 
-            if (dto.File is null)
+            var result = new ServiceResponse<bool>();
+
+            if(dto.File != null)
             {
-                var res = new ServiceResponse<bool>();
-                res.SetException("انتخاب تصویر اجباری می باشد");
-                return Json(res);
+                var fileName = SaveFile(dto.File, FileFoldersEnum.Course);
+                dto.FileName = fileName.Data;
+            }
+            if (dto.CourseType == CourseTypeEnum.Online && dto.LicenseKey is null)
+            {
+                result.SetException("فیلد کد لایسنس اجباری می باشد");
+                return Json(result);
+            }
+            else
+            {
+                if (dto.EventDays is null)
+                    ModelState.AddModelError("","انتخاب روز های برگزاری اجباری می باشد");
+                if(dto.FromTime is null)
+                    ModelState.AddModelError("", "فیلد از ساعت اجباری می باشد");
+                if(dto.ToTime is null)
+                    ModelState.AddModelError("", "فیلد تا ساعت اجباری می باشد");
+                if(dto.FromDateLocal is null)
+                    ModelState.AddModelError("", "فیلد از تاریخ اجباری می باشد");
+                if(dto.ToDateLocal is null)
+                    ModelState.AddModelError("", "فیلد تا تاریخ اجباری می باشد");
+                if (!ModelState.IsValid)
+                {
+                    result.SetException(GetErrorMessages());
+                    return Json(result);
+                }
+                dto.FromDate = dto.FromDateLocal.ToEn().AsDateOnly();
+                dto.ToDate = dto.ToDateLocal.ToEn().AsDateOnly();
             }
 
-            var fileName = SaveFile(dto.File, FileFoldersEnum.Course);
-            dto.FileName = fileName.Data;
-            var result = await _courseService.UpdateCourse(dto).ConfigureAwait(false);
+            result = await _courseService.UpdateCourse(dto).ConfigureAwait(false);
 
             return Json(result);
         }

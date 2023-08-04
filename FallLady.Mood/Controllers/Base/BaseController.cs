@@ -76,5 +76,17 @@ namespace FallLady.Mood.Controllers.Base
 
             return path;
         }
+
+        protected string GetErrorMessages()
+        {
+            return string.Join("<br/>",
+                ModelState.Values.Where(state => state.Errors.Count > 0)
+                    .Select(state => string.Join("<br/>",
+                        state.Errors
+                            .Where(error => !string.IsNullOrEmpty(error.ErrorMessage))
+                            .Select(error => error.ErrorMessage)
+                            .ToList()))
+                    .ToList());
+        }
     }
 }

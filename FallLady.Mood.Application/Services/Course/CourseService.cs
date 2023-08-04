@@ -2,6 +2,7 @@
 using FallLady.Mood.Application.Contract.Interfaces;
 using FallLady.Mood.Application.Contract.Mappers;
 using FallLady.Mood.Domain.Domain.Course;
+using FallLady.Mood.Framework.Core.Enum;
 using FallLady.Mood.Utility.ServiceResponse;
 using FallLady.Persistance.Repositories.Course;
 using System;
@@ -46,6 +47,7 @@ namespace FallLady.Mood.Application.Services.Course
             var result = new ServiceResponse<bool>();
             try
             {
+                if (dto.EventDays is null) dto.EventDays = new List<WeekDaysEnum>();
                 await _repository.Add(dto.ToModel());
                 result.SetData(true);
             }
@@ -79,7 +81,19 @@ namespace FallLady.Mood.Application.Services.Course
             try
             {
                 var course = await _repository.Get(dto.Id);
-                course.Update(dto.Title, dto.CourseType, dto.Price, dto.Description, dto.LicenseKey,dto.FileName);
+                if (dto.EventDays is null) dto.EventDays = new List<WeekDaysEnum>();
+                course.Update(dto.Title, 
+                              dto.CourseType,
+                              dto.Price,
+                              dto.Description,
+                              dto.LicenseKey,
+                              dto.FileName,
+                              dto.FromTime,
+                              dto.ToTime,
+                              dto.FromDate,
+                              dto.ToDate,
+                              dto.EventAddress,
+                              dto.EventDays);
 
                 await _repository.Update(course);
 

@@ -416,7 +416,7 @@ $(document).on("click", "#toolbar .btn.editItem[data-url]", function (e) {
                             }
                         });
                         fileName = $("#" + ((_ref = $(imageFile).data('fileName')) != null ? _ref : 'FileName')).val();
-                        filePath = $(imageFile).data('filePath');
+                        var filePath = $(imageFile).data('filePath');
                         if (fileName === "undefined" || fileName === void 0 || fileName === "") {
                             fileName = [];
                         }
@@ -546,6 +546,7 @@ $(document).on("click", "#toolbar .btn.deleteItem[data-url]", function () {
                     toastr["success"](resource.message.deleteSuccess);
                     tableOptions = window.$table.bootstrapTable('getOptions');
                     idField = tableOptions.idField;
+                    $removeItem.data("dialog").hide($removeItem.data("dialogId"));
                     window.$table.bootstrapTable('remove', {
                         field: idField,
                         values: ids

@@ -85,7 +85,7 @@
   {
     "outputFileName": "wwwroot/Content/js/home.js",
     "inputFiles": [
-
+      "wwwroot/js/site.js"
     ],
     "minify": {
       "enabled": true,

@@ -14,6 +14,10 @@ namespace FallLady.Persistance.Configurations
     {
         public void Configure(EntityTypeBuilder<Course> builder)
         {
+            builder.HasMany(s => s.EventDays)
+                .WithOne(d => d.Course)
+                .HasForeignKey(d => d.CourseId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
