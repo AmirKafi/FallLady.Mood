@@ -8,6 +8,7 @@
                 <div class="col-md-12">
                     <div id="toolbar">
                         <a href="javascript:void(0)" data-url="@Url.Action("Create","Course")" class="btn btn-outline-success m-1 createItem"><span class="glyphicon glyphicon-plus"></span> افزودن</a>
+                        <a href="javascript:void(0)" data-url="@Url.Action("Edit","Course")" class="btn btn-outline-warning m-1 editItem"><span class="glyphicon glyphicon-pencil"></span> ویرایش</a>
                         <a href="javascript:void(0)" data-url="" class="btn btn-outline-dark m-1 refresh"><span class="glyphicon glyphicon-refresh"></span> بروزرسانی</a>
                     </div>
                     <table class="table text-nowrap mb-0 align-middle"
@@ -15,7 +16,7 @@
                            data-toggle="table"
                            data-striped="true"
                            data-show-refresh="false"
-                           data-id-field="courseId"
+                           data-id-field="id"
                            data-height="420"
                            data-click-to-select="true"
                            data-side-pagination="server"

@@ -1,0 +1,53 @@
+﻿@model FallLady.Mood.Application.Contract.Dto.Course.CourseUpdateDto
+@{
+    ViewBag.Title = "ثبت دوره";
+}
+<div class="card">
+    <div class="card-body">
+        <form autocomplete="off" action="@Url.Action("Edit","Course")">
+            <input type="number" hidden class="form-control" asp-for="Id">
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Title" class="form-label"></label><b class="text-danger">*</b>
+                        <input type="text" class="form-control" asp-for="Title">
+                        <span class="field-validation-valid text-danger" asp-validation-for="Title"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="CourseType" class="form-label"></label><b class="text-danger">*</b>
+                        <select asp-for="CourseType" class="form-control selectpicker" asp-items="Model.CourseTypes"></select>
+                        <span class="field-validation-valid text-danger" asp-validation-for="CourseType"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Price" class="form-label"></label><b class="text-danger">*</b>
+                        <input type="text" class="form-control price" asp-for="Price">
+                        <span class="field-validation-valid text-danger" asp-validation-for="Price"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="LicenseKey" class="form-label"></label><b class="text-danger">*</b>
+                        <input type="text" asp-for="LicenseKey" class="form-control" />
+                        <span class="field-validation-valid text-danger" asp-validation-for="LicenseKey"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="Description" class="form-label"></label><b class="text-danger">*</b>
+                        <textarea asp-for="Description" class="form-control"></textarea>
+                        <span class="field-validation-valid text-danger" asp-validation-for="Description"></span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

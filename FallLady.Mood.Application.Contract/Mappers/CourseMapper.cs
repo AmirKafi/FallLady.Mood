@@ -22,6 +22,7 @@ namespace FallLady.Mood.Application.Contract.Mappers
 
             return model.Select(x=> new CourseListDto()
             {
+                Id = x.Id,  
                 Title = x.Title,
                 CourseType = x.CourseType,
                 Price = x.Price,

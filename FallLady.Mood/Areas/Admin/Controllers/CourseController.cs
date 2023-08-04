@@ -57,5 +57,32 @@ namespace FallLady.Mood.Areas.Admin.Controllers
 
             return Json(result);
         }
+
+        [HttpGet]
+        [Route("/Course/Edit")]
+        public async Task<ActionResult> Edit(int id)
+        {
+            ViewBag.ActivePage = "Course";
+
+            var course = await _courseService.GetCourse(id).ConfigureAwait(false);
+
+            var model = course.Data;
+
+            model.CourseTypes = EnumToList(typeof(CourseTypeEnum), null);
+            model.CourseTypes.Insert(0, new SelectListItem());
+
+            return PartialView("Edit", model);
+        }
+
+        [HttpPost]
+        [Route("/Course/Edit")]
+        public async Task<ActionResult> Edit(CourseUpdateDto dto)
+        {
+            ViewBag.ActivePage = "Course";
+
+            var result = await _courseService.UpdateCourse(dto).ConfigureAwait(false);
+
+            return Json(result);
+        }
     }
 }
