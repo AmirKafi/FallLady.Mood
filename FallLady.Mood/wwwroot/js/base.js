@@ -33,7 +33,12 @@ manuallyDestroyToastr = function (tapToDismiss) {
     return toastr.options.extendedTimeOut = "0";
 };
 
-
+window.bootbox = function (size) {
+    bootbox.setDefaults({
+        locale: "fa",
+        size: size != null ? size : "small"
+    });
+};
 window.inputmasks = function () {
     $(".nationalityCode").inputmask({
         "mask": "9999999999",

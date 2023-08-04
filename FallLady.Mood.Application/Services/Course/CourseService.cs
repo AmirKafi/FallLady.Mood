@@ -98,7 +98,8 @@ namespace FallLady.Mood.Application.Services.Course
             var result = new ServiceResponse<bool>();
             try
             {
-                await _repository.Delete(courseId);
+                var course = await _repository.GetById(courseId);
+                await _repository.Delete(course);
 
                 result.SetData(true);
             }

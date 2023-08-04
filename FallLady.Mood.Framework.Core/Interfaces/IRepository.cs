@@ -34,6 +34,7 @@ namespace FallLady.Mood.Framework.Core.Interfaces
     public interface IDeleteRepository<TEntity, TKey> : ISegregationRepository<TEntity, TKey>
     {
         Task Delete(TKey key);
+        Task Delete(TEntity entity);
     }
 
     public interface IUsageRepository<TEntity, TKey> : ISegregationRepository<TEntity, TKey>

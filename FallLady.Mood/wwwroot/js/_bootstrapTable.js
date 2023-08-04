@@ -300,7 +300,6 @@ $(document).on("click", ".btn.createItem[data-url]", function (e) {
     return false;
 });
 
-
 $(document).on("click", "#toolbar .btn.editItem[data-url]", function (e) {
     var $editItem, content, ids, params, url, _ref;
     e.preventDefault();
@@ -500,6 +499,68 @@ $(document).on("click", "#toolbar .btn.editItem[data-url]", function (e) {
             return;
         }
     });
+    return false;
+});
+
+
+$(document).on("click", "#toolbar .btn.deleteItem[data-url]", function () {
+    var $removeItem, deleteDialog, ids;
+    $removeItem = $(this);
+    ids = window.getIdSelections();
+    autoDestroyToastr();
+    if ((ids != null ? ids.length : void 0) === 0) {
+        toastr["warning"](resource.message.notSelected);
+        return false;
+    }
+    url = $removeItem.data("url") + "?id=" + ids[0];
+    content = "<p>آیا از حذف این آیتم مطمئن هستید؟</p>";
+    setTimeout(function () {
+        var name, title, _ref1, _ref2;
+        name = new Date().getTime();
+        title = $("<div class='t" + name + "'/>").html($removeItem.html());
+        $("body").append(title);
+        $(".t" + name + " .material-icons, .t" + name + " .glyphicon").remove();
+        title = title.text().trim();
+        $(".t" + name).remove();
+        $removeItem.dialog({
+            title: (_ref1 = $removeItem.data("dialogTitle")) != null ? _ref1 : title + " " + window.document.title.replace("لیست ", ""),
+            mode: (_ref2 = $removeItem.data("dialogMode")) != null ? _ref2 : "large",
+            destroyAfterClose: true,
+            content: content,
+            onSaveClick: function (e) {
+                $.ajax({
+                    url: $removeItem.data("url"),
+                    type: "POST",
+                    cache: false,
+                    data: {
+                        ids: ids,
+                        "__RequestVerificationToken": $("input[name=__RequestVerificationToken]").val()
+                    }
+                }).done(function (data, textStatus, jqXHR) {
+
+                    var idField, tableOptions, _ref;
+                    if (data.resultStatus !== 1) {
+                        toastr["error"]((_ref = data.message) != null ? _ref : resource.exception.deleteError);
+                        return;
+                    }
+                    toastr["success"](resource.message.deleteSuccess);
+                    tableOptions = window.$table.bootstrapTable('getOptions');
+                    idField = tableOptions.idField;
+                    window.$table.bootstrapTable('remove', {
+                        field: idField,
+                        values: ids
+                    });
+                    window.$table.bootstrapTable('refresh', {
+                        silent: true,
+                        pageNumber: 1
+                    });
+
+                }).fail(function (msg) {
+                    toastr["error"](msg.status === 403 ? resource.exception.deleteForbidden : resource.exception.deleteError);
+                }).always(function () { });
+            }
+        });
+    }, 700);
     return false;
 });
 

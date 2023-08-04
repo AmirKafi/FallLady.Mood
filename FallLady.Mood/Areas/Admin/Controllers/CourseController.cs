@@ -106,5 +106,16 @@ namespace FallLady.Mood.Areas.Admin.Controllers
 
             return Json(result);
         }
+
+        [HttpPost]
+        [Route("/Course/Delete")]
+        public async Task<ActionResult> Delete(List<int> ids)
+        {
+            ViewBag.ActivePage = "Course";
+
+            var result = await _courseService.Delete(ids[0]).ConfigureAwait(false);
+
+            return Json(result);
+        }
     }
 }
