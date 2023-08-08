@@ -1,5 +1,6 @@
 ﻿using FallLady.Mood.Application.Contract.Dto.Course;
 using FallLady.Mood.Domain.Domain.Courses;
+using FallLady.Mood.Framework.Core;
 using FallLady.Mood.Framework.Core.Enum;
 using System;
 using System.Collections.Generic;
@@ -45,7 +46,8 @@ namespace FallLady.Mood.Application.Contract.Mappers.Courses
                 FromTime = TimeOnly.FromDateTime(x.FromDate ?? default),
                 ToTime = TimeOnly.FromDateTime(x.ToDate ?? default),
                 FromDate = DateOnly.FromDateTime(x.FromDate ?? default),
-                ToDate = DateOnly.FromDateTime(x.ToDate ?? default)
+                ToDate = DateOnly.FromDateTime(x.ToDate ?? default),
+                TeacherName = x.Teacher is null ? "" : x.Teacher.FullName
             }).ToList();
         }
 
@@ -65,8 +67,11 @@ namespace FallLady.Mood.Application.Contract.Mappers.Courses
                 ToTime = TimeOnly.FromDateTime(model.ToDate ?? default),
                 FromDate = DateOnly.FromDateTime(model.FromDate ?? default),
                 ToDate = DateOnly.FromDateTime(model.ToDate ?? default),
-                EventDays = model.EventDays.Select(x => (WeekDaysEnum)x.WeekDayId).ToList()
+                EventDays = model.EventDays.Select(x => (WeekDaysEnum)x.WeekDayId).ToList(),
+                TeacherId = model.TeacherId,
             };
         }
+
+        
     }
 }

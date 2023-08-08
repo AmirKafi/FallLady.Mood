@@ -1,0 +1,65 @@
+﻿using FallLady.Mood.Framework.Core;
+using FallLady.Mood.Framework.Core.Enum;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace FallLady.Mood.Domain.Domain.Users
+{
+    public class User:EntityId<int>
+    {
+        private User()
+        {
+            
+        }
+        public User(string userName,
+                     string firstName,
+                     string lastName,
+                     string phoneNumber,
+                     RoleEnum role,
+                     string email,
+                     string password,
+                     DateTime passwordExpiresOn)
+        {
+            UserName = userName;
+            FirstName = firstName;
+            LastName = lastName;
+            PhoneNumber = phoneNumber;
+            Role = role;
+            Email = email;
+            Password = password;
+            PasswordExpiresOn = passwordExpiresOn;
+        }
+        public string UserName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public RoleEnum Role { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public DateTime PasswordExpiresOn { get; set; }
+
+
+        public void Update(string userName,
+                           string firstName,
+                           string lastName,
+                           string phoneNumber,
+                           RoleEnum role,
+                           string email)
+        {
+            UserName = userName;
+            FirstName = firstName;
+            LastName = lastName;
+            PhoneNumber = phoneNumber;
+            Role = role;
+            Email = email;
+        }
+
+        public void ChangePassword(string password)
+        {
+            Password = password;
+        }
+    }
+}

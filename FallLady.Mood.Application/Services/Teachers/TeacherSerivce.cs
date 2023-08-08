@@ -2,6 +2,7 @@
 using FallLady.Mood.Application.Contract.Interfaces.Teachers;
 using FallLady.Mood.Application.Contract.Mappers.Teachers;
 using FallLady.Mood.Domain.Domain.Teachers;
+using FallLady.Mood.Framework.Core;
 using FallLady.Mood.Framework.Core.Enum;
 using FallLady.Mood.Utility.ServiceResponse;
 using System;
@@ -109,5 +110,22 @@ namespace FallLady.Mood.Application.Services.Teacher
             return result;
         }
 
+        public async Task<ServiceResponse<List<ComboModel>>> GetAsCombo()
+        {
+            var result = new ServiceResponse<List<ComboModel>>();
+            try
+            {
+                var teacher = _repository.GetQuerable();
+                var teachers = teacher.Select(x=> x.ToComboModel()).ToList();
+
+                result.SetData(teachers);
+            }
+            catch (Exception ex)
+            {
+                result.SetException(ex.Message);
+            }
+
+            return result;
+        }
     }
 }

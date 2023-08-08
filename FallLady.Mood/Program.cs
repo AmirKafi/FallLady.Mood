@@ -5,6 +5,11 @@ using FallLady.Mood.Application.Contract.Interfaces.Course;
 using FallLady.Mood.Application.Contract.Interfaces.Teachers;
 using FallLady.Mood.Application.Services.Courses;
 using FallLady.Mood.Application.Services.Teacher;
+using FallLady.Mood.Framework.Core;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.CodeAnalysis;
+using NuGet.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,10 +20,23 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
         });
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,
+        options => builder.Configuration.Bind("JwtSettings", options))
+    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
+        options => builder.Configuration.Bind("CookieSettings", options));
+
 builder.Services.AddScoped<ICourseService,CourseService>();
 builder.Services.AddScoped<ITeacherService,TeacherSerivce>();
 
 var app = builder.Build();
+
+var config = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json",false)
+            .Build();
+var settings = config.GetSection("ApplicationSettings").Get<ApplicationSettingsModel>();
+config.Bind(settings);
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

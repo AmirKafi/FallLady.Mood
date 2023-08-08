@@ -1,5 +1,7 @@
 ﻿using FallLady.Mood.Application.Contract.Dto.Teacher;
+using FallLady.Mood.Domain.Domain.Courses;
 using FallLady.Mood.Domain.Domain.Teachers;
+using FallLady.Mood.Framework.Core;
 using FallLady.Mood.Framework.Core.Enum;
 using System;
 using System.Collections.Generic;
@@ -34,6 +36,15 @@ namespace FallLady.Mood.Application.Contract.Mappers.Teachers
             {
                 Id = model.Id,
                 FullName = model.FullName
+            };
+        }
+
+        public static ComboModel ToComboModel(this Teacher model)
+        {
+            return new ComboModel()
+            {
+                Title = model.FullName,
+                Value = model.Id
             };
         }
     }

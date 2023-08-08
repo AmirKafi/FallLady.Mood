@@ -1,4 +1,5 @@
 ﻿using FallLady.Mood.Application.Contract.Dto.Teacher;
+using FallLady.Mood.Framework.Core;
 using FallLady.Mood.Utility.ServiceResponse;
 using System;
 using System.Collections.Generic;
@@ -15,5 +16,6 @@ namespace FallLady.Mood.Application.Contract.Interfaces.Teachers
         Task<ServiceResponse<TeacherUpdateDto>> GetTeacher(int teacherId);
         Task<ServiceResponse<bool>> UpdateTeacher(TeacherUpdateDto dto);
         Task<ServiceResponse<bool>> Delete(int teacherId);
+        Task<ServiceResponse<List<ComboModel>>> GetAsCombo();
     }
 }

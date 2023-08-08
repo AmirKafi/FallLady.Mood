@@ -1,0 +1,33 @@
+﻿using FallLady.Mood.Framework.Core.Enum;
+using System.ComponentModel.DataAnnotations;
+
+namespace FallLady.Mood.Application.Contract.Dto.Users
+{
+    public class UserUpdateDto
+    {
+        public int Id { get; set; }
+
+        [Display(Name = "نام کاربری")]
+        [Required(ErrorMessage = "این فیلد اجباری می باشد")]
+        public string UserName { get; set; }
+
+        [Display(Name = "نام")]
+        [Required(ErrorMessage = "این فیلد اجباری می باشد")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "نام نام خانوادگی")]
+        [Required(ErrorMessage = "این فیلد اجباری می باشد")]
+        public string LastName { get; set; }
+
+        [Display(Name = "شماره موبایل")]
+        [Required(ErrorMessage = "این فیلد اجباری می باشد")]
+        public string PhoneNumber { get; set; }
+
+        [Display(Name = "ایمیل")]
+        [Required(ErrorMessage = "این فیلد اجباری می باشد")]
+        public string Email { get; set; }
+
+        [Display(Name = "نوع کاربری")]
+        public RoleEnum Role { get; set; }
+    }
+}

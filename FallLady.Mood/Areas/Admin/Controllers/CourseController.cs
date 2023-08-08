@@ -1,5 +1,6 @@
 ﻿using FallLady.Mood.Application.Contract.Dto.Course;
 using FallLady.Mood.Application.Contract.Interfaces.Course;
+using FallLady.Mood.Application.Contract.Interfaces.Teachers;
 using FallLady.Mood.Controllers.Base;
 using FallLady.Mood.Domain.Enums;
 using FallLady.Mood.Framework.Core.Enum;
@@ -7,6 +8,7 @@ using FallLady.Mood.Utility.Extentions.Datetime;
 using FallLady.Mood.Utility.ServiceResponse;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.IdentityModel.Tokens;
 
 namespace FallLady.Mood.Areas.Admin.Controllers
 {
@@ -15,10 +17,12 @@ namespace FallLady.Mood.Areas.Admin.Controllers
     {
         #region Constrcutor
         private readonly ICourseService _courseService;
+        private readonly ITeacherService _teacherService;
 
-        public CourseController(ICourseService courseService)
+        public CourseController(ICourseService courseService, ITeacherService teacherService)
         {
             _courseService = courseService;
+            _teacherService = teacherService;
         }
 
         #endregion
@@ -48,10 +52,14 @@ namespace FallLady.Mood.Areas.Admin.Controllers
             ViewBag.ActivePage = "Course" ;
             var model = new CourseCreateDto();
 
+            var teachers = await _teacherService.GetAsCombo().ConfigureAwait(false);
+
             ViewBag.EventDaysList = EnumToList(typeof(WeekDaysEnum), null, false);
             ViewBag.CourseTypes = EnumToList(typeof(CourseTypeEnum), null);
+            ViewBag.Teachers = ComboToSelectList(teachers.Data);
             ((List<SelectListItem>)ViewBag.EventDaysList).Insert(0, new SelectListItem());
             ((List<SelectListItem>)ViewBag.CourseTypes).Insert(0, new SelectListItem());
+            ((List<SelectListItem>)ViewBag.Teachers).Insert(0, new SelectListItem());
 
             return PartialView("Create",model);
         }
@@ -70,10 +78,14 @@ namespace FallLady.Mood.Areas.Admin.Controllers
                 res.SetException("انتخاب تصویر اجباری می باشد");
                 return Json(res);
             }
-            if (dto.CourseType == CourseTypeEnum.Online && dto.LicenseKey is null)
+            if (dto.CourseType == CourseTypeEnum.Online)
             {
-                result.SetException("فیلد کد لایسنس اجباری می باشد");
-                return Json(result);
+                if (dto.LicenseKey.IsNullOrEmpty())
+                {
+                    result.SetException("فیلد کد لایسنس اجباری می باشد");
+
+                    return Json(result);
+                }
             }
             else
             {
@@ -124,11 +136,14 @@ namespace FallLady.Mood.Areas.Admin.Controllers
                 model.ToDateLocal = model.ToDate.AsDateTime().ToFa();
             }
 
+            var teachers = await _teacherService.GetAsCombo().ConfigureAwait(false);
 
             ViewBag.EventDaysList = EnumToList(typeof(WeekDaysEnum), null, false);
             ViewBag.CourseTypes = EnumToList(typeof(CourseTypeEnum), null);
+            ViewBag.Teachers = ComboToSelectList(teachers.Data);
             ((List<SelectListItem>)ViewBag.EventDaysList).Insert(0, new SelectListItem());
             ((List<SelectListItem>)ViewBag.CourseTypes).Insert(0, new SelectListItem());
+            ((List<SelectListItem>)ViewBag.Teachers).Insert(0, new SelectListItem());
 
             return PartialView("Edit", model);
         }
@@ -146,10 +161,14 @@ namespace FallLady.Mood.Areas.Admin.Controllers
                 var fileName = SaveFile(dto.File, FileFoldersEnum.Course);
                 dto.FileName = fileName.Data;
             }
-            if (dto.CourseType == CourseTypeEnum.Online && dto.LicenseKey is null)
+            if (dto.CourseType == CourseTypeEnum.Online)
             {
-                result.SetException("فیلد کد لایسنس اجباری می باشد");
-                return Json(result);
+                if (dto.LicenseKey.IsNullOrEmpty())
+                {
+                    result.SetException("فیلد کد لایسنس اجباری می باشد");
+
+                    return Json(result);
+                }
             }
             else
             {

@@ -39,11 +39,11 @@ namespace FallLady.Mood.Application.Contract.Dto.Course
         public TimeOnly? ToTime { get; set; }
 
         [DisplayName("از تاریخ")]
-        public string FromDateLocal { get; set; }
+        public string? FromDateLocal { get; set; }
         public DateOnly? FromDate { get; set; }
 
         [DisplayName("تا تاریخ")]
-        public string ToDateLocal { get; set; }
+        public string? ToDateLocal { get; set; }
         public DateOnly? ToDate { get; set; }
 
         [DisplayName("محل برگزاری")]
@@ -52,6 +52,8 @@ namespace FallLady.Mood.Application.Contract.Dto.Course
         [DisplayName("روز های برگزاری")]
         public List<WeekDaysEnum> EventDays { get; set; }
 
+        [DisplayName("مدرس")]
+        [Required(ErrorMessage = "این فیلد اجباری می باشد")]
         public int TeacherId { get; set; }
     }
 

@@ -1,4 +1,5 @@
-﻿using FallLady.Mood.Framework.Core.Enum;
+﻿using FallLady.Mood.Framework.Core;
+using FallLady.Mood.Framework.Core.Enum;
 using FallLady.Mood.Utility.ServiceResponse;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -41,6 +42,15 @@ namespace FallLady.Mood.Controllers.Base
                 ? items.OrderBy(item => item.Text)
                     .ToList()
                 : items.ToList();
+        }
+
+        protected List<SelectListItem> ComboToSelectList(List<ComboModel> model)
+        {
+            return model.Select(x => new SelectListItem()
+            {
+                Value = x.Value.ToString(),
+                Text = x.Title.ToString(),
+            }).ToList();
         }
 
         protected ServiceResponse<string> SaveFile(IFormFile file,FileFoldersEnum folderName)
