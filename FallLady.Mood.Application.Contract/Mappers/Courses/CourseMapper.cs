@@ -1,5 +1,5 @@
 ﻿using FallLady.Mood.Application.Contract.Dto.Course;
-using FallLady.Mood.Domain.Domain.Course;
+using FallLady.Mood.Domain.Domain.Courses;
 using FallLady.Mood.Framework.Core.Enum;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FallLady.Mood.Application.Contract.Mappers
+namespace FallLady.Mood.Application.Contract.Mappers.Courses
 {
     public static class CourseMapper
     {
@@ -15,7 +15,7 @@ namespace FallLady.Mood.Application.Contract.Mappers
         {
             return new Course(dto.Title,
                               dto.CourseType.Value,
-                              dto.Price.Value, 
+                              dto.Price.Value,
                               dto.Description,
                               dto.LicenseKey,
                               dto.FileName,
@@ -24,24 +24,25 @@ namespace FallLady.Mood.Application.Contract.Mappers
                               dto.FromDate,
                               dto.ToDate,
                               dto.EventAddress,
-                              dto.EventDays);
+                              dto.EventDays,
+                              dto.TeacherId);
         }
 
         public static List<CourseListDto> ToDto(this IEnumerable<Course>? model)
         {
-            if(model is null)
+            if (model is null)
                 return new List<CourseListDto>();
 
-            return model.Select(x=> new CourseListDto()
+            return model.Select(x => new CourseListDto()
             {
-                Id = x.Id,  
+                Id = x.Id,
                 Title = x.Title,
                 CourseType = x.CourseType,
                 Price = x.Price,
                 Description = x.Description,
                 FileName = x.FileName,
                 EventAddress = x.EventAddress,
-                FromTime = TimeOnly.FromDateTime(x.FromDate?? default),
+                FromTime = TimeOnly.FromDateTime(x.FromDate ?? default),
                 ToTime = TimeOnly.FromDateTime(x.ToDate ?? default),
                 FromDate = DateOnly.FromDateTime(x.FromDate ?? default),
                 ToDate = DateOnly.FromDateTime(x.ToDate ?? default)
@@ -64,7 +65,7 @@ namespace FallLady.Mood.Application.Contract.Mappers
                 ToTime = TimeOnly.FromDateTime(model.ToDate ?? default),
                 FromDate = DateOnly.FromDateTime(model.FromDate ?? default),
                 ToDate = DateOnly.FromDateTime(model.ToDate ?? default),
-                EventDays = model.EventDays.Select(x=> (WeekDaysEnum)x.WeekDayId).ToList()
+                EventDays = model.EventDays.Select(x => (WeekDaysEnum)x.WeekDayId).ToList()
             };
         }
     }

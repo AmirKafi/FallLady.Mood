@@ -1,5 +1,5 @@
 ﻿using FallLady.Mood.Application.Contract.Dto.Course;
-using FallLady.Mood.Application.Contract.Interfaces;
+using FallLady.Mood.Application.Contract.Interfaces.Course;
 using FallLady.Mood.Controllers.Base;
 using FallLady.Mood.Domain.Enums;
 using FallLady.Mood.Framework.Core.Enum;
@@ -35,7 +35,8 @@ namespace FallLady.Mood.Areas.Admin.Controllers
         public async Task<ActionResult> LoadCourses(CourseDto dto)
         {
             var data =await _courseService.LoadCourses(dto).ConfigureAwait(false);
-            data.Data.ForEach(x=> x.FilePath = GetFileUrl(x.FileName,FileFoldersEnum.Course));
+            if(data.ResultStatus == ResultStatus.Successful)
+                data.Data.ForEach(x => x.FilePath = GetFileUrl(x.FileName, FileFoldersEnum.Course));
 
             return Json(data);
         }
@@ -109,6 +110,11 @@ namespace FallLady.Mood.Areas.Admin.Controllers
             ViewBag.ActivePage = "Course";
 
             var course = await _courseService.GetCourse(id).ConfigureAwait(false);
+            if(course.ResultStatus != ResultStatus.Successful)
+            {
+                course.SetException("GetDataFailed");
+                return Json(course);
+            }
 
             var model = course.Data;
             model.FilePath = GetFileUrl(model.FileName, FileFoldersEnum.Course);

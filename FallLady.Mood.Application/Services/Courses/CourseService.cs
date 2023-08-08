@@ -1,7 +1,7 @@
 ﻿using FallLady.Mood.Application.Contract.Dto.Course;
-using FallLady.Mood.Application.Contract.Interfaces;
-using FallLady.Mood.Application.Contract.Mappers;
-using FallLady.Mood.Domain.Domain.Course;
+using FallLady.Mood.Application.Contract.Interfaces.Course;
+using FallLady.Mood.Application.Contract.Mappers.Courses;
+using FallLady.Mood.Domain.Domain.Courses;
 using FallLady.Mood.Framework.Core.Enum;
 using FallLady.Mood.Utility.ServiceResponse;
 using FallLady.Persistance.Repositories.Course;
@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FallLady.Mood.Application.Services.Course
+namespace FallLady.Mood.Application.Services.Courses
 {
     public class CourseService:ICourseService
     {
@@ -93,7 +93,8 @@ namespace FallLady.Mood.Application.Services.Course
                               dto.FromDate,
                               dto.ToDate,
                               dto.EventAddress,
-                              dto.EventDays);
+                              dto.EventDays,
+                              dto.TeacherId);
 
                 await _repository.Update(course);
 

@@ -57,7 +57,6 @@
       "wwwroot/bower_components/bootbox.js/bootbox.js",
       "wwwroot/js/_dialog.js",
       "wwwroot/js/base.js",
-      "wwwroot/js/pages.js",
       "wwwroot/js/_bootstrapTable.js"
 
     ],
@@ -85,7 +84,7 @@
   {
     "outputFileName": "wwwroot/Content/js/home.js",
     "inputFiles": [
-      "wwwroot/js/site.js"
+      "wwwroot/js/pages.js"
     ],
     "minify": {
       "enabled": true,

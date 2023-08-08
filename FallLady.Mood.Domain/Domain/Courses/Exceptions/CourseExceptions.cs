@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FallLady.Mood.Domain.Domain.Course.Exceptions
+namespace FallLady.Mood.Domain.Domain.Courses.Exceptions
 {
     public class CourseExceptions
     {

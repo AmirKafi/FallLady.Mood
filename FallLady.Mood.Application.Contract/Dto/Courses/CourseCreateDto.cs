@@ -7,34 +7,30 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FallLady.Mood.Application.Contract.Dto.Course
 {
-    public class CourseUpdateDto
+    public class CourseCreateDto
     {
-        public int Id { get; set; }
-
         [DisplayName("عنوان دوره")]
         [Required(ErrorMessage = "این فیلد اجباری می باشد")]
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
         [DisplayName("نوع")]
         [Required(ErrorMessage = "این فیلد اجباری می باشد")]
-        public CourseTypeEnum CourseType { get; set; }
+        public CourseTypeEnum? CourseType { get; set; }
 
         [DisplayName("مبلغ")]
         [Required(ErrorMessage = "این فیلد اجباری می باشد")]
-        public float Price { get; set; }
+        public float? Price { get; set; }
 
         [DisplayName("توضیحات")]
         [Required(ErrorMessage = "این فیلد اجباری می باشد")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         [DisplayName("کد لایسنس")]
         public string? LicenseKey { get; set; }
 
-
         [DisplayName("تصویر")]
         public string? FileName { get; set; }
-        public IFormFile? File { get; set; }
-        public string? FilePath { get; set; }
+        public IFormFile File { get; set; }
 
         [DisplayName("از ساعت")]
         public TimeOnly? FromTime { get; set; }
@@ -55,6 +51,8 @@ namespace FallLady.Mood.Application.Contract.Dto.Course
 
         [DisplayName("روز های برگزاری")]
         public List<WeekDaysEnum> EventDays { get; set; }
+
+        public int TeacherId { get; set; }
     }
 
 }

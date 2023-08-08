@@ -6,7 +6,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
-using FallLady.Mood.Domain.Domain.Course;
+using FallLady.Mood.Domain.Domain.Courses;
 
 namespace FallLady.Persistance.Configurations
 {
@@ -18,6 +18,7 @@ namespace FallLady.Persistance.Configurations
                 .WithOne(d => d.Course)
                 .HasForeignKey(d => d.CourseId)
                 .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }

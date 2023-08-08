@@ -1,4 +1,5 @@
-﻿using FallLady.Mood.Domain.Domain.Course.Exceptions;
+﻿using FallLady.Mood.Domain.Domain.Courses.Exceptions;
+using FallLady.Mood.Domain.Domain.Teachers;
 using FallLady.Mood.Domain.Enums;
 using FallLady.Mood.Framework.Core;
 using FallLady.Mood.Framework.Core.Enum;
@@ -9,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FallLady.Mood.Domain.Domain.Course
+namespace FallLady.Mood.Domain.Domain.Courses
 {
     public class Course : EntityId<int>
     {
@@ -28,13 +29,15 @@ namespace FallLady.Mood.Domain.Domain.Course
                       DateOnly? fromDate,
                       DateOnly? toDate,
                       string? eventAddress,
-                      List<WeekDaysEnum> eventDays)
+                      List<WeekDaysEnum> eventDays,
+                      int teacherId)
         {
             Title = title;
             CourseType = courseType;
             Price = price;
             Description = description;
             FileName = fileName;
+            TeacherId = teacherId;
 
             if (courseType == CourseTypeEnum.Online)
             {
@@ -52,6 +55,7 @@ namespace FallLady.Mood.Domain.Domain.Course
                 EventAddress = eventAddress;
                 _eventDays = eventDays.Select(x => new CourseDays(this.Id, (int)x)).ToList();
             }
+            TeacherId = teacherId;
         }
 
         #region Properties
@@ -66,7 +70,10 @@ namespace FallLady.Mood.Domain.Domain.Course
         public string? EventAddress { get; set; }
 
         public List<CourseDays> _eventDays { get; set; } = new List<CourseDays>();
-        public virtual IReadOnlyCollection<CourseDays> EventDays => _eventDays.AsReadOnly();
+        public virtual ICollection<CourseDays> EventDays => _eventDays;
+
+        public int TeacherId { get; set; }
+        public Teacher Teacher { get; set; }
         #endregion
 
         #region Methods
@@ -82,13 +89,15 @@ namespace FallLady.Mood.Domain.Domain.Course
                              DateOnly? fromDate,
                              DateOnly? toDate,
                              string? eventAddress,
-                             List<WeekDaysEnum> eventDays)
+                             List<WeekDaysEnum> eventDays,
+                             int teacherId)
         {
             Title = title;
             CourseType = courseType;
             Price = price;
             Description = description;
             FileName = fileName;
+            TeacherId = teacherId;
 
             if (courseType == CourseTypeEnum.Online)
             {

@@ -24,4 +24,8 @@
     <ProjectReference Include="..\FallLady.Mood.Framework.Core\FallLady.Mood.Framework.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>
