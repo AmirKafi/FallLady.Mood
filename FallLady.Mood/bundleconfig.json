@@ -122,5 +122,30 @@
       "enabled": true,
       "commentMode": "none"
     }
+  },
+  {
+    "outputFileName": "wwwroot/Content/css/template.css",
+    "inputFiles": [
+      "wwwroot/TemplateAssets/css/styles.css",
+      "wwwroot/TemplateAssets/css/color.css"
+    ],
+    "minify": {
+      "enabled": true,
+      "commentMode": "none"
+    }
+  },
+  {
+    "outputFileName": "wwwroot/Content/js/template.js",
+    "inputFiles": [
+      "wwwroot/TemplateAssets/js/slick.js",
+      "wwwroot/TemplateAssets/js/select2.min.js",
+      "wwwroot/TemplateAssets/js/jquery.counterup.min.js",
+      "wwwroot/TemplateAssets/js/counterup.min.js",
+      "wwwroot/TemplateAssets/js/custom.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "preserveImportantComments": false
+    }
   }
 ]

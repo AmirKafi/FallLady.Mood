@@ -4,6 +4,7 @@ using FallLady.Mood.Application.Contract.Mappers.Users;
 using FallLady.Mood.Domain.Domain.Users;
 using FallLady.Mood.Framework.Core;
 using FallLady.Mood.Framework.Core.Enum;
+using FallLady.Mood.Utility.Extentions;
 using FallLady.Mood.Utility.ServiceResponse;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -41,7 +42,7 @@ namespace FallLady.Mood.Application.Services.Users
             var result = new ServiceResponse<UserTokenDto>();
             try
             {
-                var user = await _repository.Login(username,password);
+                var user = await _repository.Login(username,password.ToMd5());
                 if (user is null)
                     throw new Exception("نام کاربری یا کلمه عبور اشتباه است");
 

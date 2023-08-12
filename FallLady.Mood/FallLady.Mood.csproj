@@ -1258,6 +1258,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Account\Login.cshtml" />
+    <None Include="Views\Account\Register.cshtml" />
     <None Include="wwwroot\bower_components\ajax-bootstrap-select\js\ajax-bootstrap-select.min.js" />
     <None Include="wwwroot\bower_components\ajax-bootstrap-select\js\locale\ajax-bootstrap-select.cs-CZ.js" />
     <None Include="wwwroot\bower_components\ajax-bootstrap-select\js\locale\ajax-bootstrap-select.cs-CZ.min.js" />
