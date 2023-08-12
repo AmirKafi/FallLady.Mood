@@ -42,6 +42,9 @@ namespace FallLady.Mood.Application.Services.Users
             try
             {
                 var user = await _repository.Login(username,password);
+                if (user is null)
+                    throw new Exception("نام کاربری یا کلمه عبور اشتباه است");
+
                 result.SetData(await GetToken(user));
             }
             catch (Exception ex)
@@ -73,6 +76,8 @@ namespace FallLady.Mood.Application.Services.Users
             var result = new ServiceResponse<bool>();
             try
             {
+                GuardAgainstPasswordConflict(dto.Password, dto.ConfirmPassword);
+
                 await _repository.Add(dto.ToModel());
                 result.SetData(true);
             }
@@ -111,7 +116,8 @@ namespace FallLady.Mood.Application.Services.Users
                             dto.LastName,
                             dto.PhoneNumber,
                             dto.Role,
-                            dto.Email);
+                            dto.Email,
+                            dto.IsActive);
 
                 await _repository.Update(user);
 
@@ -167,6 +173,11 @@ namespace FallLady.Mood.Application.Services.Users
             return Task.FromResult(user.ToTokenDto(new JwtSecurityTokenHandler().WriteToken(token)));
         }
 
+        private void GuardAgainstPasswordConflict(string password,string confirmPassword)
+        {
+            if (!password.Equals(confirmPassword))
+                throw new Exception("پسورد ها باهم یکسان نیستند");
+        }
         #endregion
 
     }

@@ -13460,7 +13460,7 @@ nav.sidebar-nav.scroll-sidebar {
 }
 
 input,textarea,select{
-    margin-bottom:5px
+    margin-bottom:8px
 }
 
 .form-control.file-caption.kv-fileinput-caption{
@@ -13470,4 +13470,7 @@ input,textarea,select{
 
 button.btn.btn-default.hide.fileinput-cancel.fileinput-cancel-button{
     display:none;
+}
+aside.left-sidebar {
+    background: transparent;
 }

@@ -1,15 +1,19 @@
 using Autofac;
+using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using FallLady.Mood;
 using FallLady.Mood.Application.Contract.Interfaces.Course;
 using FallLady.Mood.Application.Contract.Interfaces.Teachers;
+using FallLady.Mood.Application.Contract.Interfaces.Users;
 using FallLady.Mood.Application.Services.Courses;
 using FallLady.Mood.Application.Services.Teacher;
+using FallLady.Mood.Application.Services.Users;
 using FallLady.Mood.Framework.Core;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.CodeAnalysis;
 using NuGet.Configuration;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,14 +24,18 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
         });
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddSingleton<IConfigurationRoot>(builder.Configuration);
+
+builder.Services.AddScoped<ICourseService,CourseService>();
+builder.Services.AddScoped<ITeacherService,TeacherSerivce>();
+builder.Services.AddScoped<IUserService, UserService>();
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,
         options => builder.Configuration.Bind("JwtSettings", options))
     .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
         options => builder.Configuration.Bind("CookieSettings", options));
-
-builder.Services.AddScoped<ICourseService,CourseService>();
-builder.Services.AddScoped<ITeacherService,TeacherSerivce>();
 
 var app = builder.Build();
 

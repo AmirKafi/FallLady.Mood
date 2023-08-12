@@ -37,5 +37,8 @@ namespace FallLady.Mood.Application.Contract.Dto.Users
         public string ConfirmPassword { get; set; }
 
         public DateTime PasswordExiresOn { get; set; }
+
+        [Display(Name = "فعال")]
+        public bool IsActive { get; set; }
     }
 }

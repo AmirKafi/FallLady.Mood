@@ -1,6 +1,7 @@
 ﻿using FallLady.Mood.Application.Contract.Dto.Users;
 using FallLady.Mood.Domain.Domain.Users;
 using FallLady.Mood.Framework.Core.Enum;
+using FallLady.Mood.Utility.Extentions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +20,8 @@ namespace FallLady.Mood.Application.Contract.Mappers.Users
                             dto.PhoneNumber,
                             dto.Role,
                             dto.Email,
-                            dto.Password,
-                            dto.PasswordExiresOn);
+                            dto.Password.ToMd5(),
+                            dto.IsActive);
         }
 
         public static List<UserListDto> ToDto(this IEnumerable<User>? model)
@@ -36,7 +37,8 @@ namespace FallLady.Mood.Application.Contract.Mappers.Users
                 LastName = x.LastName,
                 FirstName = x.FirstName,
                 UserName = x.UserName,
-                Role = x.Role
+                Role = x.Role,
+                IsActive = x.IsActive
             }).ToList();
         }
 
@@ -49,7 +51,8 @@ namespace FallLady.Mood.Application.Contract.Mappers.Users
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 PhoneNumber = model.PhoneNumber,
-                Email = model.Email
+                Email = model.Email,
+                IsActive = model.IsActive
             };
         }
 

@@ -21,7 +21,7 @@ namespace FallLady.Mood.Domain.Domain.Users
                      RoleEnum role,
                      string email,
                      string password,
-                     DateTime passwordExpiresOn)
+                     bool isActive)
         {
             UserName = userName;
             FirstName = firstName;
@@ -30,7 +30,7 @@ namespace FallLady.Mood.Domain.Domain.Users
             Role = role;
             Email = email;
             Password = password;
-            PasswordExpiresOn = passwordExpiresOn;
+            IsActive = isActive;
         }
         public string UserName { get; set; }
         public string FirstName { get; set; }
@@ -39,7 +39,7 @@ namespace FallLady.Mood.Domain.Domain.Users
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public DateTime PasswordExpiresOn { get; set; }
+        public bool IsActive { get; set; } = true;
 
 
         public void Update(string userName,
@@ -47,7 +47,8 @@ namespace FallLady.Mood.Domain.Domain.Users
                            string lastName,
                            string phoneNumber,
                            RoleEnum role,
-                           string email)
+                           string email,
+                           bool isActive)
         {
             UserName = userName;
             FirstName = firstName;
@@ -55,6 +56,7 @@ namespace FallLady.Mood.Domain.Domain.Users
             PhoneNumber = phoneNumber;
             Role = role;
             Email = email;
+            IsActive = isActive;
         }
 
         public void ChangePassword(string password)

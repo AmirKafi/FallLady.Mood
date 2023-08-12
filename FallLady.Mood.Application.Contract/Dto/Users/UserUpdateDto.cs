@@ -29,5 +29,8 @@ namespace FallLady.Mood.Application.Contract.Dto.Users
 
         [Display(Name = "نوع کاربری")]
         public RoleEnum Role { get; set; }
+
+        [Display(Name = "فعال")]
+        public bool IsActive { get; set; }
     }
 }

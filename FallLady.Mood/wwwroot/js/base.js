@@ -207,6 +207,42 @@ window.inputmasks = function () {
 
 window.inputmasks();
 
+$(document).on("focus", "input[type=text].letterOnly", function () {
+    var $this;
+    $this = $(this);
+    if (true === $this.data("alertShown")) {
+        return;
+    }
+    autoDestroyToastr();
+
+    toastr["info"]("فقط حروف انگلیسی / اعداد مجاز است");
+    $this.data("alertShown", true);
+});
+
+$(document).on("focus", "input[type=text].email", function () {
+    var $this;
+    $this = $(this);
+    if (true === $this.data("alertShown")) {
+        return;
+    }
+    autoDestroyToastr();
+
+    toastr["info"]("فقط حروف انگلیسی / اعداد مجاز است");
+    $this.data("alertShown", true);
+});
+
+$(document).on("focus", "input[type=text].onlyEngLetter", function () {
+    var $this;
+    $this = $(this);
+    if (true === $this.data("alertShown")) {
+        return;
+    }
+    autoDestroyToastr();
+
+    toastr["info"]("فقط حروف انگلیسی مجاز است");
+    $this.data("alertShown", true);
+});
+
 window.gotoError = function () {
     $("body").delay(100).animate({
         scrollTop: $(".form-group.has-error:first").offset().top - 15 - $("header").height()
