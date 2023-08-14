@@ -547,3 +547,9 @@ button.btn.btn-default.hide.fileinput-cancel.fileinput-cancel-button{
 aside.left-sidebar {
     background: transparent;
 }
+
+.centerImg {
+    max-width: 100%;
+    max-height: 75vh;
+    margin: auto;
+}

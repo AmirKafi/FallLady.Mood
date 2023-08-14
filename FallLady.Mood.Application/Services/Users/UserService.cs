@@ -7,6 +7,8 @@ using FallLady.Mood.Framework.Core.Enum;
 using FallLady.Mood.Utility.Extentions;
 using FallLady.Mood.Utility.ServiceResponse;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -18,35 +20,39 @@ using System.Runtime;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace FallLady.Mood.Application.Services.Users
 {
     public class UserService:IUserService
     {
         #region Constructor
-        private readonly IUserRepository _repository;
         private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
         private readonly ApplicationSettingsModel _settings;
 
-        public UserService(IUserRepository repository,
-                           IConfigurationRoot configuration)
+        public UserService(IConfigurationRoot configuration,
+                           SignInManager<User> signInManager,
+                           UserManager<User> userManager)
         {
             _settings = configuration.GetSection("ApplicationSettings").Get<ApplicationSettingsModel>();
-            _repository = repository;
+            _signInManager = signInManager;
+            _userManager = userManager;
         }
 
         #endregion
 
-        public async Task<ServiceResponse<UserTokenDto>> Login(string username, string password)
+        public async Task<ServiceResponse<SignInResult>> Login(string username, string password)
         {
-            var result = new ServiceResponse<UserTokenDto>();
+            var result = new ServiceResponse<SignInResult>();
             try
             {
-                var user = await _repository.Login(username,password.ToMd5());
-                if (user is null)
+                var user = await _signInManager.PasswordSignInAsync(username, password,true,true);
+                if (!user.Succeeded)
                     throw new Exception("نام کاربری یا کلمه عبور اشتباه است");
 
-                result.SetData(await GetToken(user));
+                result.SetData(user);
             }
             catch (Exception ex)
             {
@@ -61,7 +67,7 @@ namespace FallLady.Mood.Application.Services.Users
             var result = new ServiceResponse<List<UserListDto>>();
             try
             {
-                var data = await _repository.GetList(dto.offset, dto.limit);
+                var data = await _userManager.Users.Skip(dto.offset * dto.limit).Take(dto.offset).ToListAsync();
                 result.SetData(data.ToDto());
             }
             catch (Exception ex)
@@ -72,15 +78,14 @@ namespace FallLady.Mood.Application.Services.Users
             return result;
         }
 
-        public async Task<ServiceResponse<bool>> AddUser(UserCreateDto dto)
+        public async Task<ServiceResponse<IdentityResult>> AddUser(UserCreateDto dto)
         {
-            var result = new ServiceResponse<bool>();
+            var result = new ServiceResponse<IdentityResult>();
             try
             {
                 GuardAgainstPasswordConflict(dto.Password, dto.ConfirmPassword);
-
-                await _repository.Add(dto.ToModel());
-                result.SetData(true);
+                var user = await _userManager.CreateAsync(dto.ToModel());
+                result.SetData(user);
             }
             catch (Exception ex)
             {
@@ -95,7 +100,10 @@ namespace FallLady.Mood.Application.Services.Users
             var result = new ServiceResponse<UserUpdateDto>();
             try
             {
-                var data = await _repository.Get(UserId);
+                var data = await _userManager.Users.FirstOrDefaultAsync(x=> x.Id == UserId);
+                if (data is null)
+                    throw new Exception("کاربر مورد نظر یافت نشد");
+
                 result.SetData(data.ToDto());
             }
             catch (Exception ex)
@@ -111,7 +119,10 @@ namespace FallLady.Mood.Application.Services.Users
             var result = new ServiceResponse<bool>();
             try
             {
-                var user = await _repository.Get(dto.Id);
+                var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == dto.Id);
+                if (user is null)
+                    throw new Exception("کاربر مورد نظر یافت نشد");
+
                 user.Update(dto.UserName,
                             dto.FirstName,
                             dto.LastName,
@@ -120,8 +131,7 @@ namespace FallLady.Mood.Application.Services.Users
                             dto.Email,
                             dto.IsActive);
 
-                await _repository.Update(user);
-
+                var res = await _userManager.UpdateAsync(user);
                 result.SetData(true);
             }
             catch (Exception ex)
@@ -137,8 +147,12 @@ namespace FallLady.Mood.Application.Services.Users
             var result = new ServiceResponse<bool>();
             try
             {
-                var user = await _repository.GetById(userId);
-                await _repository.Delete(user);
+                var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == userId);
+
+                if (user is null)
+                    throw new Exception("کاربر مورد نظر یافت نشد");
+
+                await _userManager.DeleteAsync(user);
 
                 result.SetData(true);
             }
@@ -151,28 +165,6 @@ namespace FallLady.Mood.Application.Services.Users
         }
 
         #region Private
-
-        private Task<UserTokenDto> GetToken(User user)
-        {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.Jwt_SecretKey));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-            var claims = new List<Claim>
-            {
-                new Claim(JwtRegisteredClaimNames.Sid, user.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.NameId, user.UserName),
-                new Claim("Role", user.Role.ToString()),
-             };
-
-            var token = new JwtSecurityToken(
-            issuer: _settings.Jwt_Issuer,
-                audience: _settings.Jwt_Audience,
-                claims: claims,
-                expires: DateTime.Now.AddHours(_settings.ExpiresOn),
-                signingCredentials: credentials);
-
-            return Task.FromResult(user.ToTokenDto(new JwtSecurityTokenHandler().WriteToken(token)));
-        }
 
         private void GuardAgainstPasswordConflict(string password,string confirmPassword)
         {

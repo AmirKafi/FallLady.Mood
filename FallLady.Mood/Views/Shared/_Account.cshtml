@@ -2,10 +2,21 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    <li class="login_click bg-red">
-        <a href="javascript:void(0)" data-url="@Url.Action("Login","Account")" class="btn createItem">ورود</a>
-    </li>
-    <li class="login_click">
-        <a href="javascript:void(0)" data-url="@Url.Action("Register","Account")" class="btn createItem">ثبت نام</a>
-    </li>
+    <ul class="nav-menu nav-menu-social align-to-left">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <li class="login_click bg-red">
+                <a href="javascript:void(0)" asp-action="Index" asp-area="Admin" class="btn">ورود به پنل ادمین</a>
+            </li>
+        }
+        else
+        {
+            <li class="login_click bg-red">
+                <a href="javascript:void(0)" data-url="@Url.Action("Login","Account")" data-dialog-mode="small" class="btn modalRaw">ورود</a>
+            </li>
+            <li class="login_click bg-blue">
+                <a href="javascript:void(0)" data-url="@Url.Action("Register","Account")" data-dialog-mode="medium" class="btn modalRaw">ثبت نام</a>
+            </li>
+        }
+    </ul>
 }

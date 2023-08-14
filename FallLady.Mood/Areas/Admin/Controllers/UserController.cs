@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using FallLady.Mood.Application.Contract.Interfaces.Users;
 using FallLady.Mood.Application.Contract.Dto.Users;
+using Microsoft.AspNetCore.Identity;
 
 namespace FallLady.Mood.Areas.Admin.Controllers
 {
@@ -56,7 +57,7 @@ namespace FallLady.Mood.Areas.Admin.Controllers
         {
             ViewBag.ActivePage = "User";
 
-            var result = new ServiceResponse<bool>();
+            var result = new ServiceResponse<IdentityResult>();
 
             result = await _UserService.AddUser(dto).ConfigureAwait(false);
 

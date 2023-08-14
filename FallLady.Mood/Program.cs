@@ -8,10 +8,15 @@ using FallLady.Mood.Application.Contract.Interfaces.Users;
 using FallLady.Mood.Application.Services.Courses;
 using FallLady.Mood.Application.Services.Teacher;
 using FallLady.Mood.Application.Services.Users;
+using FallLady.Mood.Domain.Domain.Users;
 using FallLady.Mood.Framework.Core;
+using FallLady.Mood.Utility;
+using FallLady.Persistance;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 using NuGet.Configuration;
 using System.Configuration;
 
@@ -31,13 +36,56 @@ builder.Services.AddScoped<ICourseService,CourseService>();
 builder.Services.AddScoped<ITeacherService,TeacherSerivce>();
 builder.Services.AddScoped<IUserService, UserService>();
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,
-        options => builder.Configuration.Bind("JwtSettings", options))
-    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
-        options => builder.Configuration.Bind("CookieSettings", options));
+builder.Services.AddDbContext<IdentityContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("connectionString"));
+});
+
+builder.Services.AddDbContext<FallLadyDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("connectionString"));
+});
+
+builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<IdentityContext>()
+    .AddDefaultTokenProviders()
+    .AddRoles<IdentityRole>()
+    .AddErrorDescriber<CustomIdentityError>();
+
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequiredLength = 8;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequiredUniqueChars = 1;
+    options.Password.RequireNonAlphanumeric = false;
+    options.User.RequireUniqueEmail = false;
+    options.Lockout.MaxFailedAccessAttempts = 5;
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+});
+
+
+builder.Services.AddAuthorization();
+builder.Services.ConfigureApplicationCookie(option =>
+{
+    option.ExpireTimeSpan = TimeSpan.FromHours(170);
+    option.LoginPath = "/Login";
+    option.SlidingExpiration = true;
+});
 
 var app = builder.Build();
+
+using (var serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope())
+{
+    var identity = serviceScope.ServiceProvider.GetRequiredService<IdentityContext>();
+    identity.Database.Migrate();
+
+    var context = serviceScope.ServiceProvider.GetRequiredService<FallLadyDbContext>();
+    context.Database.Migrate();
+}
 
 var config = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json",false)

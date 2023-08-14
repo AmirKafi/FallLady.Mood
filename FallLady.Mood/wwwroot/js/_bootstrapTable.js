@@ -408,7 +408,7 @@ $(document).on("click", "#toolbar .btn.editItem[data-url]", function (e) {
                         $(imageFile).fileinput({
                             language: "fa",
                             showUpload: false,
-                            showCancel:false,
+                            showCancel: false,
                             uploadAsync: true,
                             allowedFileExtensions: ["jpg", "png", "pdf", "xlsx", "docx"],
                             fileActionSettings: {
@@ -565,6 +565,61 @@ $(document).on("click", "#toolbar .btn.deleteItem[data-url]", function () {
     return false;
 });
 
+
+$(document).on("click", ".modalRaw[data-url]", function (e) {
+    var $this, additionalParams, content, params, url, _ref;
+    e.preventDefault();
+    $this = $(this);
+    $.fn.dialog.defaults = $.extend({}, $.fn.dialog.defaults, {
+        saveBtnLabel: resource.dialog.save,
+        cancelBtnLabel: resource.dialog.cancel,
+        closeLabel: resource.dialog.close
+    });
+
+    content = "";
+    $this.tooltip("hide");
+    url = $this.data("url");
+    $.ajax({
+        url: url,
+        type: "GET",
+        cache: false
+    }).done(function (data, textStatus, jqXHR) {
+        var _ref1;
+        if ((data != null ? data.length : void 0) === 0) {
+            toastr["error"]((_ref1 = data.message) != null ? _ref1 : resource.exception.addError);
+            return;
+        }
+        setTimeout(function () {
+            var name, title, _ref1, _ref2;
+            $this.dialog({
+                title: "",
+                mode: (_ref2 = $this.data("dialogMode")) != null ? _ref2 : "large",
+                destroyAfterClose: true,
+                showFooter: false,
+                showHeader: false,
+                content: content,
+                onBeforeOpen: function () {
+                    var persianCalendar;
+                    $('form').validateBootstrap(true);
+                    window.inputmasks();
+                }
+            });
+        }, 700);
+        content = data;
+    }).fail(function (msg) {
+        content = msg.status === 403 ? "Forbidden" : "Error";
+    }).always(function () {
+        if (content === "Error") {
+            toastr["error"](resource.exception.addError);
+            return;
+        }
+        if (content === "Forbidden") {
+            toastr["error"](resource.exception.addForbidden);
+            return;
+        }
+    });
+    return false;
+});
 $(document).on("click", ".refresh", function (e) {
     window.$table.bootstrapTable("refresh", {
         silent: true,

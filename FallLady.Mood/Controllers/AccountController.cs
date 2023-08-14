@@ -2,6 +2,7 @@
 using FallLady.Mood.Application.Contract.Interfaces.Users;
 using FallLady.Mood.Controllers.Base;
 using FallLady.Mood.Framework.Core.Enum;
+using FallLady.Mood.Utility.ServiceResponse;
 using Humanizer;
 using Microsoft.AspNetCore.Mvc;
 
@@ -53,6 +54,9 @@ namespace FallLady.Mood.Controllers
             dto.IsActive = true;
 
             var user = await _userService.AddUser(dto);
+            if(user.ResultStatus == ResultStatus.Successful)
+                await _userService.Login(dto.UserName, dto.Password);
+
             return Json(user);
         }
     }
