@@ -10197,3 +10197,14 @@ ul.cources_facts_list li {
 .mr-auto{
 	margin-right: auto
 }
+
+button.btn.btn-outline-danger.m-1 {
+    border: 1px solid red;
+    border-radius: 11px;
+    padding: 0.5rem 1rem;
+}
+button.btn.btn-outline-success.m-1 {
+    border: 1px solid green;
+    border-radius: 11px;
+    padding: 0.5rem 1rem;
+}

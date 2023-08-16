@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using FallLady.Mood.Utility.Extentions;
 
 namespace FallLady.Mood.Domain.Domain.Users
 {
@@ -22,25 +23,21 @@ namespace FallLady.Mood.Domain.Domain.Users
                      RoleEnum role,
                      string email,
                      string password,
-                     bool isActive)
+                     bool isActive):base(userName)
         {
-            UserName = userName;
+            base.UserName= userName;
+            base.Email = email;
+            base.PhoneNumber = phoneNumber;
+            base.PasswordHash = password.ToMd5();
             FirstName = firstName;
-            LastName = lastName;
-            PhoneNumber = phoneNumber;
+            LastName= lastName;
             Role = role;
-            Email = email;
-            Password = password;
-            IsActive = isActive;
+            IsActive= isActive;
         }
         public int Id { get; set; }
-        public string UserName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public RoleEnum Role { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
         public bool IsActive { get; set; } = true;
 
 
@@ -63,7 +60,7 @@ namespace FallLady.Mood.Domain.Domain.Users
 
         public void ChangePassword(string password)
         {
-            Password = password;
+            PasswordHash = password.ToMd5();
         }
     }
 }

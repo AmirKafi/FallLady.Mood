@@ -4,6 +4,7 @@ using FallLady.Mood.Controllers.Base;
 using FallLady.Mood.Framework.Core.Enum;
 using FallLady.Mood.Utility.ServiceResponse;
 using Humanizer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FallLady.Mood.Controllers
@@ -58,6 +59,15 @@ namespace FallLady.Mood.Controllers
                 await _userService.Login(dto.UserName, dto.Password);
 
             return Json(user);
+        }
+
+        [HttpPost]
+        [Route("/SignOut")]
+        public async Task<ActionResult> SignOut()
+        {
+            await _userService.SignOut();
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

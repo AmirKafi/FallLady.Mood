@@ -3,24 +3,11 @@ using FallLady.Mood.Application.Contract.Interfaces.Users;
 using FallLady.Mood.Application.Contract.Mappers.Users;
 using FallLady.Mood.Domain.Domain.Users;
 using FallLady.Mood.Framework.Core;
-using FallLady.Mood.Framework.Core.Enum;
-using FallLady.Mood.Utility.Extentions;
 using FallLady.Mood.Utility.ServiceResponse;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Runtime;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace FallLady.Mood.Application.Services.Users
 {
@@ -84,8 +71,12 @@ namespace FallLady.Mood.Application.Services.Users
             try
             {
                 GuardAgainstPasswordConflict(dto.Password, dto.ConfirmPassword);
-                var user = await _userManager.CreateAsync(dto.ToModel());
-                result.SetData(user);
+                var model = dto.ToModel();
+                var user = await _userManager.CreateAsync(dto.ToModel(),dto.Password);
+                if (user.Succeeded)
+                    result.SetData(user);
+                else
+                    result.SetException(string.Join("<br/>",user.Errors.Select(x=> x.Description).ToList()));
             }
             catch (Exception ex)
             {
@@ -162,6 +153,11 @@ namespace FallLady.Mood.Application.Services.Users
             }
 
             return result;
+        }
+
+        public async Task SignOut()
+        {
+            await _signInManager.SignOutAsync();
         }
 
         #region Private

@@ -8,10 +8,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using FallLady.Mood.Application.Contract.Interfaces.Users;
 using FallLady.Mood.Application.Contract.Dto.Users;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FallLady.Mood.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class UserController : BaseController
     {
         #region Constrcutor

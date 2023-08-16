@@ -69,7 +69,7 @@
     "outputFileName": "wwwroot/Content/js/adminTemplate.js",
     "inputFiles": [
       "wwwroot/AdminTemplateAssets/libs/jquery/dist/jquery.min.js",
-      //"wwwroot/AdminTemplateAssets/libs/bootstrap/dist/js/bootstrap.bundle.min.js",
+      "wwwroot/AdminTemplateAssets/libs/bootstrap/dist/js/bootstrap.bundle.min.js",
       "wwwroot/AdminTemplateAssets/js/sidebarmenu.js",
       "wwwroot/AdminTemplateAssets/js/app.min.js",
       "wwwroot/AdminTemplateAssets/libs/apexcharts/dist/apexcharts.min.js",

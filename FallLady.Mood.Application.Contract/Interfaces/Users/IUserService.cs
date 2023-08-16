@@ -8,6 +8,7 @@ namespace FallLady.Mood.Application.Contract.Interfaces.Users
     {
         Task<ServiceResponse<List<UserListDto>>> LoadUsers(UserDto dto);
         Task<ServiceResponse<SignInResult>> Login(string username, string password);
+        Task SignOut();
         Task<ServiceResponse<IdentityResult>> AddUser(UserCreateDto dto);
         Task<ServiceResponse<UserUpdateDto>> GetUser(int userId);
         Task<ServiceResponse<bool>> UpdateUser(UserUpdateDto dto);

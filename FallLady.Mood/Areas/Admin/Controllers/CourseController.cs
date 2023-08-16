@@ -6,6 +6,7 @@ using FallLady.Mood.Domain.Enums;
 using FallLady.Mood.Framework.Core.Enum;
 using FallLady.Mood.Utility.Extentions.Datetime;
 using FallLady.Mood.Utility.ServiceResponse;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.IdentityModel.Tokens;
@@ -13,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace FallLady.Mood.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class CourseController : BaseController
     {
         #region Constrcutor

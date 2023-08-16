@@ -88,3 +88,33 @@ $(document).on("click", ".btn-register", function (e) {
         window.gotoErrorModal();
     }
 });
+
+$(document).on("click", ".signOut[data-url]", function () {
+    var $this, deleteDialog, ids;
+    $this = $(this);
+    autoDestroyToastr();
+    content = "<p>آیا از خروج از سامانه مطمئن هستید؟؟</p>";
+    setTimeout(function () {
+        $this.dialog({
+            mode: "small",
+            showHeader: false,
+            destroyAfterClose: true,
+            content: content,
+            onSaveClick: function (e) {
+                $.ajax({
+                    url: $this.data("url"),
+                    type: "POST",
+                    cache: false,
+                    data: {
+                        "__RequestVerificationToken": $("input[name=__RequestVerificationToken]").val()
+                    }
+                }).done(function (data, textStatus, jqXHR) {
+                    window.location = "/";
+                }).fail(function (msg) {
+                    toastr["error"](msg.status === 403 ? resource.exception.deleteForbidden : resource.exception.deleteError);
+                }).always(function () { });
+            }
+        });
+    }, 700);
+    return false;
+});

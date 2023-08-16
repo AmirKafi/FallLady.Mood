@@ -4,12 +4,14 @@ using FallLady.Mood.Controllers.Base;
 using FallLady.Mood.Domain.Enums;
 using FallLady.Mood.Framework.Core.Enum;
 using FallLady.Mood.Utility.ServiceResponse;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FallLady.Mood.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class TeacherController : BaseController
     {
 
