@@ -1,4 +1,5 @@
-﻿@model FallLady.Mood.Application.Contract.Dto.Teacher.TeacherCreateDto
+﻿@using FallLady.Mood.Framework.Core.Enum;
+@model FallLady.Mood.Application.Contract.Dto.Teacher.TeacherCreateDto
 @{
     ViewBag.Title = "ثبت مدرس";
 }
@@ -13,6 +14,28 @@
                             <label asp-for="FullName" class="form-label"></label><b class="text-danger">*</b>
                             <input type="text" class="form-control" asp-for="FullName">
                             <span class="field-validation-valid text-danger" asp-validation-for="FullName"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="file-preview exist hidden logo" hidden>
+                                <div class="close fileinput-remove">&times;</div>
+                                <div class="file-preview-thumbnails">
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <input hidden asp-for="FileName" />
+                            <label asp-for="FileName" class="form-label"></label>
+                            <input type="file"
+                                   class="form-control imageFile"
+                                   accept=".jpg"
+                                   data-preview-target=".file-preview.exist.logo"
+                                   data-url="@Url.Action("Image","File")"
+                                   data-folder-name="@FileFoldersEnum.Teacher.ToString()"
+                                   asp-for="File" />
+                            <span asp-validation-for="File"></span>
                         </div>
                     </div>
                 </div>

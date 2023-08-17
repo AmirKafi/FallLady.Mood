@@ -1,0 +1,33 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<FallLady.Mood.Application.Contract.Dto.Teacher.TeacherListDto>
+
+
+@foreach (var item in Model)
+{
+    <!-- Single Slide -->
+    <div class="singles_items">
+        <div class="instructor_wrap mid">
+            <div class="instructor_thumb" style="border:1px solid black">
+                <a href="instructor-detail.html"><img src="~/InAppImages/Teacher/@item.FileName" class="img-fluid" alt=""></a>
+            </div>
+            <div class="instructor_caption">
+                <h4><a href="instructor-detail.html">@item.FullName</a></h4>
+                <ul class="colored">
+                    <li><a href="#" class="cl-fb"><i class="ti-facebook"></i></a></li>
+                    <li><a href="#" class="cl-google"><i class="ti-google"></i></a></li>
+                    <li><a href="#" class="cl-twitter"><i class="ti-twitter"></i></a></li>
+                </ul>
+            </div>
+
+            <div class="cources_info_style3">
+                <ul>
+                    @*<li><i class="ti-user mr-2"></i>32نفر دانشجو</li>*@
+                    <li><i class="ti-book mr-2"></i>@item.Count دوره آموزشی</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+}

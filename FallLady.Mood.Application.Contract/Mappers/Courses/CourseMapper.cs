@@ -26,7 +26,8 @@ namespace FallLady.Mood.Application.Contract.Mappers.Courses
                               dto.ToDate,
                               dto.EventAddress,
                               dto.EventDays,
-                              dto.TeacherId);
+                              dto.TeacherId,
+                              dto.CategoryId);
         }
 
         public static List<CourseListDto> ToDto(this IEnumerable<Course>? model)
@@ -47,7 +48,8 @@ namespace FallLady.Mood.Application.Contract.Mappers.Courses
                 ToTime = TimeOnly.FromDateTime(x.ToDate ?? default),
                 FromDate = DateOnly.FromDateTime(x.FromDate ?? default),
                 ToDate = DateOnly.FromDateTime(x.ToDate ?? default),
-                TeacherName = x.Teacher is null ? "" : x.Teacher.FullName
+                TeacherName = x.Teacher is null ? "" : x.Teacher.FullName,
+                CategoryTitle = x.Category is null ? "" : x.Category.Title
             }).ToList();
         }
 
@@ -69,6 +71,7 @@ namespace FallLady.Mood.Application.Contract.Mappers.Courses
                 ToDate = DateOnly.FromDateTime(model.ToDate ?? default),
                 EventDays = model.EventDays.Select(x => (WeekDaysEnum)x.WeekDayId).ToList(),
                 TeacherId = model.TeacherId,
+                CategoryId = model.CategoryId
             };
         }
 

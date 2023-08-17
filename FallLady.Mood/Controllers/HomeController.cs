@@ -1,4 +1,7 @@
-﻿using FallLady.Mood.Models;
+﻿using FallLady.Mood.Application.Contract.Dto;
+using FallLady.Mood.Application.Contract.Interfaces;
+using FallLady.Mood.Application.Contract.Interfaces.Teachers;
+using FallLady.Mood.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,27 +9,36 @@ namespace FallLady.Mood.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        #region Constructor
+        private readonly ICategoryService _categoryService;
+        private readonly ITeacherService _teacherService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ICategoryService categoryService, ITeacherService teacherService)
         {
-            _logger = logger;
+            _categoryService = categoryService;
+            _teacherService = teacherService;
         }
+        #endregion
 
-        public IActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            var model = new HomeItemsDto();
+
+            //Category
+            var category = await _categoryService.LoadCategories().ConfigureAwait(false);
+            model.Categories = category.Data;
+
+
+            //Teacher
+            var teacher = await _teacherService.LoadTeachers().ConfigureAwait(false);
+            model.Teachers = teacher.Data;
+
+            return View(model);
         }
 
         public IActionResult Privacy()
         {
             return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

@@ -40,6 +40,13 @@
                             <span class="field-validation-valid text-danger" asp-validation-for="TeacherId"></span>
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="CategoryId" class="form-label"></label><b class="text-danger">*</b>
+                            <select asp-for="CategoryId" class="form-control selectpicker" asp-items="ViewBag.Categories"></select>
+                            <span class="field-validation-valid text-danger" asp-validation-for="CategoryId"></span>
+                        </div>
+                    </div>
                 </div>
                 <div class="row offlineCourse">
                     <div class="col-md-3">

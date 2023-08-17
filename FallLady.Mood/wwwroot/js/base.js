@@ -83,7 +83,7 @@ window.inputmasks = function () {
 
     $(".price").inputmask("Regex", {
         regex: "[0-9]*",
-        scale : 3
+        scale: 3
     });
 
     $(".captchaField").inputmask("Regex", {
@@ -267,8 +267,12 @@ $(document).ajaxStop(function () {
     $("#loading").hide();
 });
 
-window.showImageFormatter = function (filePath) {
-    return "<button class='btn btn-sm btn-dark m-1 showImage' data-path='" + filePath + "'><span class='glyphicon glyphicon-eye-open'></span> مشاهده</button> ";
+window.showImageFormatter = function (filePath, row) {
+
+    if (row.fileName === null || row.fileName === "")
+        return "-";
+    else
+        return "<button class='btn btn-sm btn-dark m-1 showImage' data-path='" + filePath + "'><span class='glyphicon glyphicon-eye-open'></span> مشاهده</button> ";
 }
 window.showImageEvents = {
     'click button.showImage': function () {

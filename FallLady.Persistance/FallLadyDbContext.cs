@@ -1,4 +1,5 @@
-﻿using FallLady.Mood.Domain.Domain.Courses;
+﻿using FallLady.Mood.Domain.Domain.Categories;
+using FallLady.Mood.Domain.Domain.Courses;
 using FallLady.Mood.Domain.Domain.Teachers;
 using FallLady.Mood.Domain.Domain.Users;
 using Microsoft.EntityFrameworkCore;
@@ -40,5 +41,6 @@ namespace FallLady.Persistance
 
         public DbSet<Course> Courses { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
+        public DbSet<Category> Category { get; set; }
     }
 }

@@ -12,25 +12,29 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace FallLady.Mood.Domain.Domain.Teachers
 {
-    public class Teacher:EntityId<int>
+    public class Teacher : EntityId<int>
     {
         private Teacher()
         {
-            
+
         }
-        public Teacher(string fullName)
+        public Teacher(string fullName, string fileName)
         {
 
             FullName = fullName;
+            FileName = fileName;
         }
 
         public string FullName { get; set; }
+        public string FileName { get; set; }
 
         public ICollection<Course> Courses { get; set; }
 
-        public Teacher Update(string fullName)
+        public Teacher Update(string fullName, string fileName)
         {
             FullName = fullName;
+            FileName = fileName;
+
             return this;
         }
     }

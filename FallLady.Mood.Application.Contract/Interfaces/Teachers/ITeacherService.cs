@@ -12,6 +12,7 @@ namespace FallLady.Mood.Application.Contract.Interfaces.Teachers
     public interface ITeacherService
     {
         Task<ServiceResponse<List<TeacherListDto>>> LoadTeachers(TeacherDto dto);
+        Task<ServiceResponse<List<TeacherListDto>>> LoadTeachers();
         Task<ServiceResponse<bool>> AddTeacher(TeacherCreateDto dto);
         Task<ServiceResponse<TeacherUpdateDto>> GetTeacher(int teacherId);
         Task<ServiceResponse<bool>> UpdateTeacher(TeacherUpdateDto dto);

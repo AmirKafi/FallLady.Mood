@@ -37,6 +37,8 @@ namespace FallLady.Mood.Areas.Admin.Controllers
         public async Task<ActionResult> LoadTeachers(TeacherDto dto)
         {
             var data = await _teacherService.LoadTeachers(dto).ConfigureAwait(false);
+            if (data.ResultStatus == ResultStatus.Successful)
+                data.Data.ForEach(x => x.FilePath = GetFileUrl(x.FileName, FileFoldersEnum.Teacher));
 
             return Json(data);
         }
@@ -57,6 +59,14 @@ namespace FallLady.Mood.Areas.Admin.Controllers
         {
             ViewBag.ActivePage = "Teacher";
 
+
+            if (dto.File != null)
+            {
+                var fileName = SaveFile(dto.File, FileFoldersEnum.Teacher);
+                dto.FileName = fileName.Data;
+            }
+            else
+                dto.FileName = "TeacherDefault.jpg";
 
             var result = await _teacherService.AddTeacher(dto).ConfigureAwait(false);
 
@@ -86,6 +96,15 @@ namespace FallLady.Mood.Areas.Admin.Controllers
         public async Task<ActionResult> Edit(TeacherUpdateDto dto)
         {
             ViewBag.ActivePage = "Teacher";
+
+
+            if(dto.File != null)
+            {
+                var fileName = SaveFile(dto.File, FileFoldersEnum.Teacher);
+                dto.FileName = fileName.Data;
+            }
+            else
+                dto.FileName = "TeacherDefault.jpg";
 
             var result = await _teacherService.UpdateTeacher(dto).ConfigureAwait(false);
 

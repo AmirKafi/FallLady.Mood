@@ -15,7 +15,7 @@ namespace FallLady.Mood.Application.Contract.Mappers.Teachers
     {
         public static Teacher ToModel(this TeacherCreateDto dto)
         {
-            return new Teacher(dto.FullName);
+            return new Teacher(dto.FullName,dto.FileName);
         }
 
         public static List<TeacherListDto> ToDto(this IEnumerable<Teacher>? model)
@@ -27,6 +27,7 @@ namespace FallLady.Mood.Application.Contract.Mappers.Teachers
             {
                 Id = x.Id,
                 FullName = x.FullName,
+                FileName= x.FileName
             }).ToList();
         }
 
@@ -35,7 +36,8 @@ namespace FallLady.Mood.Application.Contract.Mappers.Teachers
             return new TeacherUpdateDto()
             {
                 Id = model.Id,
-                FullName = model.FullName
+                FullName = model.FullName,
+                FileName= model.FileName,
             };
         }
 

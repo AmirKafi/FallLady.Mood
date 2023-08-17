@@ -7,13 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FallLady.Mood.Framework.Core\FallLady.Mood.Framework.Core.csproj" />
-    <ProjectReference Include="..\FallLady.Mood.Utility\FallLady.Mood.Utility.csproj" />
+    <Compile Remove="Domain\Blog\**" />
+    <Compile Remove="Domain\Products\**" />
+    <EmbeddedResource Remove="Domain\Blog\**" />
+    <EmbeddedResource Remove="Domain\Products\**" />
+    <None Remove="Domain\Blog\**" />
+    <None Remove="Domain\Products\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\Blog\" />
-    <Folder Include="Domain\Products\" />
+    <ProjectReference Include="..\FallLady.Mood.Framework.Core\FallLady.Mood.Framework.Core.csproj" />
+    <ProjectReference Include="..\FallLady.Mood.Utility\FallLady.Mood.Utility.csproj" />
   </ItemGroup>
 
   <ItemGroup>

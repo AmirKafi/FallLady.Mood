@@ -54,7 +54,7 @@ namespace FallLady.Mood.Application.Services.Users
             var result = new ServiceResponse<List<UserListDto>>();
             try
             {
-                var data = await _userManager.Users.Skip(dto.offset * dto.limit).Take(dto.offset).ToListAsync();
+                var data = await _userManager.Users.Skip(dto.offset * dto.limit).Take(dto.limit).ToListAsync();
                 result.SetData(data.ToDto());
             }
             catch (Exception ex)

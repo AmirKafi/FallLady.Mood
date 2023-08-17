@@ -26,6 +26,8 @@ namespace FallLady.Mood.Application.Contract.Dto.Course
         public DateOnly? ToDate { get; set; }
 
         public string? EventAddress { get; set; }
+
+        public string CategoryTitle { get; set; }
         public string TeacherName { get; set; }
 
         public List<WeekDaysEnum> _eventDays { get; set; }

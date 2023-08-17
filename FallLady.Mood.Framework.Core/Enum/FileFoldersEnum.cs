@@ -9,6 +9,7 @@ namespace FallLady.Mood.Framework.Core.Enum
     public enum FileFoldersEnum
     {
         Course = 1,
+        Teacher ,
 
     }
 }

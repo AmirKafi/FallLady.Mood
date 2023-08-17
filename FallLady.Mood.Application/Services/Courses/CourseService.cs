@@ -94,7 +94,8 @@ namespace FallLady.Mood.Application.Services.Courses
                               dto.ToDate,
                               dto.EventAddress,
                               dto.EventDays,
-                              dto.TeacherId);
+                              dto.TeacherId,
+                              dto.CategoryId);
 
                 await _repository.Update(course);
 

@@ -9,10 +9,10 @@ namespace FallLady.Mood.Domain.Enums
 {
     public enum CourseTypeEnum
     {
-        [Display(Name = "آنلاین")]
+        [Display(Name = "مجازی")]
         Online = 1,
 
-        [Display(Name = "آفلاین")]
+        [Display(Name = "حضوری")]
         Offline
     }
 }

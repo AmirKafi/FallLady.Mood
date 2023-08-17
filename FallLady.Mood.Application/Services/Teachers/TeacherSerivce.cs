@@ -1,6 +1,7 @@
 ﻿using FallLady.Mood.Application.Contract.Dto.Teacher;
 using FallLady.Mood.Application.Contract.Interfaces.Teachers;
 using FallLady.Mood.Application.Contract.Mappers.Teachers;
+using FallLady.Mood.Domain.Domain.Courses;
 using FallLady.Mood.Domain.Domain.Teachers;
 using FallLady.Mood.Framework.Core;
 using FallLady.Mood.Framework.Core.Enum;
@@ -17,9 +18,11 @@ namespace FallLady.Mood.Application.Services.Teacher
     {
         #region Constructor
         private readonly ITeacherRepository _repository;
-        public TeacherSerivce(ITeacherRepository repository)
+        private readonly ICourseRepository _courseRepository;
+        public TeacherSerivce(ITeacherRepository repository, ICourseRepository courseRepository)
         {
             _repository = repository;
+            _courseRepository = courseRepository;
         }
 
         #endregion
@@ -31,6 +34,31 @@ namespace FallLady.Mood.Application.Services.Teacher
             {
                 var data = await _repository.GetList(dto.offset, dto.limit);
                 result.SetData(data.ToDto());
+            }
+            catch (Exception ex)
+            {
+                result.SetException(ex.Message);
+            }
+
+            return result;
+        }
+
+        public async Task<ServiceResponse<List<TeacherListDto>>> LoadTeachers()
+        {
+            var result = new ServiceResponse<List<TeacherListDto>>();
+            try
+            {
+                var courses = _courseRepository.GetQuerable();
+                var data = _repository.GetQuerable().Select(x=> new TeacherListDto()
+                {
+                    Id = x.Id,
+                    FullName= x.FullName,
+                    FileName= x.FileName
+                }).ToList();
+
+                data.ForEach(x => x.Count = courses.Where(a => a.TeacherId == x.Id).Count());
+
+                result.SetData(data);
             }
             catch (Exception ex)
             {
@@ -78,7 +106,7 @@ namespace FallLady.Mood.Application.Services.Teacher
             try
             {
                 var teacher = await _repository.Get(dto.Id);
-                teacher.Update(dto.FullName);
+                teacher.Update(dto.FullName,dto.FileName);
 
                 await _repository.Update(teacher);
 

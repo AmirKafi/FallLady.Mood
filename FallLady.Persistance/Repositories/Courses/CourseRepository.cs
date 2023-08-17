@@ -16,6 +16,7 @@ namespace FallLady.Persistance.Repositories.Course
             return await _dbContext.Courses
                                    .Include(x=> x.Teacher)
                                    .Include(x=> x.EventDays)
+                                   .Include(x=> x.Category)
                                    .Skip(take * skip)
                                    .Take(take)
                                    .AsNoTracking()

@@ -1,4 +1,5 @@
-﻿using FallLady.Mood.Domain.Domain.Courses.Exceptions;
+﻿using FallLady.Mood.Domain.Domain.Categories;
+using FallLady.Mood.Domain.Domain.Courses.Exceptions;
 using FallLady.Mood.Domain.Domain.Teachers;
 using FallLady.Mood.Domain.Enums;
 using FallLady.Mood.Framework.Core;
@@ -30,7 +31,8 @@ namespace FallLady.Mood.Domain.Domain.Courses
                       DateOnly? toDate,
                       string? eventAddress,
                       List<WeekDaysEnum> eventDays,
-                      int teacherId)
+                      int teacherId,
+                      int categoryId)
         {
             Title = title;
             CourseType = courseType;
@@ -38,6 +40,7 @@ namespace FallLady.Mood.Domain.Domain.Courses
             Description = description;
             FileName = fileName;
             TeacherId = teacherId;
+            CategoryId = categoryId;
 
             if (courseType == CourseTypeEnum.Online)
             {
@@ -74,6 +77,9 @@ namespace FallLady.Mood.Domain.Domain.Courses
 
         public int TeacherId { get; set; }
         public Teacher Teacher { get; set; }
+
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
         #endregion
 
         #region Methods
@@ -90,7 +96,8 @@ namespace FallLady.Mood.Domain.Domain.Courses
                              DateOnly? toDate,
                              string? eventAddress,
                              List<WeekDaysEnum> eventDays,
-                             int teacherId)
+                             int teacherId,
+                             int categoryId)
         {
             Title = title;
             CourseType = courseType;
@@ -98,6 +105,7 @@ namespace FallLady.Mood.Domain.Domain.Courses
             Description = description;
             FileName = fileName;
             TeacherId = teacherId;
+            CategoryId = categoryId;
 
             if (courseType == CourseTypeEnum.Online)
             {

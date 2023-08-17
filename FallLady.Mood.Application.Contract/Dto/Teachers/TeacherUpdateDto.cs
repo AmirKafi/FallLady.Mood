@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 
 namespace FallLady.Mood.Application.Contract.Dto.Teacher
 {
@@ -9,5 +10,9 @@ namespace FallLady.Mood.Application.Contract.Dto.Teacher
         [Display(Name = "نام و نام خانوادگی مدرس")]
         [Required(ErrorMessage = "این فیلد اجباری می باشد")]
         public string FullName { get; set; }
+
+        [Display(Name = "تصویر")]
+        public string? FileName { get; set; }
+        public IFormFile? File { get; set; }
     }
 }

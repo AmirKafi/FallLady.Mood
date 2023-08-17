@@ -55,6 +55,10 @@ namespace FallLady.Mood.Application.Contract.Dto.Course
         [DisplayName("مدرس")]
         [Required(ErrorMessage = "این فیلد اجباری می باشد")]
         public int TeacherId { get; set; }
+
+        [DisplayName("دسته بندی")]
+        [Required(ErrorMessage = "این فیلد اجباری می باشد")]
+        public int CategoryId { get; set; }
     }
 
 }
