@@ -5,6 +5,7 @@ using FallLady.Mood.Domain.Domain.Courses;
 using FallLady.Mood.Framework.Core.Enum;
 using FallLady.Mood.Utility.ServiceResponse;
 using FallLady.Persistance.Repositories.Course;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,26 @@ namespace FallLady.Mood.Application.Services.Courses
             try
             {
                 var data = await _repository.GetList(dto.offset, dto.limit);
+                result.SetData(data.ToDto());
+            }
+            catch (Exception ex)
+            {
+                result.SetException(ex.Message);
+            }
+
+            return result;
+        }
+
+        public async Task<ServiceResponse<List<CourseListDto>>> LoadCourses()
+        {
+            var result = new ServiceResponse<List<CourseListDto>>();
+            try
+            {
+                var data =  _repository.GetQuerable()
+                                   .Include(x => x.Teacher)
+                                   .Include(x => x.EventDays)
+                                   .Include(x => x.Category)
+                                   .AsNoTracking();
                 result.SetData(data.ToDto());
             }
             catch (Exception ex)

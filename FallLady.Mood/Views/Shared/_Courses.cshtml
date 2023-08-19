@@ -1,0 +1,39 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<FallLady.Mood.Application.Contract.Dto.Course.CourseListDto>
+
+@foreach (var item in Model)
+{
+    <!-- Cource Grid 1 -->
+    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
+        <div class="education_block_list_layout">
+
+            <div class="education_block_thumb n-shadow">
+                <a href="course-detail.html"><img src="@item.FilePath" class="img-fluid" alt=""></a>
+            </div>
+
+            <div class="list_layout_ecucation_caption">
+
+                <div class="education_block_body">
+                    <h4 class="bl-title"><a href="course-detail.html">@item.Title</a></h4>
+                    <div class="cources_price">@item.Price تومان</div>
+                </div>
+
+                <div class="education_block_footer mt-3">
+                    <div class="education_block_author">
+                        <div class="path-img"><a href="instructor-detail.html"><img src="@item.TeacherFilePath" class="img-fluid" alt=""></a></div>
+                        <h5><a href="instructor-detail.html">@item.TeacherName</a></h5>
+                    </div>
+                    <div class="cources_info_style3">
+                        <ul>
+                            <li><div class="foot_lecture"><i class="ti-control-skip-forward ml-2"></i>مشاهده</div></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+}
