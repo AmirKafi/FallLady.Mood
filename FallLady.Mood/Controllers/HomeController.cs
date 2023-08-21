@@ -2,6 +2,7 @@
 using FallLady.Mood.Application.Contract.Interfaces;
 using FallLady.Mood.Application.Contract.Interfaces.Course;
 using FallLady.Mood.Application.Contract.Interfaces.Teachers;
+using FallLady.Mood.Application.Contract.Interfaces.Users;
 using FallLady.Mood.Controllers.Base;
 using FallLady.Mood.Framework.Core.Enum;
 using FallLady.Mood.Models;
@@ -16,18 +17,24 @@ namespace FallLady.Mood.Controllers
         private readonly ICategoryService _categoryService;
         private readonly ITeacherService _teacherService;
         private readonly ICourseService _courseService;
+        private readonly IUserService _userService;
 
-        public HomeController(ICategoryService categoryService, ITeacherService teacherService, ICourseService courseService)
+        public HomeController(ICategoryService categoryService, ITeacherService teacherService, ICourseService courseService, IUserService userService)
         {
             _categoryService = categoryService;
             _teacherService = teacherService;
             _courseService = courseService;
+            _userService = userService;
         }
         #endregion
 
         public async Task<ActionResult> Index()
         {
             var model = new HomeItemsDto();
+
+            //User
+            var user = await _userService.GetUser(User).ConfigureAwait(false);
+            model.CurrentUser = user.Data;
 
             //Category
             var category = await _categoryService.LoadCategories().ConfigureAwait(false);

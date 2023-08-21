@@ -68,7 +68,7 @@ namespace FallLady.Mood.Areas.Admin.Controllers
 
         [HttpGet]
         [Route("/User/Edit")]
-        public async Task<ActionResult> Edit(int id)
+        public async Task<ActionResult> Edit(string id)
         {
             ViewBag.ActivePage = "User";
 
@@ -101,7 +101,7 @@ namespace FallLady.Mood.Areas.Admin.Controllers
 
         [HttpPost]
         [Route("/User/Delete")]
-        public async Task<ActionResult> Delete(List<int> ids)
+        public async Task<ActionResult> Delete(List<string> ids)
         {
             ViewBag.ActivePage = "User";
 
@@ -112,7 +112,7 @@ namespace FallLady.Mood.Areas.Admin.Controllers
 
         [HttpPost]
         [Route("/User/PromoteToAdmin")]
-        public async Task<ActionResult> PromoteToAdmin(int id)
+        public async Task<ActionResult> PromoteToAdmin(string id)
         {
             var user = await _UserService.GetUser(id).ConfigureAwait(false);
 

@@ -34,7 +34,6 @@ namespace FallLady.Mood.Domain.Domain.Users
             Role = role;
             IsActive= isActive;
         }
-        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public RoleEnum Role { get; set; }

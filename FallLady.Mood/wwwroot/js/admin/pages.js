@@ -39,7 +39,8 @@ window.userAdditionalParams = function () {
 }
 
 window.promoteToAdminFormatter = function (role, row) {
-    if (role === 2)//Admin
+    console.log(row);
+    if (role === 2)//User
         return "<button class='btn btn-sm btn-success m-1 promoteToAdmin' data-id='" + row.id + "'><span class='glyphicon glyphicon-arrow-up'></span>ارتقا به مدیرسیستم</button>";
     else
         return "<button class='btn btn-sm btn-info m-1'>مدیرسیستم</button> ";

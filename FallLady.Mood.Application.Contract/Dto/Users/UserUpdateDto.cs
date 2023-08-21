@@ -5,7 +5,7 @@ namespace FallLady.Mood.Application.Contract.Dto.Users
 {
     public class UserUpdateDto
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Display(Name = "نام کاربری")]
         [Required(ErrorMessage = "این فیلد اجباری می باشد")]

@@ -1,13 +1,18 @@
-﻿@*
+﻿@using FallLady.Mood.Framework.Core.Enum;
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model FallLady.Mood.Application.Contract.Dto.Users.UserUpdateDto
 @{
     <ul class="nav-menu nav-menu-social align-to-left">
         @if (User.Identity.IsAuthenticated)
         {
-            <li class="login_click bg-red">
-                <a asp-action="Index" asp-area="Admin" class="btn">ورود به پنل ادمین</a>
-            </li>
+            if (Model.Role == RoleEnum.Admin)
+            {
+                <li class="login_click bg-red">
+                    <a asp-action="Index" asp-area="Admin" class="btn">ورود به پنل ادمین</a>
+                </li>
+            }
 
             <li class="login_click bg-red">
                 <a href="javascript:void(0)" data-url="@Url.Action("SignOut","Account")" class="btn signOut">خروج</a>

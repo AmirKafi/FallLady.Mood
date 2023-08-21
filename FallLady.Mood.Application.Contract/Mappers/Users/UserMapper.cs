@@ -52,17 +52,8 @@ namespace FallLady.Mood.Application.Contract.Mappers.Users
                 LastName = model.LastName,
                 PhoneNumber = model.PhoneNumber,
                 Email = model.Email,
+                Role = model.Role,
                 IsActive = model.IsActive
-            };
-        }
-
-        public static UserTokenDto ToTokenDto(this User user,string token)
-        {
-            return new UserTokenDto()
-            {
-                Id = user.Id,
-                Username = user.UserName,
-                AccessToken = "Barear " + token
             };
         }
     }

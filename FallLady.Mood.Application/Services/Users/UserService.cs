@@ -8,10 +8,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Security.Claims;
 
 namespace FallLady.Mood.Application.Services.Users
 {
-    public class UserService:IUserService
+    public class UserService : IUserService
     {
         #region Constructor
         private readonly IHostingEnvironment _hostingEnvironment;
@@ -35,7 +36,9 @@ namespace FallLady.Mood.Application.Services.Users
             var result = new ServiceResponse<SignInResult>();
             try
             {
-                var user = await _signInManager.PasswordSignInAsync(username, password,true,true);
+                var model = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == username);
+
+                var user = await _signInManager.PasswordSignInAsync(username, password, true, true);
                 if (!user.Succeeded)
                     throw new Exception("نام کاربری یا کلمه عبور اشتباه است");
 
@@ -72,11 +75,12 @@ namespace FallLady.Mood.Application.Services.Users
             {
                 GuardAgainstPasswordConflict(dto.Password, dto.ConfirmPassword);
                 var model = dto.ToModel();
-                var user = await _userManager.CreateAsync(dto.ToModel(),dto.Password);
+                var user = await _userManager.CreateAsync(dto.ToModel(), dto.Password);
+                await _userManager.AddToRoleAsync(model,model.Role.ToString());
                 if (user.Succeeded)
                     result.SetData(user);
                 else
-                    result.SetException(string.Join("<br/>",user.Errors.Select(x=> x.Description).ToList()));
+                    result.SetException(string.Join("<br/>", user.Errors.Select(x => x.Description).ToList()));
             }
             catch (Exception ex)
             {
@@ -86,12 +90,32 @@ namespace FallLady.Mood.Application.Services.Users
             return result;
         }
 
-        public async Task<ServiceResponse<UserUpdateDto>> GetUser(int UserId)
+        public async Task<ServiceResponse<UserUpdateDto>> GetUser(ClaimsPrincipal principal)
         {
             var result = new ServiceResponse<UserUpdateDto>();
             try
             {
-                var data = await _userManager.Users.FirstOrDefaultAsync(x=> x.Id == UserId);
+                var userId = _userManager.GetUserId(principal);
+                var data = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == userId);
+                if (data is null)
+                    throw new Exception("کاربر مورد نظر یافت نشد");
+
+                result.SetData(data.ToDto());
+            }
+            catch (Exception ex)
+            {
+                result.SetException(ex.Message);
+            }
+
+            return result;
+        }
+
+        public async Task<ServiceResponse<UserUpdateDto>> GetUser(string userId)
+        {
+            var result = new ServiceResponse<UserUpdateDto>();
+            try
+            {
+                var data = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == userId);
                 if (data is null)
                     throw new Exception("کاربر مورد نظر یافت نشد");
 
@@ -114,6 +138,8 @@ namespace FallLady.Mood.Application.Services.Users
                 if (user is null)
                     throw new Exception("کاربر مورد نظر یافت نشد");
 
+                await _userManager.RemoveFromRoleAsync(user,user.Role.ToString());
+
                 user.Update(dto.UserName,
                             dto.FirstName,
                             dto.LastName,
@@ -123,6 +149,9 @@ namespace FallLady.Mood.Application.Services.Users
                             dto.IsActive);
 
                 var res = await _userManager.UpdateAsync(user);
+
+                await _userManager.AddToRoleAsync(user, user.Role.ToString());
+
                 result.SetData(true);
             }
             catch (Exception ex)
@@ -133,7 +162,7 @@ namespace FallLady.Mood.Application.Services.Users
             return result;
         }
 
-        public async Task<ServiceResponse<bool>> Delete(int userId)
+        public async Task<ServiceResponse<bool>> Delete(string userId)
         {
             var result = new ServiceResponse<bool>();
             try
@@ -162,7 +191,7 @@ namespace FallLady.Mood.Application.Services.Users
 
         #region Private
 
-        private void GuardAgainstPasswordConflict(string password,string confirmPassword)
+        private void GuardAgainstPasswordConflict(string password, string confirmPassword)
         {
             if (!password.Equals(confirmPassword))
                 throw new Exception("پسورد ها باهم یکسان نیستند");
