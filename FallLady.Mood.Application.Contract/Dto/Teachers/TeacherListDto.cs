@@ -1,8 +1,7 @@
 ﻿namespace FallLady.Mood.Application.Contract.Dto.Teacher
 {
-    public class TeacherListDto
+    public class TeacherListDto:BaseDtoListDto<int>
     {
-        public int Id { get; set; }
         public string FullName { get; set; }
 
         public string FileName { get; set; }

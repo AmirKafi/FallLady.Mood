@@ -26,7 +26,8 @@ namespace FallLady.Mood.Application.Contract.Mappers.Categories
             return model.Select(x => new CategoryListDto()
             {
                 Id = x.Id,
-                Title = x.Title
+                Title = x.Title,
+                CreatedOn = x.CreatedOn
             }).ToList();
         }
 

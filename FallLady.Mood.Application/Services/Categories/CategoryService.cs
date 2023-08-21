@@ -1,5 +1,5 @@
 ﻿using FallLady.Mood.Application.Contract.Dto.Category;
-using FallLady.Mood.Application.Contract.Interfaces;
+using FallLady.Mood.Application.Contract.Interfaces.Categories;
 using FallLady.Mood.Application.Contract.Mappers.Categories;
 using FallLady.Mood.Domain.Domain.Categories;
 using FallLady.Mood.Domain.Domain.Courses;

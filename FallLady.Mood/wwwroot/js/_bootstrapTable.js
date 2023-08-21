@@ -56,6 +56,8 @@ resource = {
 
 window.$table = $('table[data-toggle=table]');
 
+window.editor;
+
 selections = [];
 
 window.responseHandler = function (res) {
@@ -153,6 +155,11 @@ $(document).on("click", ".btn.createItem[data-url]", function (e) {
                 onSaveClick: function (e) {
                     var $btnSave, form;
                     $btnSave = $(e);
+                    var editor = window.editor;
+                    if (editor != undefined)
+                        $(".ckeditor").val(editor.getData());
+
+
                     form = $btnSave.parent().prev().find("form");
                     if (form.valid()) {
                         $btnSave.prop("disabled", true);
@@ -200,6 +207,16 @@ $(document).on("click", ".btn.createItem[data-url]", function (e) {
                     $('form').validateBootstrap(true);
                     window.inputmasks();
 
+                    ClassicEditor
+                        .create(document.querySelector('.ckeditor'), {
+                            language: 'fa',
+                        })
+                        .then(editor => {
+                            window.editor = editor;
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        });
 
                     $(".dialog-body select").selectpicker({
                         container: "body"

@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace FallLady.Mood.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize]
+    [Authorize(Policy = "Admin")]
     public class UserController : BaseController
     {
         #region Constrcutor

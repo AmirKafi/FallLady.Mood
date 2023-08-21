@@ -30,6 +30,16 @@ window.teacherAdditionalParams = function () {
 
 //#endregion
 
+//#region Blogs
+
+window.blogAdditionalParams = function () {
+    return {
+
+    }
+}
+
+//#endregion
+
 //#region User
 
 window.userAdditionalParams = function () {

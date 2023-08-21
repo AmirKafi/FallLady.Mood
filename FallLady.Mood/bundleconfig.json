@@ -55,6 +55,8 @@
       "wwwroot/bower_components/jdate/jdate.js",
       "wwwroot/bower_components/chartjs-plugin-datalabels/chartjs-plugin-datalabels@0.7.0.js",
       "wwwroot/bower_components/bootbox.js/bootbox.js",
+      "wwwroot/CKEditor/ckeditor.js",
+      "wwwroot/CKEditor/translations/fa.js",
       "wwwroot/js/_dialog.js",
       "wwwroot/js/base.js",
       "wwwroot/js/_bootstrapTable.js"

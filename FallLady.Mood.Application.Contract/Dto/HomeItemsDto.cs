@@ -1,4 +1,5 @@
-﻿using FallLady.Mood.Application.Contract.Dto.Category;
+﻿using FallLady.Mood.Application.Contract.Dto.Blogs;
+using FallLady.Mood.Application.Contract.Dto.Category;
 using FallLady.Mood.Application.Contract.Dto.Course;
 using FallLady.Mood.Application.Contract.Dto.Teacher;
 using FallLady.Mood.Application.Contract.Dto.Users;
@@ -15,6 +16,7 @@ namespace FallLady.Mood.Application.Contract.Dto
         public List<CategoryListDto> Categories { get; set; }
         public List<TeacherListDto> Teachers { get; set; }
         public List<CourseListDto> Courses { get; set; }
+        public List<BlogListDto> Blogs { get; set; }
         public UserUpdateDto CurrentUser { get; set; }
     }
 }

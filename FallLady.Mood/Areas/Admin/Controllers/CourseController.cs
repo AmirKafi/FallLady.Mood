@@ -1,5 +1,5 @@
 ﻿using FallLady.Mood.Application.Contract.Dto.Course;
-using FallLady.Mood.Application.Contract.Interfaces;
+using FallLady.Mood.Application.Contract.Interfaces.Categories;
 using FallLady.Mood.Application.Contract.Interfaces.Course;
 using FallLady.Mood.Application.Contract.Interfaces.Teachers;
 using FallLady.Mood.Controllers.Base;
@@ -15,7 +15,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace FallLady.Mood.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize]
+    [Authorize(Policy = "Admin")]
     public class CourseController : BaseController
     {
         #region Constrcutor

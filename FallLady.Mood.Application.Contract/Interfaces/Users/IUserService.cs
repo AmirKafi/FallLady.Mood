@@ -13,6 +13,7 @@ namespace FallLady.Mood.Application.Contract.Interfaces.Users
         Task<ServiceResponse<IdentityResult>> AddUser(UserCreateDto dto);
         Task<ServiceResponse<UserUpdateDto>> GetUser(string userId);
         Task<ServiceResponse<UserUpdateDto>> GetUser(ClaimsPrincipal principal);
+        Task<ServiceResponse<string>> GetUserId(ClaimsPrincipal principal);
         Task<ServiceResponse<bool>> UpdateUser(UserUpdateDto dto);
         Task<ServiceResponse<bool>> Delete(string userId);
     }

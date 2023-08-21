@@ -50,7 +50,8 @@ namespace FallLady.Mood.Application.Contract.Mappers.Courses
                 ToDate = DateOnly.FromDateTime(x.ToDate ?? default),
                 TeacherName = x.Teacher is null ? "" : x.Teacher.FullName,
                 CategoryTitle = x.Category is null ? "" : x.Category.Title,
-                TeacherFileName = x.Teacher.FileName is null ? "TeacherDefault.jpg" : x.Teacher.FileName
+                TeacherFileName = x.Teacher.FileName is null ? "TeacherDefault.jpg" : x.Teacher.FileName,
+                CreatedOn = x.CreatedOn
             }).ToList();
         }
 

@@ -33,6 +33,21 @@ namespace FallLady.Persistance
             builder.Entity<IdentityUserRole<string>>().HasKey(a => new { a.UserId, a.RoleId });
             builder.Entity<IdentityUserToken<string>>().HasKey(a => new { a.UserId, a.LoginProvider, a.Name });
 
+            builder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Name = "Admin",
+                NormalizedName = "ADMIN",
+                Id = "341743f0-asd2–42de-afbf-59kmkkmk72cf6",
+                ConcurrencyStamp = "341743f0-asd2–42de-afbf-59kmkkmk72cf6"
+            });
+
+            builder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Name = "User",
+                NormalizedName = "USER",
+                Id = "341743f0-asd2–42de-afkt-59kmkkmk72cf6",
+                ConcurrencyStamp = "341743f0-asd2–42de-afkt-59kmkkmk72cf6"
+            });
 
             builder.ApplyConfiguration(new UserEFConfig());
         }

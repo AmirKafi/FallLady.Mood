@@ -10,9 +10,8 @@ using System.Threading.Tasks;
 
 namespace FallLady.Mood.Application.Contract.Dto.Course
 {
-    public class CourseListDto
+    public class CourseListDto:BaseDtoListDto<int>
     {
-        public int Id { get; set; }
         public string Title { get; set; }
         public CourseTypeEnum CourseType { get; set; }
         public string? CourseTypeTitle => CourseType.GetDisplayName();

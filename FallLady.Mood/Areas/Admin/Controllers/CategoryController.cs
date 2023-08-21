@@ -1,5 +1,5 @@
 ﻿using FallLady.Mood.Application.Contract.Dto.Category;
-using FallLady.Mood.Application.Contract.Interfaces;
+using FallLady.Mood.Application.Contract.Interfaces.Categories;
 using FallLady.Mood.Controllers.Base;
 using FallLady.Mood.Utility.ServiceResponse;
 using Microsoft.AspNetCore.Authorization;
@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FallLady.Mood.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize]
+    [Authorize(Policy = "Admin")]
     public class CategoryController : BaseController
     {
 

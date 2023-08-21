@@ -13,7 +13,9 @@ namespace FallLady.Persistance.Configurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-
+            builder.HasMany(x => x.Blogs)
+                   .WithOne(x => x.Author)
+                   .HasForeignKey(x => x.AuthorId);
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using FallLady.Mood.Utility.Extentions;
+using FallLady.Mood.Domain.Domain.Blogs;
 
 namespace FallLady.Mood.Domain.Domain.Users
 {
@@ -37,8 +38,10 @@ namespace FallLady.Mood.Domain.Domain.Users
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public RoleEnum Role { get; set; }
+        public DateTime CreatedOn { get; set; } = DateTime.Now;
         public bool IsActive { get; set; } = true;
 
+        public ICollection<Blog> Blogs { get; set; }
 
         public void Update(string userName,
                            string firstName,

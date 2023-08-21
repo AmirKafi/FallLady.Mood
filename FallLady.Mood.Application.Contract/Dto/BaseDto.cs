@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FallLady.Mood.Utility.Extentions.Datetime;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,12 @@ namespace FallLady.Mood.Application.Contract.Dto
     {
         public int offset { get; set; }
         public int limit { get; set; }
+    }
+
+    public class BaseDtoListDto<T>
+    {
+        public T Id { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public string CreatedOnFa => CreatedOn.ToFa();
     }
 }

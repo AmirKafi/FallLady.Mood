@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FallLady.Mood.Application.Contract.Interfaces
+namespace FallLady.Mood.Application.Contract.Interfaces.Categories
 {
     public interface ICategoryService
     {

@@ -2,10 +2,12 @@ using Autofac;
 using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using FallLady.Mood;
-using FallLady.Mood.Application.Contract.Interfaces;
+using FallLady.Mood.Application.Contract.Interfaces.Blogs;
+using FallLady.Mood.Application.Contract.Interfaces.Categories;
 using FallLady.Mood.Application.Contract.Interfaces.Course;
 using FallLady.Mood.Application.Contract.Interfaces.Teachers;
 using FallLady.Mood.Application.Contract.Interfaces.Users;
+using FallLady.Mood.Application.Services.Blogs;
 using FallLady.Mood.Application.Services.Categories;
 using FallLady.Mood.Application.Services.Courses;
 using FallLady.Mood.Application.Services.Teacher;
@@ -38,6 +40,7 @@ builder.Services.AddScoped<ICourseService,CourseService>();
 builder.Services.AddScoped<ITeacherService,TeacherSerivce>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IBlogService, BlogService>();
 
 builder.Services.AddAuthorization(options =>
 {

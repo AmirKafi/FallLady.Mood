@@ -110,6 +110,23 @@ namespace FallLady.Mood.Application.Services.Users
             return result;
         }
 
+        public async Task<ServiceResponse<string>> GetUserId(ClaimsPrincipal principal)
+        {
+            var result = new ServiceResponse<string>();
+            try
+            {
+                var userId = _userManager.GetUserId(principal);
+
+                result.SetData(userId);
+            }
+            catch (Exception ex)
+            {
+                result.SetException(ex.Message);
+            }
+
+            return result;
+        }
+
         public async Task<ServiceResponse<UserUpdateDto>> GetUser(string userId)
         {
             var result = new ServiceResponse<UserUpdateDto>();
