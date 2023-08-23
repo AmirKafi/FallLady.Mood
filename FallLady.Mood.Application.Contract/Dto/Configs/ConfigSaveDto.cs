@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace FallLady.Mood.Application.Contract.Dto.Configs
+{
+    public class ConfigSaveDto
+    {
+        public int Id { get; set; }
+
+        [Display(Name = "آدرس")]
+        public string? Address { get; set; }
+
+        [Display(Name = "ایمیل")]
+        public string? Email { get; set; }
+
+        [Display(Name = "شماره تماس")]
+        public string? ContactNumber { get; set; }
+    }
+}

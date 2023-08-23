@@ -16,7 +16,7 @@
             <ul id="sidebarnav">
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                    <span class="hide-menu">Admin</span>
+                    <span class="hide-menu">ثبت اطلاعات</span>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" asp-controller="User" asp-action="Index" aria-expanded="false">
@@ -56,6 +56,19 @@
                             <i class="ti ti-layout-dashboard"></i>
                         </span>
                         <span class="hide-menu">مطالب</span>
+                    </a>
+                </li>
+
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">تنظیمات سایت</span>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" asp-controller="Config" asp-action="ContactUsConfig" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-layout-dashboard"></i>
+                        </span>
+                        <span class="hide-menu">تماس با ما</span>
                     </a>
                 </li>
             </ul>

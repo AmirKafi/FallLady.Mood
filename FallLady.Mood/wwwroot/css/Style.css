@@ -295,6 +295,7 @@ nav.sidebar-nav.scroll-sidebar {
     background: var(--bs-admin-theme);
     border-radius: 13px;
     margin-top: 5px;
+    overflow:hidden;
 }
 
 .btn-group.bootstrap-select.form-control {

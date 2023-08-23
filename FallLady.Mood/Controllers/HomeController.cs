@@ -1,14 +1,17 @@
 ﻿using FallLady.Mood.Application.Contract.Dto;
 using FallLady.Mood.Application.Contract.Dto.Blogs;
+using FallLady.Mood.Application.Contract.Dto.Users;
 using FallLady.Mood.Application.Contract.Interfaces.Blogs;
 using FallLady.Mood.Application.Contract.Interfaces.Categories;
 using FallLady.Mood.Application.Contract.Interfaces.Course;
 using FallLady.Mood.Application.Contract.Interfaces.Teachers;
 using FallLady.Mood.Application.Contract.Interfaces.Users;
+using FallLady.Mood.Application.Services.Users;
 using FallLady.Mood.Controllers.Base;
 using FallLady.Mood.Framework.Core.Enum;
 using FallLady.Mood.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace FallLady.Mood.Controllers
@@ -36,9 +39,7 @@ namespace FallLady.Mood.Controllers
         {
             var model = new HomeItemsDto();
 
-            //User
-            var user = await _userService.GetUser(User).ConfigureAwait(false);
-            model.CurrentUser = user.Data;
+            
 
             //Category
             var category = await _categoryService.LoadCategories().ConfigureAwait(false);
@@ -66,9 +67,22 @@ namespace FallLady.Mood.Controllers
             return View(model);
         }
 
-        public IActionResult Privacy()
+        [Route("/ContactUs")]
+        public async Task<ActionResult> ContectUs()
         {
             return View();
+        }
+
+        [Route("/Account")]
+        public async Task<ActionResult> Account()
+        {
+            var model = new UserUpdateDto();
+
+            //User
+            var user = await _userService.GetUser(User).ConfigureAwait(false);
+            model = user.Data;
+
+            return PartialView("_Account",model);
         }
     }
 }

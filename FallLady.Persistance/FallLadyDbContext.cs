@@ -1,5 +1,6 @@
 ﻿using FallLady.Mood.Domain.Domain.Blogs;
 using FallLady.Mood.Domain.Domain.Categories;
+using FallLady.Mood.Domain.Domain.Configs;
 using FallLady.Mood.Domain.Domain.Courses;
 using FallLady.Mood.Domain.Domain.Teachers;
 using FallLady.Mood.Domain.Domain.Users;
@@ -32,6 +33,7 @@ namespace FallLady.Persistance
             optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=FallLady.Mood;Integrated Security=True;MultipleActiveResultSets=true;TrustServerCertificate=true;");
             //optionsBuilder.UseSqlServer("Server=.;Initial Catalog=FallLady.Mood;Persist Security Info=True;MultipleActiveResultSets=true;User ID=sa;Password=ASD110asd;TrustServerCertificate=Yes");
             base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -44,5 +46,6 @@ namespace FallLady.Persistance
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Category> Category { get; set; }
         public DbSet<Blog> Blogs { get; set; }
+        public DbSet<Config> Configs { get; set; }
     }
 }

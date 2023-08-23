@@ -13,6 +13,7 @@ namespace FallLady.Persistance.Configurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
+            builder.ToTable("Users", "identity");
             builder.HasMany(x => x.Blogs)
                    .WithOne(x => x.Author)
                    .HasForeignKey(x => x.AuthorId);

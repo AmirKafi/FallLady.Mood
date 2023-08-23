@@ -582,6 +582,47 @@ $(document).on("click", "#toolbar .btn.deleteItem[data-url]", function () {
     return false;
 });
 
+$(document).on("click", ".btn.btn-save", function () {
+    var $btnSave;
+    $btnSave = $(this);
+    var form = $btnSave.closest("form");
+    if (form.valid()) {
+        $btnSave.prop("disabled", true);
+        $.ajax({
+            url: form.attr("action"),
+            method: "POST",
+            data: new FormData(form.get(0)),
+            processData: false,
+            contentType: false,
+            cache: false
+        }).done(function (data, textStatus, jqXHR) {
+            var _ref3;
+            autoDestroyToastr();
+            if (data.resultStatus !== 1 && data.resultStatus !== -2) {
+                toastr["error"]((_ref3 = data.message) != null ? _ref3 : resource.exception.saveError);
+                return;
+            }
+            toastr["success"](resource.message.saveSuccess);
+
+        }).fail(function (msg) {
+            autoDestroyToastr();
+            content = msg.status === 403 ? msg.statusText : "Error";
+            if (content === "Error") {
+                toastr["error"](resource.exception.addError);
+                return;
+            }
+            if (content === "Forbidden") {
+                toastr["error"](resource.exception.addForbidden);
+                return;
+            }
+        }).always(function () {
+            $btnSave.prop("disabled", false);
+            manuallyDestroyToastr();
+        });
+    } else {
+        window.gotoErrorModal();
+    }
+});
 
 $(document).on("click", ".modalRaw[data-url]", function (e) {
     var $this, additionalParams, content, params, url, _ref;
@@ -637,6 +678,7 @@ $(document).on("click", ".modalRaw[data-url]", function (e) {
     });
     return false;
 });
+
 $(document).on("click", ".refresh", function (e) {
     window.$table.bootstrapTable("refresh", {
         silent: true,

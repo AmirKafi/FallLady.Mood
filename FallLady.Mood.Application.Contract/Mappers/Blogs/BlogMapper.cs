@@ -30,7 +30,8 @@ namespace FallLady.Mood.Application.Contract.Mappers.Blogs
                 Title = x.Title,
                 TextBody = x.TextBody,
                 Picture= x.Picture,
-                CreatedOn = x.CreatedOn
+                CreatedOn = x.CreatedOn,
+                AuthorName = x.Author.FirstName + " " + x.Author.LastName,
             }).ToList();
         }
 
