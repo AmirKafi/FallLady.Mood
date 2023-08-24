@@ -10,11 +10,13 @@ namespace FallLady.Mood.Domain.Domain.Configs
     public class Config:EntityId<int>
     {
         #region Constructor
-        public Config(string? email, string? address, string? contactNumber)
+        public Config(string? email, string? address, string? contactNumber, string? instagramLink, string? telegramLink)
         {
             Email = email;
             Address = address;
             ContactNumber = contactNumber;
+            InstagramLink = instagramLink;
+            TelegramLink = telegramLink;
         }
 
         #endregion
@@ -22,18 +24,21 @@ namespace FallLady.Mood.Domain.Domain.Configs
         #region Properties
         public string? Email { get; set; }
         public string? Address { get; set; }
-
+        public string? InstagramLink { get; set; }
+        public string? TelegramLink { get; set; }
         public string? ContactNumber { get; set; }
 
         #endregion
 
         #region Methods
 
-        public Config Update(string? email, string? address, string? contactNumber)
+        public Config Update(string? email, string? address, string? contactNumber, string? instagramLink, string? telegramLink)
         {
             Email = email;
             Address = address;
             ContactNumber = contactNumber;
+            InstagramLink = instagramLink;
+            TelegramLink = telegramLink;
 
             return this;
         }

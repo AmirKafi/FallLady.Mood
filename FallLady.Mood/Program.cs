@@ -45,7 +45,7 @@ builder.Services.AddScoped<IBlogService, BlogService>();
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("Admin", policy =>
-                      policy.RequireClaim("Role", "Admin"));
+                      policy.RequireClaim("UserRole", "Admin"));
 });
 
 builder.Services.AddDbContext<IdentityContext>(options =>

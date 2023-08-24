@@ -37,7 +37,7 @@ namespace FallLady.Mood.Application.Services.Users
             try
             {
                 var model = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == username);
-
+                await _userManager.AddClaimAsync(model, new Claim("UserRole", model.Role.ToString()));
                 var user = await _signInManager.PasswordSignInAsync(username, password, true, true);
                 if (!user.Succeeded)
                     throw new Exception("نام کاربری یا کلمه عبور اشتباه است");

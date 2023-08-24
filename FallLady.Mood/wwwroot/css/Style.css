@@ -1,6 +1,7 @@
 ﻿:root {
     --bs-admin-theme: #ABC4AA;
 }
+
 #loading {
     position: fixed;
     left: 0;
@@ -286,16 +287,18 @@ header.app-header {
     width: 85% !important;
     margin-left: 8px !important;
 }
+
 .brand-logo.d-flex.align-items-center.justify-content-between {
     background: var(--bs-admin-theme);
     border-radius: 13px;
     margin-top: 8px;
 }
+
 nav.sidebar-nav.scroll-sidebar {
     background: var(--bs-admin-theme);
     border-radius: 13px;
     margin-top: 5px;
-    overflow:hidden;
+    overflow: hidden;
 }
 
 .btn-group.bootstrap-select.form-control {
@@ -533,18 +536,19 @@ nav.sidebar-nav.scroll-sidebar {
     }
 }
 
-input,textarea,select{
-    margin-bottom:8px
+input, textarea, select {
+    margin-bottom: 8px
 }
 
-.form-control.file-caption.kv-fileinput-caption{
+.form-control.file-caption.kv-fileinput-caption {
     border-radius: 10px !important;
-    padding:inherit !important;
+    padding: inherit !important;
 }
 
-button.btn.btn-default.hide.fileinput-cancel.fileinput-cancel-button{
-    display:none;
+button.btn.btn-default.hide.fileinput-cancel.fileinput-cancel-button {
+    display: none;
 }
+
 aside.left-sidebar {
     background: transparent;
 }
@@ -553,4 +557,29 @@ aside.left-sidebar {
     max-width: 100%;
     max-height: 75vh;
     margin: auto;
+}
+
+
+.fa-instagram,
+.fa-telegram {
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+    .fa-instagram:hover,
+    .fa-instagram:focus {
+        color: #bd22a2;
+        transform: scale(1.1);
+    }
+
+    .fa-telegram:hover,
+    .fa-telegram:focus {
+        color: #2695d1;
+        transform: scale(1.1);
+    }
+
+
+.fab {
+    font-size: 2rem;
+    padding: 0.5rem;
 }

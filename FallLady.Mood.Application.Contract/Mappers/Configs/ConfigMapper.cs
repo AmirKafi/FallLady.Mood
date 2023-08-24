@@ -14,19 +14,23 @@ namespace FallLady.Mood.Application.Contract.Mappers.Configs
         {
             return new Config(dto.Email,
                               dto.Address,
-                              dto.ContactNumber);
+                              dto.ContactNumber,
+                              dto.InstagramLink,
+                              dto.TelegramLink);
         }
 
         public static ConfigDto ToDto(this Config? model)
         {
-            if(model == null)
+            if (model == null)
                 throw new ArgumentNullException("عملیات با خطا مواجه شد");
 
             return new ConfigDto()
             {
-                Address= model.Address,
-                Email= model.Email,
-                ContactNumber = model.ContactNumber
+                Address = model.Address,
+                Email = model.Email,
+                ContactNumber = model.ContactNumber,
+                InstagramLink = model.InstagramLink,
+                TelegramLink = model.TelegramLink
             };
         }
     }

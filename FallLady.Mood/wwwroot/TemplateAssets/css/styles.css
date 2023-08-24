@@ -3750,7 +3750,7 @@ nav a {
     color:#333333 !important;
 }
 .nav-brand img {
-    max-width: 120px;
+    max-width: 3rem;
     position: relative;
     top:0px;
 }

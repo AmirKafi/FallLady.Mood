@@ -19,5 +19,11 @@ namespace FallLady.Mood.Application.Contract.Dto.Configs
 
         [Display(Name = "شماره تماس")]
         public string? ContactNumber { get; set; }
+
+        [Display(Name = "لینک اینستاگرام")]
+        public string? InstagramLink { get; set; }
+
+        [Display(Name = "لینک تلگرام")]
+        public string? TelegramLink { get; set; }
     }
 }

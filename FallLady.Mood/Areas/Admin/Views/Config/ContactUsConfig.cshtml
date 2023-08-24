@@ -39,6 +39,22 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label asp-for="InstagramLink" class="form-label"></label>
+                                        <input type="text" class="form-control letterOnly" placeholder="https://instagram.com/example" style="text-align:left" asp-for="InstagramLink">
+                                        <span class="field-validation-valid text-danger" asp-validation-for="InstagramLink"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label asp-for="TelegramLink" class="form-label"></label>
+                                        <input type="text" class="form-control letterOnly" placeholder="https://t.me/example" style="text-align:left" asp-for="TelegramLink">
+                                        <span class="field-validation-valid text-danger" asp-validation-for="TelegramLink"></span>
+                                    </div>
+                                </div>
+                            </div>
                             <div style="display:flex;justify-content:center">
                                 <button type="button" class="btn btn-success btn-save" asp-action="ContactUsConfig" asp-controller="Config" asp-area="Admin">ثبت</button>
                             </div>

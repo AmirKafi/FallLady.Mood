@@ -3,6 +3,7 @@ using FallLady.Mood.Application.Contract.Dto.Blogs;
 using FallLady.Mood.Application.Contract.Dto.Users;
 using FallLady.Mood.Application.Contract.Interfaces.Blogs;
 using FallLady.Mood.Application.Contract.Interfaces.Categories;
+using FallLady.Mood.Application.Contract.Interfaces.Configs;
 using FallLady.Mood.Application.Contract.Interfaces.Course;
 using FallLady.Mood.Application.Contract.Interfaces.Teachers;
 using FallLady.Mood.Application.Contract.Interfaces.Users;
@@ -24,14 +25,21 @@ namespace FallLady.Mood.Controllers
         private readonly ICourseService _courseService;
         private readonly IUserService _userService;
         private readonly IBlogService _blogService;
+        private readonly IConfigService _configService;
 
-        public HomeController(ICategoryService categoryService, ITeacherService teacherService, ICourseService courseService, IUserService userService, IBlogService blogService)
+        public HomeController(ICategoryService categoryService,
+                              ITeacherService teacherService,
+                              ICourseService courseService, 
+                              IUserService userService, 
+                              IBlogService blogService,
+                              IConfigService configService)
         {
             _categoryService = categoryService;
             _teacherService = teacherService;
             _courseService = courseService;
             _userService = userService;
             _blogService = blogService;
+            _configService = configService;
         }
         #endregion
 
@@ -70,19 +78,9 @@ namespace FallLady.Mood.Controllers
         [Route("/ContactUs")]
         public async Task<ActionResult> ContectUs()
         {
-            return View();
-        }
+            var model = await _configService.GetConfig().ConfigureAwait(false);
 
-        [Route("/Account")]
-        public async Task<ActionResult> Account()
-        {
-            var model = new UserUpdateDto();
-
-            //User
-            var user = await _userService.GetUser(User).ConfigureAwait(false);
-            model = user.Data;
-
-            return PartialView("_Account",model);
+            return View(model.Data);
         }
     }
 }
