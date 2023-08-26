@@ -19,14 +19,6 @@
                     <span class="hide-menu">ثبت اطلاعات</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" asp-controller="User" asp-action="Index" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-layout-dashboard"></i>
-                        </span>
-                        <span class="hide-menu">کاربران</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
                     <a class="sidebar-link" asp-controller="Teacher" asp-action="Index" aria-expanded="false">
                         <span>
                             <i class="ti ti-layout-dashboard"></i>
@@ -58,6 +50,19 @@
                         <span class="hide-menu">مطالب</span>
                     </a>
                 </li>
+
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">مدیریت کاربران</span>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" asp-controller="User" asp-action="Index" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-layout-dashboard"></i>
+                        </span>
+                        <span class="hide-menu">کاربران</span>
+                    </a>
+                </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" asp-controller="Message" asp-action="Index" aria-expanded="false">
                         <span>
@@ -66,6 +71,7 @@
                         <span class="hide-menu">پیام ها</span>
                     </a>
                 </li>
+
 
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>

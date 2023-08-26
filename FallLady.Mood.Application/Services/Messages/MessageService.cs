@@ -33,6 +33,7 @@ namespace FallLady.Mood.Application.Services.Messages
                 var data = _repository.GetQuerable()
                                       .Include(x=> x.Sender)
                                       .Include(x=> x.Reader)
+                                      .AsNoTracking()
                                       .Skip(dto.offset * dto.limit)
                                       .Take(dto.limit);
                 result.SetData(data.ToDto());

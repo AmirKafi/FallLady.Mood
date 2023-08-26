@@ -21,6 +21,10 @@ window.messageReadEvents = {
                 toastr["error"]((_ref1 = data.message) != null ? _ref1 : resource.exception.editError);
                 return;
             }
+            window.$table.bootstrapTable("refresh", {
+                silent: true,
+                pageNumber: 1
+            });
             content = data;
             setTimeout(function () {
                 var name, title, _ref1, _ref2;
