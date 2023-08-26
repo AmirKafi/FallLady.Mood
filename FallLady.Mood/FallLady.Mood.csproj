@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\js\client\pages.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\js\client\pages.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="wwwroot\bower_components\ajax-bootstrap-select\css\ajax-bootstrap-select.min.css" />
     <Content Include="wwwroot\bower_components\animate.css\.bower.json" />
     <Content Include="wwwroot\bower_components\animate.css\animate-config.json" />
@@ -3382,6 +3390,7 @@
     <None Include="wwwroot\bower_components\z-tree.v3\js\ztree.3.5.26.zip" />
     <None Include="wwwroot\bower_components\z-tree.v3\README.md" />
     <None Include="wwwroot\bower_components\zingchart_branded_version\zingchart.min.js" />
+    <None Include="wwwroot\js\client\pages.js" />
   </ItemGroup>
 
   <ItemGroup>

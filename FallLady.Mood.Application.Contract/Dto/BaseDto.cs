@@ -13,7 +13,7 @@ namespace FallLady.Mood.Application.Contract.Dto
         public int limit { get; set; }
     }
 
-    public class BaseDtoListDto<T>
+    public class BaseListDto<T>
     {
         public T Id { get; set; }
         public DateTime CreatedOn { get; set; }

@@ -1,7 +1,9 @@
-﻿@{
+﻿@using FallLady.Mood.Application.Contract.Dto.Messages;
+@{
     ViewBag.Title = "تماس با ما";
 }
 @model FallLady.Mood.Application.Contract.Dto.Configs.ConfigDto
+
 <section class="page-title">
     <div class="container">
         <div class="row">
@@ -35,21 +37,23 @@
                         <h4 class="property_block_title">ارسال پیام</h4>
                     </div>
 
-                    <div class="prc_wrap-body">
-                        <div class="form-group">
-                            <label>عنوان</label>
-                            <input type="text" class="form-control simple">
-                        </div>
+                    <form method="post" autocomplete="off" action="@Url.Action("SendMessage")">
+                        <div class="prc_wrap-body send-message">
+                            <div class="form-group">
+                                <label>عنوان</label>
+                                <input type="text" name="Title" id="Title" class="form-control simple">
+                            </div>
 
-                        <div class="form-group">
-                            <label>پیام</label>
-                            <textarea class="form-control simple"></textarea>
-                        </div>
+                            <div class="form-group">
+                                <label>پیام</label>
+                                <textarea class="form-control simple" name="MessageBody" id="MessageBody"></textarea>
+                            </div>
 
-                        <div class="form-group">
-                            <button class="btn btn-theme" type="submit">ارسال درخواست</button>
+                            <div class="form-group">
+                                <button class="btn btn-theme btn-sendMessage" type="submit">ارسال درخواست</button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
 
                 </div>
 

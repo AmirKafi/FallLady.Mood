@@ -3,7 +3,7 @@ using FallLady.Mood.Utility.Extentions;
 
 namespace FallLady.Mood.Application.Contract.Dto.Users
 {
-    public class UserListDto:BaseDtoListDto<string>
+    public class UserListDto:BaseListDto<string>
     {
         public string UserName { get; set; }
         public string FirstName { get; set; }

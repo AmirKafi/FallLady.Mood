@@ -75,12 +75,6 @@ namespace FallLady.Mood.Controllers
             return View(model);
         }
 
-        [Route("/ContactUs")]
-        public async Task<ActionResult> ContectUs()
-        {
-            var model = await _configService.GetConfig().ConfigureAwait(false);
-
-            return View(model.Data);
-        }
+        
     }
 }

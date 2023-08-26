@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace FallLady.Mood.Application.Contract.Dto.Course
 {
-    public class CourseListDto:BaseDtoListDto<int>
+    public class CourseListDto:BaseListDto<int>
     {
         public string Title { get; set; }
         public CourseTypeEnum CourseType { get; set; }

@@ -1,6 +1,6 @@
 ﻿namespace FallLady.Mood.Application.Contract.Dto.Blogs
 {
-    public class BlogListDto : BaseDtoListDto<int>
+    public class BlogListDto : BaseListDto<int>
     {
         public string Title { get; set; }
         public string AuthorName { get; set; }
