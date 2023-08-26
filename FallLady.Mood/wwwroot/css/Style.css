@@ -283,7 +283,7 @@
 header.app-header {
     background: var(--bs-admin-theme);
     border-radius: 13px !important;
-    margin-top: 9px;
+    margin-top: 0.6%;
     width: 85% !important;
     margin-left: 8px !important;
 }
@@ -298,7 +298,8 @@ nav.sidebar-nav.scroll-sidebar {
     background: var(--bs-admin-theme);
     border-radius: 13px;
     margin-top: 5px;
-    overflow: hidden;
+    overflow: overlay;
+    height:100%;
 }
 
 .btn-group.bootstrap-select.form-control {

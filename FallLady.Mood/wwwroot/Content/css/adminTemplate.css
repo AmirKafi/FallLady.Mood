@@ -19741,7 +19741,7 @@ textarea.form-control-lg {
     }
 
     #main-wrapper[data-layout=vertical][data-header-position=fixed] .app-header {
-        width: calc(100%)
+        width: 79% !important
     }
 
     #main-wrapper[data-layout=vertical][data-sidebartype=full] .body-wrapper {
@@ -19960,4 +19960,3 @@ nav.navbar.navbar-expand-lg.navbar-light {
         opacity: 1;
     }
 }
-

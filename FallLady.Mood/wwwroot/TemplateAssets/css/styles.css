@@ -5123,7 +5123,7 @@ ul.cources_facts_list li:after {
     border-radius: 50%;
     overflow: hidden;
     margin: 1rem auto;
-    display: table;
+    display: block;
 }
 .instructor_caption h4 {
     font-size: 15px;
