@@ -35,36 +35,40 @@
         </div>
     </div>
 </section>
-<div class="row">
+<section class="pt-0">
+    <div class="container">
+        <div class="row">
 
-    @foreach (var item in Model)
-    {
-        <!-- Cource Grid 1 -->
-        <div class="col-lg-4 col-md-6">
-            <div class="education_block_grid style_2">
-                <div class="education_block_thumb n-shadow">
-                    <a href="course-detail.html"><img src="@item.FilePath" class="img-fluid" alt=""></a>
-                    <div class="cources_price">@item.Price تومان</div>
-                </div>
+            @foreach (var item in Model)
+            {
+                <!-- Cource Grid 1 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="education_block_grid style_2">
+                        <div class="education_block_thumb n-shadow">
+                            <a href="/CourseDetails?courseId=@item.Id"><img src="@item.FilePath" class="img-fluid" alt=""></a>
+                            <div class="cources_price">@item.Price تومان</div>
+                        </div>
 
-                <div class="education_block_body">
-                    <h4 class="bl-title"><a href="course-detail.html">@item.Title</a></h4>
-                </div>
+                        <div class="education_block_body">
+                            <h4 class="bl-title"><a href="/CourseDetails?courseId=@item.Id">@item.Title</a></h4>
+                        </div>
 
-                <div class="cources_info_style3">
-                    <ul>
-                        <li><i class="ti-eye ml-2"></i>6852 بازدید</li>
-                    </ul>
-                </div>
+                        <div class="cources_info_style3">
+                            <ul>
+                                <li><i class="ti-eye ml-2"></i>6852 بازدید</li>
+                            </ul>
+                        </div>
 
-                <div class="education_block_footer">
-                    <div class="education_block_author">
-                        <div class="path-img"><a href="#"><img src="@item.TeacherFilePath" class="img-fluid" alt=""></a></div>
-                        <h5><a href="#">@item.TeacherName</a></h5>
+                        <div class="education_block_footer">
+                            <div class="education_block_author">
+                                <div class="path-img"><a href="#"><img src="@item.TeacherFilePath" class="img-fluid" alt=""></a></div>
+                                <h5><a href="#">@item.TeacherName</a></h5>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    }
+            }
 
-</div>
+        </div>
+    </div>
+</section>

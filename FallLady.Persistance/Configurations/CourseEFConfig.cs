@@ -19,6 +19,10 @@ namespace FallLady.Persistance.Configurations
                 .HasForeignKey(d => d.CourseId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder.HasMany(x=> x.Tags)
+                   .WithOne(x=> x.Course)
+                   .HasForeignKey(x=> x.CourseId)
+                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

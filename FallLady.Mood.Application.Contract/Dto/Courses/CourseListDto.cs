@@ -1,7 +1,6 @@
 ﻿using FallLady.Mood.Domain.Enums;
 using FallLady.Mood.Framework.Core.Enum;
 using FallLady.Mood.Utility.Extentions;
-using FallLady.Mood.Utility.Extentions.Datetime;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +31,10 @@ namespace FallLady.Mood.Application.Contract.Dto.Course
         public string TeacherFilePath { get; set; }
 
         public List<WeekDaysEnum> _eventDays { get; set; }
+
         public string FilePath { get; set; }
         public string FileName { get; set; }
+
+        public List<string> Tags { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using FallLady.Mood.Domain.Domain.Categories;
 using FallLady.Mood.Domain.Domain.Configs;
 using FallLady.Mood.Domain.Domain.Courses;
+using FallLady.Mood.Domain.Domain.Tags;
 using FallLady.Mood.Domain.Domain.Teachers;
 using FallLady.Mood.Domain.Domain.Users;
 using Microsoft.EntityFrameworkCore;
@@ -47,5 +48,6 @@ namespace FallLady.Persistance
         public DbSet<Category> Category { get; set; }
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Config> Configs { get; set; }
+        public DbSet<Tag> Tags { get; set; }
     }
 }

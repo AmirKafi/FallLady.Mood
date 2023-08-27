@@ -49,5 +49,17 @@ namespace FallLady.Mood.Controllers
             ViewBag.CourseType = dto.CourseType;
             return View("Index", courses.Data);
         }
+
+        [Route("/CourseDetails")]
+        public async Task<ActionResult> CourseDetails(int courseId)
+        {
+            var course = await _courseService.GetCourseDetails(courseId).ConfigureAwait(false);
+            var model = course.Data;
+
+            model.FilePath = GetFileUrl(model.FileName, FileFoldersEnum.Course);
+            model.TeacherFilePath = GetFileUrl(model.TeacherFileName, FileFoldersEnum.Teacher);
+
+            return View("CourseDetails", course.Data);
+        }
     }
 }

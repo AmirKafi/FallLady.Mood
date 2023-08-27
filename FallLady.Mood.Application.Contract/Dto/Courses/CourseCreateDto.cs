@@ -59,6 +59,12 @@ namespace FallLady.Mood.Application.Contract.Dto.Course
         [DisplayName("دسته بندی")]
         [Required(ErrorMessage = "این فیلد اجباری می باشد")]
         public int CategoryId { get; set; }
+
+        [DisplayName("تگ ها")]
+        [Required(ErrorMessage = "این فیلد اجباری می باشد")]
+        public string TagsLocal { get; set; }
+
+        public List<string>? Tags { get; set; }
     }
 
 }

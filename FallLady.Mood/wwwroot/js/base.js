@@ -231,6 +231,18 @@ $(document).on("focus", "input[type=text].email", function () {
     $this.data("alertShown", true);
 });
 
+$(document).on("focus", "input[type=text].separate", function () {
+    var $this;
+    $this = $(this);
+    if (true === $this.data("alertShown")) {
+        return;
+    }
+    autoDestroyToastr();
+
+    toastr["info"]("مقادیر مورد نظر خود را با ',' جدا کنید");
+    $this.data("alertShown", true);
+});
+
 $(document).on("focus", "input[type=text].onlyEngLetter", function () {
     var $this;
     $this = $(this);

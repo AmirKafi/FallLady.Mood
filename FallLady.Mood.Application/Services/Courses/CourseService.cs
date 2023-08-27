@@ -2,6 +2,7 @@
 using FallLady.Mood.Application.Contract.Interfaces.Course;
 using FallLady.Mood.Application.Contract.Mappers.Courses;
 using FallLady.Mood.Domain.Domain.Courses;
+using FallLady.Mood.Domain.Domain.Tags;
 using FallLady.Mood.Framework.Core.Enum;
 using FallLady.Mood.Utility.ServiceResponse;
 using FallLady.Persistance.Repositories.Course;
@@ -96,6 +97,22 @@ namespace FallLady.Mood.Application.Services.Courses
             return result;
         }
 
+        public async Task<ServiceResponse<CourseDetailsDto>> GetCourseDetails(int courseId)
+        {
+            var result = new ServiceResponse<CourseDetailsDto>();
+            try
+            {
+                var data = await _repository.Get(courseId);
+                result.SetData(data.ToDetailDto());
+            }
+            catch (Exception ex)
+            {
+                result.SetException(ex.Message);
+            }
+
+            return result;
+        }
+
         public async Task<ServiceResponse<bool>> UpdateCourse(CourseUpdateDto dto)
         {
             var result = new ServiceResponse<bool>();
@@ -116,7 +133,8 @@ namespace FallLady.Mood.Application.Services.Courses
                               dto.EventAddress,
                               dto.EventDays,
                               dto.TeacherId,
-                              dto.CategoryId);
+                              dto.CategoryId,
+                              dto.Tags.Select(x=> new Tag(x,TagTypesEnum.Course)).ToList());
 
                 await _repository.Update(course);
 

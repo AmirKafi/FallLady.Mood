@@ -81,6 +81,9 @@ namespace FallLady.Mood.Areas.Admin.Controllers
 
             var result = new ServiceResponse<bool>();
 
+            if (!dto.TagsLocal.IsNullOrEmpty())
+                dto.Tags = dto.TagsLocal.Split(',').ToList();
+            
             if (dto.File is null)
             {
                 var res = new ServiceResponse<bool>();
@@ -144,6 +147,10 @@ namespace FallLady.Mood.Areas.Admin.Controllers
                 model.FromDateLocal = model.FromDate.AsDateTime().ToFa();
                 model.ToDateLocal = model.ToDate.AsDateTime().ToFa();
             }
+            if(model.Tags != null)
+            {
+                model.TagsLocal = string.Join(',', model.Tags);
+            }
 
             var teachers = await _teacherService.GetAsCombo().ConfigureAwait(false);
             var categories = await _categoryService.GetAsCombo().ConfigureAwait(false);
@@ -169,7 +176,11 @@ namespace FallLady.Mood.Areas.Admin.Controllers
 
             var result = new ServiceResponse<bool>();
 
-            if(dto.File != null)
+
+            if (!dto.TagsLocal.IsNullOrEmpty())
+                dto.Tags = dto.TagsLocal.Split(',').ToList();
+
+            if (dto.File != null)
             {
                 var fileName = SaveFile(dto.File, FileFoldersEnum.Course);
                 dto.FileName = fileName.Data;

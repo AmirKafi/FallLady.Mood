@@ -17,6 +17,7 @@ namespace FallLady.Persistance.Repositories.Course
                                    .Include(x=> x.Teacher)
                                    .Include(x=> x.EventDays)
                                    .Include(x=> x.Category)
+                                   .Include(x=> x.Tags)
                                    .Skip(take * skip)
                                    .Take(take)
                                    .AsNoTracking()
@@ -25,7 +26,12 @@ namespace FallLady.Persistance.Repositories.Course
         }
         public Task<FallLady.Mood.Domain.Domain.Courses.Course> Get(int id)
         {
-            var result = _dbContext.Courses.Include(x=> x.EventDays).FirstOrDefaultAsync(x=> x.Id == id);
+            var result = _dbContext.Courses
+                                   .Include(x => x.Teacher)
+                                   .Include(x => x.EventDays)
+                                   .Include(x => x.Category)
+                                   .Include(x => x.Tags)
+                                   .FirstOrDefaultAsync(x=> x.Id == id);
             return result;
         }
     }

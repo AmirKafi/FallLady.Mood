@@ -1,7 +1,9 @@
 ﻿using FallLady.Mood.Application.Contract.Dto.Course;
 using FallLady.Mood.Domain.Domain.Courses;
+using FallLady.Mood.Domain.Domain.Tags;
 using FallLady.Mood.Framework.Core;
 using FallLady.Mood.Framework.Core.Enum;
+using FallLady.Mood.Utility.Extentions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +29,8 @@ namespace FallLady.Mood.Application.Contract.Mappers.Courses
                               dto.EventAddress,
                               dto.EventDays,
                               dto.TeacherId,
-                              dto.CategoryId);
+                              dto.CategoryId,
+                              dto.Tags.Select(x=> new Tag(x,TagTypesEnum.Course)).ToList());
         }
 
         public static List<CourseListDto> ToDto(this IEnumerable<Course>? model)
@@ -51,7 +54,8 @@ namespace FallLady.Mood.Application.Contract.Mappers.Courses
                 TeacherName = x.Teacher is null ? "" : x.Teacher.FullName,
                 CategoryTitle = x.Category is null ? "" : x.Category.Title,
                 TeacherFileName = x.Teacher.FileName is null ? "TeacherDefault.jpg" : x.Teacher.FileName,
-                CreatedOn = x.CreatedOn
+                CreatedOn = x.CreatedOn,
+                Tags = x.Tags is null ? new List<string>() : x.Tags.Select(x=> x.Title).ToList()
             }).ToList();
         }
 
@@ -73,10 +77,32 @@ namespace FallLady.Mood.Application.Contract.Mappers.Courses
                 ToDate = DateOnly.FromDateTime(model.ToDate ?? default),
                 EventDays = model.EventDays.Select(x => (WeekDaysEnum)x.WeekDayId).ToList(),
                 TeacherId = model.TeacherId,
-                CategoryId = model.CategoryId
+                CategoryId = model.CategoryId,
+                Tags = model.Tags is null ? new List<string>() : model.Tags.Select(x => x.Title).ToList()
             };
         }
 
-        
+        public static CourseDetailsDto ToDetailDto(this Course model)
+        {
+            return new CourseDetailsDto()
+            {
+                Title = model.Title,
+                CourseType = model.CourseType,
+                Price = model.Price,
+                Description = model.Description,
+                FileName = model.FileName,
+                EventAddress = model.EventAddress,
+                FromTime = TimeOnly.FromDateTime(model.FromDate ?? default),
+                ToTime = TimeOnly.FromDateTime(model.ToDate ?? default),
+                FromDate = DateOnly.FromDateTime(model.FromDate ?? default),
+                ToDate = DateOnly.FromDateTime(model.ToDate ?? default),
+                EventDays = string.Join(',', model.EventDays.Select(x => ((WeekDaysEnum)x.WeekDayId).GetDisplayName()).ToList()),
+                Tags = model.Tags is null ? new List<string>() : model.Tags.Select(x => x.Title).ToList(),
+                TeacherFileName = model.Teacher.FileName,
+                CategoryTitle = model.Category.Title,
+                TeacherName = model.Teacher.FullName,
+                CreatedOn = model.CreatedOn
+            };
+        }
     }
 }

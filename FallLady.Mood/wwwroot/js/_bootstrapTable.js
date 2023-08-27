@@ -346,6 +346,7 @@ $(document).on("click", "#toolbar .btn.editItem[data-url]", function (e) {
             return;
         }
 
+
         content = data;
         setTimeout(function () {
             var name, title, _ref1, _ref2;
@@ -364,6 +365,11 @@ $(document).on("click", "#toolbar .btn.editItem[data-url]", function (e) {
                     var $btnSave, form;
                     $btnSave = $(e);
                     form = $btnSave.parent().prev().find("form");
+
+                    var editor = window.editor;
+                    if (editor != undefined)
+                        $(".ckeditor").val(editor.getData());
+
                     if (form.valid()) {
                         $btnSave.prop("disabled", true);
                         $.ajax({
@@ -410,6 +416,20 @@ $(document).on("click", "#toolbar .btn.editItem[data-url]", function (e) {
                     $('form').validateBootstrap(true);
                     window.inputmasks();
 
+                    ClassicEditor
+                        .create(document.querySelector('.ckeditor'), {
+                            language: 'fa',
+                        })
+                        .then(editor => {
+                            window.editor = editor;
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        });
+
+                    var editor = window.editor;
+                    if (editor != undefined)
+                        editor.setData($(".ckeditor").val());
 
                     $(".dialog-body select").selectpicker({
                         container: "body"

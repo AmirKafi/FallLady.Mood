@@ -1,5 +1,6 @@
 ﻿using FallLady.Mood.Domain.Domain.Categories;
 using FallLady.Mood.Domain.Domain.Courses.Exceptions;
+using FallLady.Mood.Domain.Domain.Tags;
 using FallLady.Mood.Domain.Domain.Teachers;
 using FallLady.Mood.Domain.Enums;
 using FallLady.Mood.Framework.Core;
@@ -32,7 +33,8 @@ namespace FallLady.Mood.Domain.Domain.Courses
                       string? eventAddress,
                       List<WeekDaysEnum> eventDays,
                       int teacherId,
-                      int categoryId)
+                      int categoryId,
+                      List<Tag> tags)
         {
             Title = title;
             CourseType = courseType;
@@ -58,6 +60,7 @@ namespace FallLady.Mood.Domain.Domain.Courses
                 EventAddress = eventAddress;
                 _eventDays = eventDays.Select(x => new CourseDays(this.Id, (int)x)).ToList();
             }
+            _tags = tags;
             TeacherId = teacherId;
         }
 
@@ -67,19 +70,22 @@ namespace FallLady.Mood.Domain.Domain.Courses
         public float Price { get; private set; }
         public string Description { get; private set; }
         public string? LicenseKey { get; private set; }
-        public string FileName { get; set; }
-        public DateTime? FromDate { get; set; }
-        public DateTime? ToDate { get; set; }
-        public string? EventAddress { get; set; }
+        public string FileName { get; private set; }
+        public DateTime? FromDate { get; private set; }
+        public DateTime? ToDate { get; private set; }
+        public string? EventAddress { get; private set; }
 
-        public List<CourseDays> _eventDays { get; set; } = new List<CourseDays>();
+        public List<CourseDays> _eventDays { get; private set; } = new List<CourseDays>();
         public virtual ICollection<CourseDays> EventDays => _eventDays;
 
-        public int TeacherId { get; set; }
-        public Teacher Teacher { get; set; }
+        public List<Tag> _tags { get; private set; } = new List<Tag>();
+        public ICollection<Tag> Tags => _tags;
 
-        public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public int TeacherId { get; private set; }
+        public Teacher Teacher { get; private set; }
+
+        public int CategoryId { get; private set; }
+        public Category Category { get; private set; }
         #endregion
 
         #region Methods
@@ -97,7 +103,8 @@ namespace FallLady.Mood.Domain.Domain.Courses
                              string? eventAddress,
                              List<WeekDaysEnum> eventDays,
                              int teacherId,
-                             int categoryId)
+                             int categoryId,
+                             List<Tag> tags)
         {
             Title = title;
             CourseType = courseType;
@@ -106,6 +113,9 @@ namespace FallLady.Mood.Domain.Domain.Courses
             FileName = fileName;
             TeacherId = teacherId;
             CategoryId = categoryId;
+
+            _tags.Clear();
+            _tags = tags;
 
             if (courseType == CourseTypeEnum.Online)
             {
