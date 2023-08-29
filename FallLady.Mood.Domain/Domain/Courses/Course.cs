@@ -86,6 +86,7 @@ namespace FallLady.Mood.Domain.Domain.Courses
 
         public int CategoryId { get; private set; }
         public Category Category { get; private set; }
+
         #endregion
 
         #region Methods
