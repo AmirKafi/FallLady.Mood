@@ -3420,7 +3420,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\AdminTemplateAssets\" />
-    <Folder Include="wwwroot\Content\css\" />
     <Folder Include="wwwroot\Content\js\" />
   </ItemGroup>
 

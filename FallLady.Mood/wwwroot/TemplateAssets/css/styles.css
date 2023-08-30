@@ -10208,3 +10208,11 @@ button.btn.btn-outline-success.m-1 {
     border-radius: 11px;
     padding: 0.5rem 1rem;
 }
+
+.user-access {
+    padding: 0 15px;
+    background-color: #ABC4AA;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    float: left;
+}

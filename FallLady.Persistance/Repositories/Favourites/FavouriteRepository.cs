@@ -22,9 +22,21 @@ namespace FallLady.Persistance.Repositories.Favourites
             await _db.SaveChangesAsync();
         }
 
+        public async Task<Favourite> GetFavourite(int id)
+        {
+            return await _db.Favourites.FirstOrDefaultAsync(x=> x.Id == id);
+        }
+
+        public async Task Remove(Favourite favourite)
+        {
+            _db.Remove(favourite);
+            await _db.SaveChangesAsync();
+        }
+
         public async Task<List<Favourite>> GetFavourites(string userId)
         {
             return await _db.Favourites.Where(x => x.UserId == userId).ToListAsync();
         }
+
     }
 }

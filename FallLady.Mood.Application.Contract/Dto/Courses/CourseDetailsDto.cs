@@ -36,5 +36,7 @@ namespace FallLady.Mood.Application.Contract.Dto.Course
 
         public DateTime CreatedOn { get; set; }
         public string CreatedOnFa => CreatedOn.ToFa();
+
+        public bool IsCurrentUserFavourite { get; set; }
     }
 }

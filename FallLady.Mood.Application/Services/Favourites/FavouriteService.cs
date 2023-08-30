@@ -2,6 +2,7 @@
 using FallLady.Mood.Application.Contract.Interfaces.Favourites;
 using FallLady.Mood.Application.Contract.Mappers.Favourites;
 using FallLady.Mood.Domain.Domain.Favourites;
+using FallLady.Mood.Framework.Core.Enum;
 using FallLady.Mood.Utility.ServiceResponse;
 using Microsoft.Extensions.Caching.Memory;
 using System;
@@ -38,6 +39,52 @@ namespace FallLady.Mood.Application.Services.Favourites
                 _cache.Set("UserFavourites",favs);
 
                 result.SetData(true);
+            }
+            catch (Exception ex)
+            {
+                result.SetException(ex);
+            }
+            return result;
+        }
+
+        public async Task<ServiceResponse<bool>> Remove(int id)
+        {
+            var result = new ServiceResponse<bool>();
+
+            try
+            {
+                var fav = await _repository.GetFavourite(id);
+
+                await _repository.Remove(fav);
+
+                var favs = await _repository.GetFavourites(fav.UserId);
+
+                _cache.Remove("UserFavourites");
+                _cache.Set("UserFavourites", favs);
+
+                result.SetData(true);
+            }
+            catch (Exception ex)
+            {
+                result.SetException(ex);
+            }
+            return result;
+        }
+
+        public async Task<ServiceResponse<bool>> IsFavourite(string userId,FormEnum disclaimer,int disclaimerId)
+        {
+            var result = new ServiceResponse<bool>();
+
+            try
+            {
+                var cachedFavs = _cache.Get<List<Favourite>>("UserFavourites");
+
+                var isFave = cachedFavs.Any(x=> x.UserId == userId && x.Disclaimer == disclaimer &&
+                                            (disclaimer == FormEnum.Course ? x.CourseId == disclaimerId :
+                                            disclaimer == FormEnum.Teacher ? x.TeacherId == disclaimerId :
+                                            x.BlogId == disclaimerId));
+
+                result.SetData(isFave);
             }
             catch (Exception ex)
             {

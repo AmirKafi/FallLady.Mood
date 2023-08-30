@@ -1,5 +1,7 @@
 ﻿using FallLady.Mood.Application.Contract.Dto.Course;
 using FallLady.Mood.Application.Contract.Interfaces.Course;
+using FallLady.Mood.Application.Contract.Interfaces.Favourites;
+using FallLady.Mood.Application.Contract.Interfaces.Users;
 using FallLady.Mood.Controllers.Base;
 using FallLady.Mood.Domain.Enums;
 using FallLady.Mood.Framework.Core.Enum;
@@ -12,10 +14,14 @@ namespace FallLady.Mood.Controllers
     {
         #region Constructor
         private readonly ICourseService _courseService;
+        private readonly IFavouriteService _favouriteService;
+        private readonly IUserService _userService;
 
-        public CourseController(ICourseService courseService)
+        public CourseController(ICourseService courseService, IFavouriteService favouriteService, IUserService userService)
         {
             _courseService = courseService;
+            _favouriteService = favouriteService;
+            _userService = userService;
         }
 
         #endregion
@@ -58,6 +64,12 @@ namespace FallLady.Mood.Controllers
 
             model.FilePath = GetFileUrl(model.FileName, FileFoldersEnum.Course);
             model.TeacherFilePath = GetFileUrl(model.TeacherFileName, FileFoldersEnum.Teacher);
+
+            var userId = await _userService.GetUserId(User).ConfigureAwait(false);
+
+            var isFavourite = await _favouriteService.IsFavourite(userId.Data,FormEnum.Course,courseId);
+
+            model.IsCurrentUserFavourite = isFavourite.Data;
 
             return View("CourseDetails", course.Data);
         }

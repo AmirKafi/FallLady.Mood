@@ -9,6 +9,8 @@ namespace FallLady.Mood.Domain.Domain.Favourites
     public interface IFavouriteRepository
     {
         Task AddToFavourite(Favourite favourite);
+        Task<Favourite> GetFavourite(int id);
+        Task Remove(Favourite favourite);
         Task<List<Favourite>> GetFavourites(string userId);
     }
 }

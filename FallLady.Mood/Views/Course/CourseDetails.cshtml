@@ -14,7 +14,7 @@
             <div class="col-lg-8 col-md-8">
 
                 <div class="inline_edu_wraps mb-4">
-                    <h2>دوره آموزش پلاگین نویسی وردپرس</h2>
+                    <h2>@Model.Title</h2>
                 </div>
 
                 <div class="property_video xl mb-4">
@@ -49,6 +49,17 @@
 
                 <!-- Course info -->
                 <div class="ed_view_box style_3 border py-3">
+                    <div class="user-access">
+                        @if (Model.IsCurrentUserFavourite)
+                        {
+                            <a href="#" class="remove-fav"><i class="glyphicon glyphicon-heart ml-2"></i></a>
+                        }
+                        else
+                        {
+                            <a href="#" class="add-fav"><i class="glyphicon glyphicon-heart-empty ml-2"></i></a>
+                        }
+                        <a href="#"><i class="ti-shopping-cart ml-2"></i></a>
+                    </div>
 
                     <div class="ed_view_price pr-4">
                         <span>قیمت</span>
@@ -61,11 +72,6 @@
                             <li><i class="ti-user"></i>شرکت کنندگان:<strong>1740 نفر</strong></li>
                             <li><i class="ti-shine"></i>نوع دوره:<strong>@Model.CourseTypeTitle</strong></li>
                         </ul>
-                    </div>
-
-                    <div class="ed_view_link pb-3">
-                        <a href="#" class="btn btn-light" style="justify-content:center;display:flex;width:80%;margin:1.5rem auto 0;border-radius:50px"><i class="fa fa-heart ml-2"></i>افزودن به موردعلاقه</a>
-                        <a href="#" class="btn btn-success" style="justify-content:center;display:flex;width:80%;margin:1.5rem auto 0;border-radius:50px"><i class="ti-shopping-cart ml-2"></i>افزودن به سبد خرید</a>
                     </div>
                     <div class="px-4 pt-4 pb-0 b-t">
                         <h5 class="mb-3">مدرس</h5>
