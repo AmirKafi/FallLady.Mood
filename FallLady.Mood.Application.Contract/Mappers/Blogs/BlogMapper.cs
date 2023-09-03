@@ -45,5 +45,17 @@ namespace FallLady.Mood.Application.Contract.Mappers.Blogs
                 Picture = model.Picture
             };
         }
+
+        public static BlogDetailDto ToDetailDto(this Blog model)
+        {
+            return new BlogDetailDto()
+            {
+                Id = model.Id,
+                Title = model.Title,
+                TextBody = model.TextBody,
+                Picture = model.Picture,
+                AuthorName = model.Author.FirstName + " " + model.Author.LastName
+            };
+        }
     }
 }

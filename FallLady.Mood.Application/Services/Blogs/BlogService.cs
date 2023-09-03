@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using FallLady.Mood.Domain.Domain.Blogs;
 using FallLady.Mood.Application.Contract.Mappers.Blogs;
 using Microsoft.EntityFrameworkCore;
+using FallLady.Mood.Application.Contract.Dto.Course;
 
 namespace FallLady.Mood.Application.Services.Blogs
 {
@@ -52,6 +53,22 @@ namespace FallLady.Mood.Application.Services.Blogs
                 var data = _repository.GetQuerable()
                                       .Include(x => x.Author);
                 result.SetData(data.ToDto());
+            }
+            catch (Exception ex)
+            {
+                result.SetException(ex.Message);
+            }
+
+            return result;
+        }
+
+        public async Task<ServiceResponse<BlogDetailDto>> GetBlogDetails(int blogId)
+        {
+            var result = new ServiceResponse<BlogDetailDto>();
+            try
+            {
+                var data = await _repository.Get(blogId);
+                result.SetData(data.ToDetailDto());
             }
             catch (Exception ex)
             {
@@ -132,5 +149,6 @@ namespace FallLady.Mood.Application.Services.Blogs
 
             return result;
         }
+
     }
 }
