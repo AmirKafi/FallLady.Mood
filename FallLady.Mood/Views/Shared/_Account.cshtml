@@ -8,25 +8,42 @@
         @if (User.Identity.IsAuthenticated)
         {
 
+            <li>
+                <a asp-action="Index" asp-area="Admin" class="btn">
+                    <img src="~/Content/svgs/profile.svg" class="menu-icon" />
+                    <span class="theme-cl">@User.Claims.First(x=> x.Type == "UserFullName").Value.ToString()</span> خوش آمدید
+                </a>
+                <ul class="nav-dropdown nav-submenu">
+                    <li>
+                        <a asp-action="Index" asp-area="Admin" class="btn">
+                            <img src="~/Content/svgs/accessibility-1.svg" class="menu-icon" />
+                            پنل کاربری
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" data-url="@Url.Action("SignOut","Account")" class="btn signOut">
+                            <img src="~/Content/svgs/exit.svg" class="menu-icon" />
+                            خروج
+                        </a>
+                    </li>
+                </ul>
+            </li>
             if (User.HasClaim("UserRole", "Admin"))
             {
-                <li class="login_click bg-red">
-                    <a asp-action="Index" asp-area="Admin" class="btn">ورود به پنل ادمین</a>
+                <li>
+                    <a asp-action="Index" asp-area="Admin" class="btn">
+                        <img src="~/Content/svgs/cogwheel.svg" class="menu-icon" />
+                        ورود به پنل ادمین
+                    </a>
                 </li>
             }
-
-            <li class="login_click bg-red">
-                <a href="javascript:void(0)" data-url="@Url.Action("SignOut","Account")" class="btn signOut">خروج</a>
-            </li>
-
-
         }
         else
         {
-            <li class="login_click bg-red">
+            <li>
                 <a href="javascript:void(0)" data-url="@Url.Action("Login","Account")" data-dialog-mode="medium" class="btn modalRaw">ورود</a>
             </li>
-            <li class="login_click bg-blue">
+            <li>
                 <a href="javascript:void(0)" data-url="@Url.Action("Register","Account")" data-dialog-mode="large" class="btn modalRaw">ثبت نام</a>
             </li>
         }

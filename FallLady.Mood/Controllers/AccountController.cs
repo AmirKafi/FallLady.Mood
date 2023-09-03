@@ -66,7 +66,7 @@ namespace FallLady.Mood.Controllers
         [Route("/SignOut")]
         public async Task<ActionResult> SignOut()
         {
-            await _userService.SignOut();
+            await _userService.SignOut(User);
 
             return RedirectToAction("Index", "Home");
         }

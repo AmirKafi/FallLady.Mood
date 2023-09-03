@@ -74,7 +74,7 @@ ul{
     overflow: hidden !important;
 }
 body {
-    background: #ffffff;
+    background: #e6f0e6;
     color: #4d5868;
     font-size: 14px;
     font-family: var(--bs-font-family);
@@ -215,17 +215,17 @@ h3,
 h4,
 h5,
 h6 {
-    color: #202124;
+    color: #253424;
     font-weight: 600;
     text-transform: capitalize;
     font-family: var(--bs-font-family);
 }
-.cl_2{
-	color:#242f65;
+.cl_2 {
+    color: #253424 !important;
 }
 h5,
 h6 {
-	color:#202124;  
+    color: #253424;
 }
 
 .font-2 {
@@ -291,11 +291,11 @@ html body .db {
 .circle {
   border-radius: 100%; }
 
-.theme-cl{
-	color:#da0b4e;
+.theme-cl {
+    color: #5f865d;
 }
-.theme-bg{
-	background:#da0b4e;
+.theme-bg {
+    background: #5f865d;
 }
 .devided {
     position: relative;
@@ -696,8 +696,8 @@ div[data-overlay] h5,
 div[data-overlay] h6 {
   color: #fff;
 }
-div[data-overlay] p{
-  color: #fff;
+div[data-overlay] p {
+    color: #80a67f;
 }
 .parallax {
   overflow: hidden;
@@ -3494,8 +3494,9 @@ nav a {
 }
 
 .header {
-    background:#fff;
-	z-index:4;
+    background: #ABC4AA !important;
+    margin-top:5px;
+    z-index: 4;
 }
 
 .header-top {
@@ -3841,25 +3842,27 @@ nav a {
 .nav-menu.nav-menu-social>li.login_click.bg-white a{
     color:#333333 !important;
 }
-.header.header-fixed{
-    box-shadow: 0 5px 30px rgba(0, 22, 84, 0.1);
-    -webkit-box-shadow: 0 5px 30px rgba(0, 22, 84, 0.1);
-    background: #ffffff;
-    position: fixed;
-    z-index: 999;
-    width: 100%;
-    top: 0;
-    -webkit-transition: 0.2s ease-in;
-    -o-transition: 0.2s ease-in;
-    transition: 0.2s ease-in;
-    -webkit-animation-duration: 0.5s;
-    animation-duration: 0.5s;
-    -webkit-animation-name: slideInDown;
-    animation-name: slideInDown;
-}
+    .header.header-fixed {
+        box-shadow: 0 5px 30px rgba(0, 22, 84, 0.1);
+        -webkit-box-shadow: 0 5px 30px rgba(0, 22, 84, 0.1);
+        background: #ffffff;
+        position: fixed;
+        z-index: 999;
+        width: 100%;
+        top: 0;
+        -webkit-transition: 0.2s ease-in;
+        -o-transition: 0.2s ease-in;
+        transition: 0.2s ease-in;
+        -webkit-animation-duration: 0.5s;
+        animation-duration: 0.5s;
+        -webkit-animation-name: slideInDown;
+        animation-name: slideInDown;
+        border-radius: 3rem !important;
+    }
 .header.head-shadow{
     box-shadow: 0 5px 30px rgba(0, 22, 84, 0.1);
     -webkit-box-shadow: 0 5px 30px rgba(0, 22, 84, 0.1);
+    border-radius:3rem !important;
 }
 .nav-menu.nav-menu-social>li.login_click a {
     top: -10px;
@@ -8414,7 +8417,7 @@ span.payment_status.cancel {
     padding: .75rem 1rem;
     margin-bottom: 1rem;
     list-style: none;
-    background-color: #ffffff;
+    background-color: transparent;
     border-radius: .25rem;
     box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.09);
 }
@@ -8669,9 +8672,9 @@ footer{
 	padding-top:60px;
 	position:relative;
 }
-footer.dark-footer{
-	background:#252c41;
-}
+    footer.dark-footer {
+        background: #1e2b1e;
+    }
 .footer-logo {
     padding: 20px 0;
     display: inline-block;
@@ -8770,8 +8773,8 @@ footer.skin-dark-footer .footer-widget ul li a:hover, footer.skin-dark-footer .f
     border-top: 1px solid #e9edf3;
 }
 .skin-dark-footer .footer-bottom {
-    background:#1b2132;
-	border-top:none;
+    background: #1e2b1e;
+    border-top: none;
 }
 ul.footer-bottom-social {
     margin: 0;
@@ -9253,7 +9256,7 @@ a.btn.btn-video span {
     max-width: 160px;
 }
 span.theme-cl-2 {
-    color: #2196f3;
+    color: #5f865d;
 }
 
 /*------------- Working Process ------------*/
@@ -10215,4 +10218,14 @@ button.btn.btn-outline-success.m-1 {
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
     float: left;
+}
+
+.education_block_list_layout:hover, .education_block_list_layout:focus {
+    box-shadow: 0px 0px 20px rgba(0,0,0,.200);
+}
+.instructor_wrap:hover, .instructor_wrap:focus {
+    box-shadow: 0px 0px 20px rgba(0,0,0,.200);
+}
+.articles_grid_style:hover, .articles_grid_style:focus {
+    box-shadow: 0px 0px 20px rgba(0,0,0,.200);
 }

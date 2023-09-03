@@ -10,12 +10,12 @@ namespace FallLady.Mood.Application.Contract.Dto.Course
 {
     public class CourseDto:BaseDto
     {
-        public int TeacherId { get; set; }
-        public int CategoryId { get; set; }
-        public string Title { get; set; }
-        public CourseTypeEnum CourseType { get; set; }
-        public float Price { get; set; }
-        public string Description { get; set; }
+        public int? TeacherId { get; set; }
+        public int? CategoryId { get; set; }
+        public string? Title { get; set; }
+        public CourseTypeEnum? CourseType { get; set; }
+        public float? Price { get; set; }
+        public string? Description { get; set; }
     }
 
 }

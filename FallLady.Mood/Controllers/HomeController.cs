@@ -47,7 +47,7 @@ namespace FallLady.Mood.Controllers
         {
             var model = new HomeItemsDto();
 
-            
+            var x = User.Claims;
 
             //Category
             var category = await _categoryService.LoadCategories().ConfigureAwait(false);

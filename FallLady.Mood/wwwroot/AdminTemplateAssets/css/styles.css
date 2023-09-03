@@ -19741,7 +19741,7 @@ textarea.form-control-lg {
     }
 
     #main-wrapper[data-layout=vertical][data-header-position=fixed] .app-header {
-        width: 79% !important
+        width: 85% !important
     }
 
     #main-wrapper[data-layout=vertical][data-sidebartype=full] .body-wrapper {

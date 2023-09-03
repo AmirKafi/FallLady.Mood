@@ -86,6 +86,7 @@ builder.Services.ConfigureApplicationCookie(option =>
     option.ExpireTimeSpan = TimeSpan.FromHours(170);
     option.LoginPath = "/Login";
     option.SlidingExpiration = true;
+    
 });
 
 var app = builder.Build();

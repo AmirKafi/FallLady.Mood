@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-lg-12 col-md-12">
                 <div class="breadcrumbs-wrap">
-                    @if (ViewBag.CourseType == CourseTypeEnum.Online)
+                    @if (ViewBag.CourseType == CourseTypeEnum.Offline)
                     {
                         <h1 class="breadcrumb-title">لیست دوره های مجازی</h1>
                     }
@@ -20,7 +20,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">دوره ها</a></li>
-                            @if (ViewBag.CourseType == CourseTypeEnum.Online)
+                            @if (ViewBag.CourseType == CourseTypeEnum.Offline)
                             {
                                 <li class="breadcrumb-item active" aria-current="page">دوره های مجازی</li>
                             }

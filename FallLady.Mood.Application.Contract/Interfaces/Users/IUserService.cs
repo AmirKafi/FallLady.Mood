@@ -9,7 +9,7 @@ namespace FallLady.Mood.Application.Contract.Interfaces.Users
     {
         Task<ServiceResponse<List<UserListDto>>> LoadUsers(UserDto dto);
         Task<ServiceResponse<SignInResult>> Login(string username, string password);
-        Task SignOut();
+        Task SignOut(ClaimsPrincipal principal);
         Task<ServiceResponse<IdentityResult>> AddUser(UserCreateDto dto);
         Task<ServiceResponse<UserUpdateDto>> GetUser(string userId);
         Task<ServiceResponse<UserUpdateDto>> GetUser(ClaimsPrincipal principal);

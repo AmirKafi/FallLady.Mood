@@ -13210,7 +13210,7 @@ button.toast-close-button {
 header.app-header {
     background: var(--bs-admin-theme);
     border-radius: 13px !important;
-    margin-top: 0.6%;
+    margin-top: 0.5%;
     width: 85% !important;
     margin-left: 8px !important;
 }
@@ -13510,4 +13510,9 @@ aside.left-sidebar {
 .fab {
     font-size: 2rem;
     padding: 0.5rem;
+}
+
+.menu-icon {
+    width: 15px;
+    height: 15px;
 }

@@ -10,20 +10,20 @@
         <div class="education_block_list_layout">
 
             <div class="education_block_thumb n-shadow">
-                <a href="course-detail.html"><img src="@item.FilePath" class="img-fluid" alt=""></a>
+                <a href="/CourseDetails?courseId=@item.Id"><img src="@item.FilePath" class="img-fluid" alt=""></a>
             </div>
 
             <div class="list_layout_ecucation_caption">
 
                 <div class="education_block_body">
-                    <h4 class="bl-title"><a href="course-detail.html">@item.Title</a></h4>
+                    <h4 class="bl-title"><a href="/CourseDetails?courseId=@item.Id">@item.Title</a></h4>
                     <div class="cources_price">@item.Price تومان</div>
                 </div>
 
                 <div class="education_block_footer mt-3">
                     <div class="education_block_author">
-                        <div class="path-img"><a href="instructor-detail.html"><img src="@item.TeacherFilePath" class="img-fluid" alt=""></a></div>
-                        <h5><a href="instructor-detail.html">@item.TeacherName</a></h5>
+                        <div class="path-img"><a href="#"><img src="@item.TeacherFilePath" class="img-fluid" alt=""></a></div>
+                        <h5><a href="#">@item.TeacherName</a></h5>
                     </div>
                     <div class="cources_info_style3">
                         <ul>

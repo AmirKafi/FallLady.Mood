@@ -38,6 +38,7 @@ namespace FallLady.Mood.Application.Services.Users
             {
                 var model = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == username);
                 await _userManager.AddClaimAsync(model, new Claim("UserRole", model.Role.ToString()));
+                await _userManager.AddClaimAsync(model, new Claim("UserFullName", model.FirstName + " " + model.LastName));
                 var user = await _signInManager.PasswordSignInAsync(username, password, true, true);
                 if (!user.Succeeded)
                     throw new Exception("نام کاربری یا کلمه عبور اشتباه است");
@@ -76,7 +77,7 @@ namespace FallLady.Mood.Application.Services.Users
                 GuardAgainstPasswordConflict(dto.Password, dto.ConfirmPassword);
                 var model = dto.ToModel();
                 var user = await _userManager.CreateAsync(dto.ToModel(), dto.Password);
-                await _userManager.AddToRoleAsync(model,model.Role.ToString());
+                await _userManager.AddToRoleAsync(model, model.Role.ToString());
                 if (user.Succeeded)
                     result.SetData(user);
                 else
@@ -155,7 +156,7 @@ namespace FallLady.Mood.Application.Services.Users
                 if (user is null)
                     throw new Exception("کاربر مورد نظر یافت نشد");
 
-                await _userManager.RemoveFromRoleAsync(user,user.Role.ToString());
+                await _userManager.RemoveFromRoleAsync(user, user.Role.ToString());
 
                 user.Update(dto.UserName,
                             dto.FirstName,
@@ -201,8 +202,12 @@ namespace FallLady.Mood.Application.Services.Users
             return result;
         }
 
-        public async Task SignOut()
+        public async Task SignOut(ClaimsPrincipal principal)
         {
+            var user = await _userManager.GetUserAsync(principal);
+
+            await _userManager.RemoveClaimsAsync(user, principal.Claims);
+
             await _signInManager.SignOutAsync();
         }
 

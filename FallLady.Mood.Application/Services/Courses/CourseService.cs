@@ -34,7 +34,10 @@ namespace FallLady.Mood.Application.Services.Courses
             try
             {
                 var data = await _repository.GetList(dto.offset, dto.limit);
-                result.SetData(data.ToDto());
+                if (dto.CourseType.HasValue)
+                    result.SetData(data.ToDto().Where(x=> x.CourseType == dto.CourseType).ToList());
+                else
+                    result.SetData(data.ToDto());
             }
             catch (Exception ex)
             {
