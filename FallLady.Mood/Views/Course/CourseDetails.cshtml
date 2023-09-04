@@ -1,6 +1,6 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@{
+    ViewData["Title"] = Model.Title;
+}
 @model FallLady.Mood.Application.Contract.Dto.Course.CourseDetailsDto
 @{
     var rnd = new Random();
@@ -49,30 +49,21 @@
 
                 <!-- Course info -->
                 <div class="ed_view_box style_3 border py-3">
-                    <div class="user-access">
-                        @if (Model.IsCurrentUserFavourite)
-                        {
-                            <a href="#" class="remove-fav"><i class="glyphicon glyphicon-heart ml-2"></i></a>
-                        }
-                        else
-                        {
-                            <a href="#" class="add-fav"><i class="glyphicon glyphicon-heart-empty ml-2"></i></a>
-                        }
-                        <a href="#"><i class="ti-shopping-cart ml-2"></i></a>
-                    </div>
-
                     <div class="ed_view_price pr-4">
                         <span>قیمت</span>
                         <h2 class="theme-cl mb-0">@Model.Price تومان</h2>
                     </div>
 
                     <div class="p-4">
-                        <h5 class="edu_title">ویژگی های دوره</h5>
                         <ul class="edu_list right">
-                            <li><i class="ti-user"></i>شرکت کنندگان:<strong>1740 نفر</strong></li>
                             <li><i class="ti-shine"></i>نوع دوره:<strong>@Model.CourseTypeTitle</strong></li>
                         </ul>
                     </div>
+
+                    <div class="ed_view_link pb-3">
+                        <a href="#" class="btn btn-success enroll-btn">افزودن به سبد خرید<i class="ti-shopping-cart"></i></a>
+                    </div>
+
                     <div class="px-4 pt-4 pb-0 b-t">
                         <h5 class="mb-3">مدرس</h5>
                         <div class="ins_info">

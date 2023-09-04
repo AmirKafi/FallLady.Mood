@@ -15,6 +15,7 @@ namespace FallLady.Mood.Application.Contract.Interfaces.Users
         Task<ServiceResponse<UserUpdateDto>> GetUser(ClaimsPrincipal principal);
         Task<ServiceResponse<string>> GetUserId(ClaimsPrincipal principal);
         Task<ServiceResponse<bool>> UpdateUser(UserUpdateDto dto);
+        Task<ServiceResponse<bool>> ChangePassword(ChangePasswordDto dto);
         Task<ServiceResponse<bool>> Delete(string userId);
     }
 }

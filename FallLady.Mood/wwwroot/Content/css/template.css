@@ -8473,10 +8473,10 @@ span.payment_status.cancel {
     display: inline-block;
     /*font-weight: 600;*/
 }
-.d-navigation ul li.active>a, .d-navigation ul li a:hover, .d-navigation ul li a:focus {
-    color:#da0b4e !important;
-    background:rgba(218,11,78,0.1);; 
-}
+    .d-navigation ul li.active > a, .d-navigation ul li a:hover, .d-navigation ul li a:focus {
+        color: #ABC4AA !important;
+        background: #e6f0e6;
+    }
 .d-navigation ul li a i{
 	margin-left:10px;
 }

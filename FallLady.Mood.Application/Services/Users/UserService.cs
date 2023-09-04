@@ -180,6 +180,32 @@ namespace FallLady.Mood.Application.Services.Users
             return result;
         }
 
+
+        public async Task<ServiceResponse<bool>> ChangePassword(ChangePasswordDto dto)
+        {
+            var result = new ServiceResponse<bool>();
+            try
+            {
+                GuardAgainstPasswordConflict(dto.NewPassword, dto.ConfirmNewPassword);
+
+                var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == dto.UserId);
+                if (user is null)
+                    throw new Exception("کاربر مورد نظر یافت نشد");
+
+                var res = await _userManager.ChangePasswordAsync(user,dto.OldPassword,dto.NewPassword);
+                if (res.Succeeded)
+                    result.SetData(true);
+                else
+                    result.SetException(string.Join("<br/>", res.Errors.Select(x => x.Description).ToList()));
+            }
+            catch (Exception ex)
+            {
+                result.SetException(ex.Message);
+            }
+
+            return result;
+        }
+
         public async Task<ServiceResponse<bool>> Delete(string userId)
         {
             var result = new ServiceResponse<bool>();

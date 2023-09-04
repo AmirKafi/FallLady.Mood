@@ -62,6 +62,27 @@ namespace FallLady.Mood.Controllers
             return Json(user);
         }
 
+        [HttpGet]
+        [Route("/ChangePassword")]
+        public async Task<ActionResult> ChangePassword()
+        {
+            var userId = await _userService.GetUserId(User);
+
+            var model = new ChangePasswordDto();
+            model.UserId = userId.Data;
+
+            return PartialView(model);
+        }
+
+        [HttpPost]
+        [Route("/ChangePassword")]
+        public async Task<ActionResult> ChangePassword(ChangePasswordDto dto)
+        {
+            var user = await _userService.ChangePassword(dto);
+
+            return Json(user);
+        }
+
         [HttpPost]
         [Route("/SignOut")]
         public async Task<ActionResult> SignOut()

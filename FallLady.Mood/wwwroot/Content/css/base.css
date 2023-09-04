@@ -13226,7 +13226,7 @@ nav.sidebar-nav.scroll-sidebar {
     border-radius: 13px;
     margin-top: 5px;
     overflow: overlay;
-    height:100%;
+    height: 100%;
 }
 
 .btn-group.bootstrap-select.form-control {
@@ -13481,12 +13481,18 @@ aside.left-sidebar {
     background: transparent;
 }
 
+@media (max-width: 768px) {
+
+    .centerImg {
+        display: none;
+    }
+}
+
 .centerImg {
     max-width: 100%;
     max-height: 75vh;
     margin: auto;
 }
-
 
 .fa-instagram,
 .fa-telegram {
@@ -13517,83 +13523,13 @@ aside.left-sidebar {
     height: 15px;
 }
 
-
-
-.accordion {
-    border-radius: 3px !important;
-    width: 400px !important;
-    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px !important;
-    background: #151515 !important;
-    color: white !important;
-    overflow: hidden !important;
-    transition: height 225ms ease !important;
-    cursor: pointer !important;
-}
-
-.accordion-header {
-    border-bottom: 2px solid #ccc !important;
-    position: relative !important;
-    z-index: 2 !important;
-}
-
-.accordion-header-content {
-    padding: 10px !important;
-    overflow: hidden !important;
-    position: relative !important;
-    display: flex !important;
-    flex-direction: column !important;
-}
-
-.accordion-header-content-label {
-    color: #ccc !important;
-}
-
-.accordion-header-content-title {
-    margin-top: 10px !important;
-}
-
-.accordion-content {
-    padding: 10px !important;
-    overflow: hidden !important;
-    transition: 225ms !important;
-    transition-delay: 225ms !important;
-    position: relative !important;
-}
-
-/* accordion open effect set height for accordion */
-
-.accordion:not([open]) {
-    height: 75px !important;
-}
-
-.accordion[open] {
-    height: 230px !important;
-}
-
-/* remove marker */
-
-details > summary {
-    list-style: none !important;
-}
-
-    details > summary::-webkit-details-marker {
-        display: none !important;
-    }
-
-/* custom marker */
-
-summary::after {
-    content: '+' !important;
-    position: absolute !important;
-    top: 10px !important;
-    right: 10px !important;
-    font-size: 26px !important;
-    font-weight: normal !important;
-}
-
-details[open] summary::after {
-    content: '-' !important;
-    font-size: 46px !important;
-    font-weight: 300 !important;
-    top: -5px !important;
+.accordion-menu {
+    display: inline-block;
+    position: relative;
+    left: 50%;
+    margin: 150px 0;
+    transform: translate(-50%, 0);
+    max-width: 300px;
+    padding: 10px 20px 20px;
+    border-radius: 5px;
 }
