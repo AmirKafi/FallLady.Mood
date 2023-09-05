@@ -923,7 +923,7 @@ html body .text-themecolor {
         display: block;
     }
 .lists-4.color li:before, .lists-3.color li:before, .lists-2.color li:before, .lists-1.color li:before{
-	color:#D70040;
+	color:#5f865d;
 }
 .lists-1 li:before {
     content: "\e71c";
@@ -1230,7 +1230,7 @@ label.btn {
 }
 .btn-group .btn-secondary .nav-link.active, .btn-group .btn-secondary .nav-link:hover, .btn-group .btn-secondary .nav-link:focus {
     color:#fff;
-    background-color:#D70040 !important;
+    background-color:#5f865d !important;
 }
 
 /*------------- GLobal Settings: Badge ----------------*/
@@ -2357,7 +2357,7 @@ outline:none;
 	color:#ffffff;
 }
 .color-heading .sec-heading h2{
-    color: #D70040;	
+    color: #5f865d;	
 }
 .sec-heading p {
     margin-bottom: 0;
@@ -3040,7 +3040,7 @@ nav a:hover {
 .nav-menu>.active>a,
 .nav-menu>.focus>a,
 .nav-menu>li:hover>a {
-    color: #D70040 !important;
+    color: #5f865d !important;
 }
 
 .nav-menu>li>a>[class*=ion-], .nav-menu>li>a>i {
@@ -3128,7 +3128,7 @@ nav a:hover {
 .nav-menu>.active>a .submenu-indicator-chevron,
 .nav-menu>.focus>a .submenu-indicator-chevron,
 .nav-menu>li:hover>a .submenu-indicator-chevron {
-    border-color: transparent #D70040 #D70040 transparent
+    border-color: transparent #5f865d #5f865d transparent
 }
 
 .navigation-portrait .submenu-indicator.submenu-indicator-up {
@@ -3213,7 +3213,7 @@ nav a:hover {
 }
 
 .nav-search-button:hover .nav-search-icon {
-    color: #D70040
+    color: #5f865d
 }
 
 .navigation-portrait .nav-search-button {
@@ -3300,7 +3300,7 @@ nav a:hover {
     color: #fff;
     text-align: center;
     border-radius: 4px;
-    background-color: #D70040;
+    background-color: #5f865d;
     transition: opacity .3s
 }
 
@@ -3400,7 +3400,7 @@ nav a:hover {
 }
 .nav-dropdown>li>a:hover, .nav-dropdown>li>a:focus {
     padding-right: 20px;
-	color: #D70040;
+	color: #5f865d;
 }
 .social-icon a i,
 .social-icons a i {
@@ -3477,7 +3477,7 @@ nav a {
 
 .nav-dropdown>.focus>a .submenu-indicator-chevron,
 .nav-dropdown>li:hover>a .submenu-indicator-chevron {
-    border-color: transparent #D70040 #D70040 transparent
+    border-color: transparent #5f865d #5f865d transparent
 }
 
 .navigation-landscape .nav-dropdown-left .submenu-indicator {
@@ -3942,7 +3942,7 @@ nav a {
     color: #404656;
 }
 .header-transparent.dark-text .nav-menu>li>a:hover, .header-transparent.dark-text .nav-menu>li>a:focus {
-    color:#D70040;
+    color:#5f865d;
 }
 }
 
@@ -6353,9 +6353,9 @@ a.btn-br-more {
     right: 20px;
     text-align: center;
     font-size: 15px;
-    border-radius: 4px;
+    border-radius: 1rem;
     text-decoration: none;
-    background: #333c56;
+    background: #ABC4AA;
     color: #fff;
 }
 /*------------- Accordion ---------------*/
@@ -6967,7 +6967,7 @@ a.elio_right {
 }
 .recommended .packages_bottombody .btn-pricing {
     background: #ffffff !important;
-    color: #D70040 !important;
+    color: #5f865d !important;
 }
 /*-------------- Sidebar -----------*/
 .single_widgets {
