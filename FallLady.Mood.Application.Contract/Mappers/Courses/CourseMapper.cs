@@ -86,6 +86,7 @@ namespace FallLady.Mood.Application.Contract.Mappers.Courses
         {
             return new CourseDetailsDto()
             {
+                CourseId = model.Id,
                 Title = model.Title,
                 CourseType = model.CourseType,
                 Price = model.Price,
@@ -99,7 +100,7 @@ namespace FallLady.Mood.Application.Contract.Mappers.Courses
                 EventDays = string.Join(',', model.EventDays.Select(x => ((WeekDaysEnum)x.WeekDayId).GetDisplayName()).ToList()),
                 Tags = model.Tags is null ? new List<string>() : model.Tags.Select(x => x.Title).ToList(),
                 TeacherFileName = model.Teacher.FileName,
-                CategoryTitle = model.Category.Title,
+                CategoryTitle = model.Category is null ? "" : model.Category.Title,
                 TeacherName = model.Teacher.FullName,
                 CreatedOn = model.CreatedOn
             };

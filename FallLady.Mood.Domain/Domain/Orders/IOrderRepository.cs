@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FallLady.Mood.Domain.Domain.Orders
 {
-    public interface IOrderRepository : IReadRepository<Order, int>, IWriteRepository<Order, int>, IQueryRepository<Order, int>
+    public interface IOrderRepository : IReadRepository<Order, int>, IWriteRepository<Order, int>, IQueryRepository<Order, int>,IDeleteRepository<Order,int>
     {
     }
 }

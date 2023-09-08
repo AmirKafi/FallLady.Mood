@@ -130,7 +130,6 @@ window.messageReadEvents = {
     }
 }
 
-
 $(document).on("click", ".btn-sendMessage", function (e) {
     var $btnSave;
     $btnSave = $(this);
@@ -173,6 +172,126 @@ $(document).on("click", ".btn-sendMessage", function (e) {
         window.gotoErrorModal();
     }
 });
+//#endregion
+
+//#region Courses
+
+$(document).on("click", ".btn-addToCart", function (e) {
+    var $btn;
+    $btn = $(this);
+
+    $btn.prop("disabled", true);
+    $.ajax({
+        url: $btn.data("url"),
+        method: "POST",
+        data: {
+            orderType: "Course",
+            orderItemId: $(".course-details #CourseId").val()
+        },
+    }).done(function (data, textStatus, jqXHR) {
+        var _ref3;
+        autoDestroyToastr();
+        if (data.resultStatus !== 1 && data.resultStatus !== -2) {
+            toastr["error"]((_ref3 = data.message) != null ? _ref3 : resource.exception.saveError);
+            return;
+        }
+        toastr["success"](resource.message.saveSuccess);
+    }).fail(function (msg) {
+        autoDestroyToastr();
+        content = msg.status === 403 ? msg.statusText : "Error";
+        if (content === "Error") {
+            toastr["error"](resource.exception.addError);
+            return;
+        }
+        if (content === "Forbidden") {
+            toastr["error"](resource.exception.addForbidden);
+            return;
+        }
+    }).always(function () {
+        $btn.prop("disabled", false);
+        manuallyDestroyToastr();
+    });
+});
+
+//#endregion
+
+//#region Orders
+
+window.orderAjaxRequest = function (params) {
+    var additionalParams;
+    params.type = "post";
+    params.data.__RequestVerificationToken = $("input[name=__RequestVerificationToken]").val();
+    params.url = $table.data("url");
+    params.contentType = "application/x-www-form-urlencoded; charset=UTF-8";
+    additionalParams = window.$table.data("additionalParams");
+    setTimeout(function () {
+        $.ajax(params).done(function (data, textStatus, jqXHR) {
+            var objects, _ref;
+
+            if (data.resultStatus !== 1 && data.resultStatus !== -2) {
+                toastr["error"]((_ref3 = data.message) != null ? _ref3 : resource.exception.saveError);
+                return;
+            }
+
+            objects = {
+                total: data.total,
+                rows: data.data
+            };
+            window.$table.bootstrapTable('load', objects);
+
+            let totalPrice = 0.0, discountPrice = 0.0, payablePrice = 0.0;
+
+            discountPrice = parseFloat($(".order-list #DiscountPrice").html());
+
+            _.each(data.data, function (item) {
+                totalPrice += item.totalPrice;
+            });
+            payablePrice = totalPrice - discountPrice;
+
+            $(".order-list #DiscountPrice").html(window.separateThreeDigit(discountPrice))
+            $(".order-list #TotalPrice").html(window.separateThreeDigit(totalPrice));
+            $(".order-list #PayablePrice").html(window.separateThreeDigit(payablePrice));
+
+
+        }).fail(function (msg) {
+            toastr["error"](msg.status === 403 ? resource.exception.forbidden : resource.exception.serverError);
+        }).always(function () { });
+    }, 313);
+};
+
+$(document).on("click", ".removeAllOrders", function (e) {
+    var $btn;
+    $btn = $(this);
+
+    $btn.prop("disabled", true);
+    $.ajax({
+        url: $btn.data("url"),
+        method: "POST",
+    }).done(function (data, textStatus, jqXHR) {
+        var _ref3;
+        autoDestroyToastr();
+        if (data.resultStatus !== 1 && data.resultStatus !== -2) {
+            toastr["error"]("متاسفانه عملیات با خطا مواجه شد");
+            return;
+        }
+        toastr["success"](resource.message.success);
+        window.$table.bootstrapTable("refresh", {
+            silent: true,
+            pageNumber: 1
+        });
+    }).fail(function (msg) {
+        autoDestroyToastr();
+        content = msg.status === 403 ? msg.statusText : "Error";
+        if (content === "Error") {
+            toastr["error"]("متاسفانه عملیات با خطا مواجه شد");
+            return;
+        }
+    }).always(function () {
+        $btn.prop("disabled", false);
+        manuallyDestroyToastr();
+    });
+});
+
 //#endregion
 
 $(document).on("click", ".btn-login", function (e) {

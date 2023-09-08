@@ -39,6 +39,21 @@ window.bootbox = function (size) {
         size: size != null ? size : "small"
     });
 };
+
+
+$(document).on("keyup", "input[type=text].price", function () {
+    $(this).val(window.separateThreeDigit($(this).val()));
+});
+
+window.separateThreeDigit = function (value) {
+    if (value === 0)
+        return 0;
+
+    return value.toString()
+        .replace(/\D/g, "")
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 window.inputmasks = function () {
     $(".nationalityCode").inputmask({
         "mask": "9999999999",
@@ -82,7 +97,7 @@ window.inputmasks = function () {
     });
 
     $(".price").inputmask("Regex", {
-        regex: "[0-9]*",
+        regex: "[0-9-,]*",
         scale: 3
     });
 
@@ -292,3 +307,6 @@ window.showImageEvents = {
     }
 }
 
+window.showImgFormatter = function (picturePath, row) {
+    return "<div class='tb_course_thumb'><img class='img-fluid' src='" + picturePath + "'></div>";
+}

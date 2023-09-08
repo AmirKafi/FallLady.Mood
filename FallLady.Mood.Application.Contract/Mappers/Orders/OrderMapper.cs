@@ -18,7 +18,8 @@ namespace FallLady.Mood.Application.Contract.Mappers.Orders
                              dto.CourseId,
                              dto.IsPayed,
                              dto.Qty,
-                             dto.Price);
+                             dto.Price,
+                             dto.UserId);
         }
 
         public static List<OrderListDto> ToDto(this List<Order> model)

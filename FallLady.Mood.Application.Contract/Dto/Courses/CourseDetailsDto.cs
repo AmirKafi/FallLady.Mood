@@ -6,10 +6,11 @@ namespace FallLady.Mood.Application.Contract.Dto.Course
 {
     public class CourseDetailsDto
     {
+        public int CourseId { get; set; }
         public string Title { get; set; }
         public CourseTypeEnum CourseType { get; set; }
         public string? CourseTypeTitle => CourseType.GetDisplayName();
-        public float Price { get; set; }
+        public decimal Price { get; set; }
         public string Description { get; set; }
 
         public TimeOnly? FromTime { get; set; }

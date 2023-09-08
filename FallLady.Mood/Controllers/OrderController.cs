@@ -1,0 +1,106 @@
+﻿using FallLady.Mood.Application.Contract.Dto.Orders;
+using FallLady.Mood.Application.Contract.Interfaces.Course;
+using FallLady.Mood.Application.Contract.Interfaces.Orders;
+using FallLady.Mood.Application.Contract.Interfaces.Users;
+using FallLady.Mood.Controllers.Base;
+using FallLady.Mood.Framework.Core.Enum;
+using FallLady.Mood.Utility.ServiceResponse;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
+
+namespace FallLady.Mood.Controllers
+{
+    public class OrderController : BaseController
+    {
+        #region Constructor
+        private readonly IOrderService _orderService;
+        private readonly IUserService _userService;
+        private readonly ICourseService _courseService;
+        private readonly IMemoryCache _cache;
+
+        public OrderController(IOrderService orderService, IUserService userService, ICourseService courseService, IMemoryCache cache)
+        {
+            _orderService = orderService;
+            _userService = userService;
+            _courseService = courseService;
+            _cache = cache;
+        }
+        #endregion
+
+        public async Task<ActionResult> Index()
+        {
+
+            return View();
+        }
+
+        public async Task<ActionResult> LoadOrders()
+        {
+
+            var userId = await _userService.GetUserId(User);
+            var model = await _orderService.LoadOrders(userId.Data).ConfigureAwait(false);
+
+            foreach (var item in model.Data)
+            {
+                if (item.OrderType == FormEnum.Course)
+                {
+                    item.Course.FilePath = GetFileUrl(item.Course.FileName, FileFoldersEnum.Course);
+                }
+            }
+
+            var result = new ServiceResponse<List<OrderItemsDto>>();
+            result.SetData(model.Data.Select(x => new OrderItemsDto()
+            {
+                OrderId = x.Id,
+                Price = x.Price,
+                Qty = x.Qty,
+                Title = x.OrderType == FormEnum.Course ? x.Course.Title : "",
+                TotalPrice = x.TotalPrice,
+                PicturePath = x.OrderType == FormEnum.Course ? GetFileUrl(x.Course.FileName,FileFoldersEnum.Course) : ""
+            }).ToList());
+
+            return Json(result);
+        }
+
+        [Route("/AddOrder")]
+        [HttpPost]
+        public async Task<ActionResult> AddOrder(FormEnum orderType, int orderItemId)
+        {
+            var dto = new OrderCreateDto();
+
+            var userId = await _userService.GetUserId(User);
+            if (orderType == FormEnum.Course)
+            {
+                dto.OrderType = orderType;
+
+                var course = await _courseService.GetCourse(orderItemId);
+                dto.CourseId = orderItemId;
+                dto.Price = course.Data.Price;
+                dto.Qty = 1;
+            }
+            dto.UserId = userId.Data;
+            var result = await _orderService.AddOrder(dto);
+
+            return Json(result);
+        }
+
+        [Route("/RemoveOrder")]
+        [HttpPost]
+        public async Task<ActionResult> RemoveOrder(int orderId)
+        {
+            var result = await _orderService.RemoveOrder(orderId);
+
+            return Json(result);
+        }
+
+        [Route("/RemoveAllOrders")]
+        [HttpPost]
+        public async Task<ActionResult> RemoveAllOrders()
+        {
+            var userId = await _userService.GetUserId(User).ConfigureAwait(false);
+
+            var result = await _orderService.RemoveAllOrders(userId.Data);
+
+            return Json(result);
+        }
+    }
+}

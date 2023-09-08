@@ -1547,25 +1547,28 @@ a.btn-trans-video i {
 
 .btn-primary,
 .btn-primary.disabled {
-  background:#da0b4e;
-  border: 1px solid #da0b4e;
-  -webkit-transition: 0.2s ease-in;
-  -o-transition: 0.2s ease-in;
-  transition: 0.2s ease-in; 
+    background: #ABC4AA;
+    border-radius:10px;
+    border: 1px solid #ABC4AA;
+    -webkit-transition: 0.2s ease-in;
+    -o-transition: 0.2s ease-in;
+    transition: 0.2s ease-in;
 }
-  
-.btn-primary:hover, .btn-primary.disabled:hover {
-    background: #e05707;
-    border: 1px solid #e05707;
-    color: #ffffff !important;
-}
-	
-.btn-primary.active, .btn-primary:active, .btn-primary:focus,
-.btn-primary.disabled.active,
-.btn-primary.disabled:active,
-.btn-primary.disabled:focus {
-    background: #345bcb;
-}
+
+    .btn-primary:hover, .btn-primary.disabled:hover {
+        background: #e6f0e6 !important;
+        border: 1px solid #ABC4AA !important;
+        color: #ABC4AA !important;
+    }
+
+    .btn-primary.active, .btn-primary:active, .btn-primary:focus,
+    .btn-primary.disabled.active,
+    .btn-primary.disabled:active,
+    .btn-primary.disabled:focus {
+        background: #e6f0e6 !important;
+        border: 1px solid #ABC4AA !important;
+        color: #ABC4AA !important;
+    }
 
 .btn-themecolor,
 .btn-themecolor.disabled {
@@ -1600,9 +1603,10 @@ a.btn-trans-video i {
 
 .btn-success,
 .btn-success.disabled {
-  background:#2ea033;
-  border: 1px solid #2ea033;
-  color: #ffffff;
+    background: #2ea033;
+    border: 1px solid #2ea033;
+    color: #ffffff;
+    border-radius: 10px;
 }
   
 .btn-success:hover,
@@ -8082,11 +8086,11 @@ input.form-control.qty {
 }
 .btn.btn-remove {
     background: #ffffff;
+    border-radius:10px;
     color: #40527b;
     font-weight: 600;
     border: 2px solid #d2daec;
     transition: all ease 0.4s;
-    border-radius: 4px;
 }
 .btn.btn-remove:hover, .btn.btn-remove:focus{
 	color:#ffffff;
@@ -8145,10 +8149,10 @@ ul.cart_list li strong {
     color: #4b577b;
     font-weight: 600;
 }
-.btn.checkout_btn:hover, .btn.checkout_btn:focus {
-    color:#ffffff;
-	background:#da0b4e;
-}
+    .btn.checkout_btn:hover, .btn.checkout_btn:focus {
+        color: #ffffff;
+        background: #ABC4AA !important;
+    }
 .light_form .form-control, .light_form span.select2-selection.select2-selection--single {
     background: #f4f5f7;
 }
@@ -10182,7 +10186,7 @@ ul.cources_facts_list li {
 	font-size: 16px
 }
 .viewer_header ul li, .viewer_location , .viewer_package_status, .wish_price{
-	font-family: vazir
+	font-family: var(--bs-font-family)
 }
 .typography h1{
 	font-size: 40px

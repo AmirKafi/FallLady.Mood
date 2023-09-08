@@ -21,6 +21,12 @@
                         </a>
                     </li>
                     <li>
+                        <a asp-action="Index" asp-area="" asp-controller="Order" class="btn">
+                            <img src="~/Content/svgs/basket.svg" class="menu-icon" />
+                            سبد خرید
+                        </a>
+                    </li>
+                    <li>
                         <a href="javascript:void(0)" data-url="@Url.Action("ChangePassword","Account")" class="btn changePassword">
                             <i class="ti-lock"></i>
                             تغییر کلمه عبور
@@ -34,6 +40,7 @@
                     </li>
                 </ul>
             </li>
+
             if (User.HasClaim("UserRole", "Admin"))
             {
                 <li>

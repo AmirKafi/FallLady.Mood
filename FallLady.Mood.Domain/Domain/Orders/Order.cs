@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace FallLady.Mood.Domain.Domain.Orders
 {
-    public class Order:EntityId<int>
+    public class Order : EntityId<int>
     {
 
-        public Order(FormEnum orderType,int? courseId,bool isPayed,int qty,decimal price)
+        public Order(FormEnum orderType, int? courseId, bool isPayed, int qty, decimal price, string userId)
         {
             OrderType = orderType;
             CourseId = courseId;
@@ -21,6 +21,7 @@ namespace FallLady.Mood.Domain.Domain.Orders
             Qty = qty;
             Price = price;
             TotalPrice = price * qty;
+            UserId = userId;
         }
 
         public FormEnum OrderType { get; set; }
@@ -35,5 +36,21 @@ namespace FallLady.Mood.Domain.Domain.Orders
         public int Qty { get; set; }
         public decimal Price { get; set; }
         public decimal TotalPrice { get; set; }
+
+        public Order AddToOrderQty()
+        {
+            Qty += 1;
+            TotalPrice = Price * Qty;
+
+            return this;
+        }
+
+        public Order RemoveFromOrderQty()
+        {
+            Qty -= 1;
+            TotalPrice = Price * Qty;
+
+            return this;
+        }
     }
 }

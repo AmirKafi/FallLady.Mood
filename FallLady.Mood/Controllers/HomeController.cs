@@ -1,10 +1,12 @@
 ﻿using FallLady.Mood.Application.Contract.Dto;
 using FallLady.Mood.Application.Contract.Dto.Blogs;
+using FallLady.Mood.Application.Contract.Dto.Orders;
 using FallLady.Mood.Application.Contract.Dto.Users;
 using FallLady.Mood.Application.Contract.Interfaces.Blogs;
 using FallLady.Mood.Application.Contract.Interfaces.Categories;
 using FallLady.Mood.Application.Contract.Interfaces.Configs;
 using FallLady.Mood.Application.Contract.Interfaces.Course;
+using FallLady.Mood.Application.Contract.Interfaces.Orders;
 using FallLady.Mood.Application.Contract.Interfaces.Teachers;
 using FallLady.Mood.Application.Contract.Interfaces.Users;
 using FallLady.Mood.Application.Services.Users;
@@ -23,23 +25,20 @@ namespace FallLady.Mood.Controllers
         private readonly ICategoryService _categoryService;
         private readonly ITeacherService _teacherService;
         private readonly ICourseService _courseService;
-        private readonly IUserService _userService;
         private readonly IBlogService _blogService;
-        private readonly IConfigService _configService;
+        private readonly IOrderService _orderService;
 
         public HomeController(ICategoryService categoryService,
                               ITeacherService teacherService,
-                              ICourseService courseService, 
-                              IUserService userService, 
+                              ICourseService courseService,
                               IBlogService blogService,
-                              IConfigService configService)
+                              IOrderService orderService)
         {
             _categoryService = categoryService;
             _teacherService = teacherService;
             _courseService = courseService;
-            _userService = userService;
             _blogService = blogService;
-            _configService = configService;
+            _orderService = orderService;
         }
         #endregion
 

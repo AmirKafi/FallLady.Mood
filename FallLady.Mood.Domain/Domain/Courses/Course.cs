@@ -22,7 +22,7 @@ namespace FallLady.Mood.Domain.Domain.Courses
         }
         public Course(string title,
                       CourseTypeEnum courseType,
-                      float price,
+                      decimal price,
                       string description,
                       string? licenseKey,
                       string fileName,
@@ -67,7 +67,7 @@ namespace FallLady.Mood.Domain.Domain.Courses
         #region Properties
         public string Title { get; private set; }
         public CourseTypeEnum CourseType { get; private set; }
-        public float Price { get; private set; }
+        public decimal Price { get; private set; }
         public string Description { get; private set; }
         public string? LicenseKey { get; private set; }
         public string FileName { get; private set; }
@@ -93,7 +93,7 @@ namespace FallLady.Mood.Domain.Domain.Courses
 
         public Course Update(string title,
                              CourseTypeEnum courseType,
-                             float price,
+                             decimal price,
                              string description,
                              string? licenseKey,
                              string fileName,
