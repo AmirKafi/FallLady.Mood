@@ -1,4 +1,5 @@
 ﻿using FallLady.Mood.Domain.Domain.Courses;
+using FallLady.Mood.Domain.Domain.Discounts;
 using FallLady.Mood.Domain.Domain.Users;
 using FallLady.Mood.Framework.Core;
 using FallLady.Mood.Framework.Core.Enum;
@@ -24,18 +25,22 @@ namespace FallLady.Mood.Domain.Domain.Orders
             UserId = userId;
         }
 
-        public FormEnum OrderType { get; set; }
+        public FormEnum OrderType { get;private set; }
 
-        public Course? Course { get; set; }
-        public int? CourseId { get; set; }
+        public Course? Course { get; private set; }
+        public int? CourseId { get; private set; }
 
-        public User User { get; set; }
-        public string? UserId { get; set; }
+        public User User { get; private set; }
+        public string? UserId { get; private set; }
 
-        public bool IsPayed { get; set; }
-        public int Qty { get; set; }
-        public decimal Price { get; set; }
-        public decimal TotalPrice { get; set; }
+        public bool IsPayed { get; private set; }
+        public int Qty { get; private set; }
+        public decimal Price { get; private set; }
+        public decimal TotalPrice { get; private set; }
+        public decimal PayablePrice => Discount is null ? TotalPrice : TotalPrice - (TotalPrice * (Discount.Precentage / 100));
+
+        public int? DiscountId { get; private set; }
+        public Discount? Discount { get; private set; }
 
         public Order AddToOrderQty()
         {
@@ -50,6 +55,12 @@ namespace FallLady.Mood.Domain.Domain.Orders
             Qty -= 1;
             TotalPrice = Price * Qty;
 
+            return this;
+        }
+
+        public Order SetDiscount(int discountId)
+        {
+            DiscountId = discountId;
             return this;
         }
     }

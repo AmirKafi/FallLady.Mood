@@ -1,5 +1,6 @@
 ﻿using FallLady.Mood.Application.Contract.Dto.Orders;
 using FallLady.Mood.Application.Contract.Interfaces.Course;
+using FallLady.Mood.Application.Contract.Interfaces.Discounts;
 using FallLady.Mood.Application.Contract.Interfaces.Orders;
 using FallLady.Mood.Application.Contract.Interfaces.Users;
 using FallLady.Mood.Controllers.Base;
@@ -17,13 +18,15 @@ namespace FallLady.Mood.Controllers
         private readonly IUserService _userService;
         private readonly ICourseService _courseService;
         private readonly IMemoryCache _cache;
+        private readonly IDiscountService _discountService;
 
-        public OrderController(IOrderService orderService, IUserService userService, ICourseService courseService, IMemoryCache cache)
+        public OrderController(IOrderService orderService, IUserService userService, ICourseService courseService, IMemoryCache cache, IDiscountService discountService)
         {
             _orderService = orderService;
             _userService = userService;
             _courseService = courseService;
             _cache = cache;
+            _discountService = discountService;
         }
         #endregion
 
@@ -99,6 +102,17 @@ namespace FallLady.Mood.Controllers
             var userId = await _userService.GetUserId(User).ConfigureAwait(false);
 
             var result = await _orderService.RemoveAllOrders(userId.Data);
+
+            return Json(result);
+        }
+
+        [Route("/CheckDiscountValidation")]
+        [HttpPost]
+        public async Task<ActionResult> CheckDiscountValidation(string code,int? courseId)
+        {
+            var userId = await _userService.GetUserId(User).ConfigureAwait(false);
+            
+            var result = await _discountService.CheckDiscountValidation(code,userId.Data,courseId);
 
             return Json(result);
         }

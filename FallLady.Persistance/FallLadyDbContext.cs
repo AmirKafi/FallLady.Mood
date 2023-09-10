@@ -2,6 +2,7 @@
 using FallLady.Mood.Domain.Domain.Categories;
 using FallLady.Mood.Domain.Domain.Configs;
 using FallLady.Mood.Domain.Domain.Courses;
+using FallLady.Mood.Domain.Domain.Discounts;
 using FallLady.Mood.Domain.Domain.Favourites;
 using FallLady.Mood.Domain.Domain.Tags;
 using FallLady.Mood.Domain.Domain.Teachers;
@@ -51,5 +52,6 @@ namespace FallLady.Persistance
         public DbSet<Config> Configs { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Favourite> Favourites { get; set; }
+        public DbSet<Discount> Discounts { get; set; }
     }
 }
