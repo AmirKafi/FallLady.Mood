@@ -32,7 +32,7 @@ namespace FallLady.Mood.Application.Services.Blogs
             try
             {
                 var data = _repository.GetQuerable()
-                                      .Include(x=> x.Author)
+                                      .Include(x => x.Author)
                                       .Skip(dto.limit * dto.offset)
                                       .Take(dto.limit);
                 result.SetData(data.ToDto());
@@ -45,13 +45,14 @@ namespace FallLady.Mood.Application.Services.Blogs
             return result;
         }
 
-        public async Task<ServiceResponse<List<BlogListDto>>> LoadBlogs()
+        public async Task<ServiceResponse<List<BlogListDto>>> LoadBlogs(string? title)
         {
             var result = new ServiceResponse<List<BlogListDto>>();
             try
             {
                 var data = _repository.GetQuerable()
-                                      .Include(x => x.Author);
+                                      .Include(x => x.Author)
+                                      .Where(x => (title == null || x.Title.Contains(title)));
                 result.SetData(data.ToDto());
             }
             catch (Exception ex)

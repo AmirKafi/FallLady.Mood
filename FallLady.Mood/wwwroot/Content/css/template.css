@@ -9336,7 +9336,7 @@ span.theme-cl-2 {
 }
 ._course_admin_ol12 strong {
     color: #333c56;
-	font-family: vazir-bold;
+	font-family: var(--bs-font-family);
 }
 ._course_less_infor {
     display: block;
@@ -9353,7 +9353,7 @@ span.theme-cl-2 {
     display: inline-flex;
     margin-left: 15px;
     align-items: center;
-	font-family: 'vazir' ,sans-serif
+	font-family: var(--bs-font-family)
 }
 ._course_less_infor ul li:last-child {
     margin-right: 0px;
@@ -9399,7 +9399,7 @@ span.theme-cl-2 {
     border-radius: 50px;
     color: #ffffff;
 	font-size:13px;
-	font-family: vazir
+	font-family: var(--bs-font-family)
 }
 .education_block_list_layout.style-2 .cources_price {
     flex: 1;

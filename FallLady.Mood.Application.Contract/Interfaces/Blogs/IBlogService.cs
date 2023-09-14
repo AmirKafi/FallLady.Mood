@@ -11,7 +11,7 @@ namespace FallLady.Mood.Application.Contract.Interfaces.Blogs
     public interface IBlogService
     {
         Task<ServiceResponse<List<BlogListDto>>> LoadBlogs(BlogDto dto);
-        Task<ServiceResponse<List<BlogListDto>>> LoadBlogs();
+        Task<ServiceResponse<List<BlogListDto>>> LoadBlogs(string? title = null);
         Task<ServiceResponse<BlogDetailDto>> GetBlogDetails(int blogId);
         Task<ServiceResponse<bool>> AddBlog(BlogCreateDto dto);
         Task<ServiceResponse<BlogUpdateDto>> GetBlog(int blogId);

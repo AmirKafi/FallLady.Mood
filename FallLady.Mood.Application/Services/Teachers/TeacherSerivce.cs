@@ -43,18 +43,21 @@ namespace FallLady.Mood.Application.Services.Teacher
             return result;
         }
 
-        public async Task<ServiceResponse<List<TeacherListDto>>> LoadTeachers()
+        public async Task<ServiceResponse<List<TeacherListDto>>> LoadTeachers(string? fullName)
         {
             var result = new ServiceResponse<List<TeacherListDto>>();
             try
             {
                 var courses = _courseRepository.GetQuerable();
-                var data = _repository.GetQuerable().Select(x=> new TeacherListDto()
-                {
-                    Id = x.Id,
-                    FullName= x.FullName,
-                    FileName= x.FileName
-                }).ToList();
+                var data = _repository
+                    .GetQuerable()
+                    .Where(x => (fullName == null || x.FullName.Contains(fullName)))
+                    .Select(x=> new TeacherListDto()
+                    {
+                        Id = x.Id,
+                        FullName= x.FullName,
+                        FileName= x.FileName
+                    }).ToList();
 
                 data.ForEach(x => x.Count = courses.Where(a => a.TeacherId == x.Id).Count());
 

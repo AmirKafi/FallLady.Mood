@@ -239,18 +239,22 @@ window.orderAjaxRequest = function (params) {
             };
             window.$table.bootstrapTable('load', objects);
 
-            let totalPrice = 0.0, discountPrice = 0.0, payablePrice = 0.0;
+            let totalPrice = 0.0, discountPrice = 0.0, payablePrice = 0.0,taxPrice = 0.0;
 
             discountPrice = parseFloat($(".order-list #DiscountPrice").html());
 
             _.each(data.data, function (item) {
                 totalPrice += item.totalPrice;
             });
-            payablePrice = totalPrice - discountPrice;
+            taxPrice = (totalPrice - discountPrice) * (9 / 100);
+            console.log((totalPrice - discountPrice) * (0.09));
+            console.log(taxPrice)
+            payablePrice = (totalPrice - discountPrice) + taxPrice;
 
-            $(".order-list #DiscountPrice").html(window.separateThreeDigit(discountPrice))
-            $(".order-list #TotalPrice").html(window.separateThreeDigit(totalPrice));
-            $(".order-list #PayablePrice").html(window.separateThreeDigit(payablePrice));
+            $(".order-list #DiscountPrice").html(window.separateThreeDigit(discountPrice.toFixed(0)))
+            $(".order-list #TotalPrice").html(window.separateThreeDigit(totalPrice.toFixed(0)));
+            $(".order-list #PayablePrice").html(window.separateThreeDigit(payablePrice.toFixed(0)));
+            $(".order-list #TaxPrice").html(window.separateThreeDigit(taxPrice.toFixed(0)));
 
 
         }).fail(function (msg) {
@@ -293,6 +297,16 @@ $(document).on("click", ".removeAllOrders", function (e) {
 });
 
 //#endregion
+
+$(document).on("click", ".search-btn", function (e) {
+    var $btn;
+    $btn = $(this);
+    var text = $("#SearchText").val();
+
+    window.location = "/Search?query=" + text;
+});
+
+
 
 $(document).on("click", ".btn-login", function (e) {
     var $btnSave;

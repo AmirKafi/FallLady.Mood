@@ -1,39 +1,48 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using FallLady.Mood.Utility.Extentions;
+@{
+    Random rnd = new Random();
+}
 @model List<FallLady.Mood.Application.Contract.Dto.Course.CourseListDto>
 
 @foreach (var item in Model)
 {
     <!-- Cource Grid 1 -->
-    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
-        <div class="education_block_list_layout">
+	<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
+		<div class="education_block_list_layout style-2">
 
             <div class="education_block_thumb n-shadow">
                 <a href="/CourseDetails?courseId=@item.Id"><img src="@item.FilePath" class="img-fluid" alt=""></a>
-            </div>
+			</div>
 
-            <div class="list_layout_ecucation_caption">
+			<div class="list_layout_ecucation_caption">
 
-                <div class="education_block_body">
+				<div class="education_block_body">
                     <h4 class="bl-title"><a href="/CourseDetails?courseId=@item.Id">@item.Title</a></h4>
-                    <div class="cources_price">@item.Price تومان</div>
-                </div>
+					<div class="_course_admin_ol12">مدرس: <strong>@item.TeacherName</strong></div>
 
-                <div class="education_block_footer mt-3">
-                    <div class="education_block_author">
-                        <div class="path-img"><a href="#"><img src="@item.TeacherFilePath" class="img-fluid" alt=""></a></div>
-                        <h5><a href="#">@item.TeacherName</a></h5>
-                    </div>
-                    <div class="cources_info_style3">
-                        <ul>
-                            <li><div class="foot_lecture"><i class="ti-control-skip-forward ml-2"></i>مشاهده</div></li>
-                        </ul>
-                    </div>
-                </div>
+					<div class="_course_less_infor">
+						<ul>
+							<li><span class="class online"></span>@item.CourseTypeTitle</li>
+						</ul>
+					</div>
 
-            </div>
+					<div class="course_rate_system_wrap">
+						<div class="_course_category_01"><span class="cat-@rnd.Next(1,11)">@item.CategoryTitle</span></div>
+					</div>
+				</div>
 
-        </div>
-    </div>
+                <div class="education_block_footer">
+                    <div class="cources_price">@item.Price.Separate3Digits() تومان</div>
+					<div class="cources_info_style3">
+                        <a href="/CourseDetails?courseId=@item.Id">
+							<div class="foot_lecture"><i class="ti-control-skip-forward ml-2"></i>مشاهده</div>
+						</a>
+						
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
 }

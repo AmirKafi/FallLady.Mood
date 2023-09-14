@@ -34,7 +34,7 @@
                                         <div class="col-lg-10 col-md-10 col-sm-12">
                                             <div class="form-group">
                                                 <div class="input-with-icon">
-                                                    <input type="text" class="form-control" placeholder="نام دوره آموزشی...">
+                                                    <input type="text" class="form-control" id="SearchText" placeholder="میخوای واست بگردم؟">
                                                     <img src="~/TemplateAssets/img/search.svg" class="search-icon" alt="">
                                                 </div>
                                             </div>
@@ -42,7 +42,7 @@
 
                                         <div class="col-lg-2 col-md-2 col-sm-12 pr-0">
                                             <div class="form-group none">
-                                                <a href="#" class="btn search-btn full-width">برو</a>
+                                                <a data-url="@Url.Action("Search","Home")" class="btn search-btn full-width" style="color:#253424">برو</a>
                                             </div>
                                         </div>
 

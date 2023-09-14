@@ -11,7 +11,7 @@ namespace FallLady.Mood.Application.Contract.Interfaces.Course
     public interface ICourseService
     {
         Task<ServiceResponse<List<CourseListDto>>> LoadCourses(CourseDto dto);
-        Task<ServiceResponse<List<CourseListDto>>> LoadCourses();
+        Task<ServiceResponse<List<CourseListDto>>> LoadCourses(string? title = null);
         Task<ServiceResponse<bool>> AddCourse(CourseCreateDto dto);
         Task<ServiceResponse<CourseUpdateDto>> GetCourse(int courseId);
         Task<ServiceResponse<CourseDetailsDto>> GetCourseDetails(int courseId);

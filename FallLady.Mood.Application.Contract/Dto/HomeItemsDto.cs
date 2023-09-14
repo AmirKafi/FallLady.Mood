@@ -17,5 +17,6 @@ namespace FallLady.Mood.Application.Contract.Dto
         public List<TeacherListDto> Teachers { get; set; }
         public List<CourseListDto> Courses { get; set; }
         public List<BlogListDto> Blogs { get; set; }
+        public string SearchText { get; set; }
     }
 }

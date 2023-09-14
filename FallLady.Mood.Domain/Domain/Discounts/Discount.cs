@@ -1,6 +1,7 @@
 ﻿using FallLady.Mood.Domain.Domain.Courses;
 using FallLady.Mood.Domain.Domain.Users;
 using FallLady.Mood.Framework.Core;
+using FallLady.Mood.Utility.Extentions.Datetime;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,10 @@ namespace FallLady.Mood.Domain.Domain.Discounts
 {
     public class Discount : EntityId<int>
     {
+        private Discount()
+        {
+                
+        }
         public Discount(string code,
                             int precentage,
                             string? description,
@@ -23,7 +28,7 @@ namespace FallLady.Mood.Domain.Domain.Discounts
             this.Precentage = precentage;
             this.SpecifiedUserId = specifiedUserId;
             this.SpecifiedCourseId = specifiedCourseId;
-            this.ExpireDate = expireDate;
+            this.ExpireDate = expireDate.AsDateTime();
             this.Expired = false;
         }
 
@@ -37,7 +42,7 @@ namespace FallLady.Mood.Domain.Domain.Discounts
         public int? SpecifiedCourseId { get; private set; }
         public Course? SpecifiedCourse { get; private set; }
 
-        public DateOnly? ExpireDate { get; private set; }
+        public DateTime? ExpireDate { get; private set; }
         public bool Expired { get; private set; }
 
 

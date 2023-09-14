@@ -47,7 +47,7 @@ namespace FallLady.Mood.Application.Services.Courses
             return result;
         }
 
-        public async Task<ServiceResponse<List<CourseListDto>>> LoadCourses()
+        public async Task<ServiceResponse<List<CourseListDto>>> LoadCourses(string? title)
         {
             var result = new ServiceResponse<List<CourseListDto>>();
             try
@@ -56,7 +56,9 @@ namespace FallLady.Mood.Application.Services.Courses
                                    .Include(x => x.Teacher)
                                    .Include(x => x.EventDays)
                                    .Include(x => x.Category)
-                                   .AsNoTracking();
+                                   .AsNoTracking()
+                                   .Where(x=> (title == null || x.Title.Contains(title)))
+                                   .ToList();
                 result.SetData(data.ToDto());
             }
             catch (Exception ex)

@@ -13,6 +13,7 @@ using FallLady.Mood.Application.Services.Users;
 using FallLady.Mood.Controllers.Base;
 using FallLady.Mood.Framework.Core.Enum;
 using FallLady.Mood.Models;
+using FallLady.Mood.Utility.ServiceResponse;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -46,8 +47,6 @@ namespace FallLady.Mood.Controllers
         {
             var model = new HomeItemsDto();
 
-            var x = User.Claims;
-
             //Category
             var category = await _categoryService.LoadCategories().ConfigureAwait(false);
             model.Categories = category.Data;
@@ -74,6 +73,39 @@ namespace FallLady.Mood.Controllers
             return View(model);
         }
 
-        
+        [Route("/Search")]
+        public async Task<ActionResult> Search(string? query)
+        {
+            var model = new HomeItemsDto();
+            model.SearchText = query;
+            //Courses
+            var courses = await _courseService.LoadCourses(query).ConfigureAwait(false);
+            model.Courses = courses.Data;
+            if (courses.ResultStatus == ResultStatus.Successful)
+            {
+                model.Courses.ForEach(x => x.FilePath = GetFileUrl(x.FileName, FileFoldersEnum.Course));
+                model.Courses.ForEach(x => x.TeacherFilePath = GetFileUrl(x.TeacherFileName, FileFoldersEnum.Teacher));
+            }
+
+
+            //Teacher
+            var teacher = await _teacherService.LoadTeachers(query).ConfigureAwait(false);
+            model.Teachers = teacher.Data;
+            if (teacher.ResultStatus == ResultStatus.Successful)
+            {
+                model.Teachers.ForEach(x => x.FilePath = GetFileUrl(x.FileName, FileFoldersEnum.Teacher));
+            }
+
+
+            //Blog
+            var blogs = await _blogService.LoadBlogs(query).ConfigureAwait(false);
+            model.Blogs = blogs.Data;
+            if (blogs.ResultStatus == ResultStatus.Successful)
+            {
+                model.Blogs.ForEach(x => x.PicturePath = GetFileUrl(x.Picture, FileFoldersEnum.Blog));
+            }
+
+            return View(model);
+        }
     }
 }

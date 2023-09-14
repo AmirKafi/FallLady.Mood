@@ -1,5 +1,6 @@
 ﻿using FallLady.Mood.Application.Contract.Dto.Discounts;
 using FallLady.Mood.Domain.Domain.Discounts;
+using FallLady.Mood.Utility.Extentions.Datetime;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace FallLady.Mood.Application.Contract.Mappers.Discounts
         public static Discount ToModel(this DiscountCreateDto dto)
         {
             return new Discount(dto.Code,
-                                dto.Amount,
+                                dto.Precentage,
                                 dto.Description,
                                 dto.SpecifiedUserId,
                                 dto.SpecifiedCourseId,
@@ -30,7 +31,7 @@ namespace FallLady.Mood.Application.Contract.Mappers.Discounts
                 Code= x.Code,
                 CreatedOn= x.CreatedOn,
                 Description = x.Description,
-                ExpireDate= x.ExpireDate,
+                ExpireDate= x.ExpireDate.AsDateOnly(),
                 Expired = x.Expired,
                 SpecifiedUserFullName = x.SpecifiedUser is null ? null : x.SpecifiedUser.FirstName + " " + x.SpecifiedUser.LastName,
                 SpecifiedCourseTitle = x.SpecifiedCourse is null ? null : x.SpecifiedCourse.Title

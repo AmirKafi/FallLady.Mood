@@ -96,7 +96,7 @@ namespace FallLady.Mood.Application.Services.Discounts
                     result.SetData(false);
                 else
                 {
-                    if (data.ExpireDate < DateTime.Now.AsDateOnly())
+                    if (data.ExpireDate.AsDateOnly() < DateTime.Now.AsDateOnly())
                         result.SetData(false);
                     else
                     {
