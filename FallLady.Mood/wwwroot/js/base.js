@@ -46,10 +46,12 @@ $(document).on("keyup", "input[type=text].price", function () {
 });
 
 window.separateThreeDigit = function (value) {
+    if (value === null)
+        return null;
     if (value === 0)
         return 0;
 
-    return value.toString()
+    return parseFloat(value).toFixed(0).toString()
         .replace(/\D/g, "")
         .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }

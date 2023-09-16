@@ -1,9 +1,12 @@
 ﻿using FallLady.Mood.Application.Contract.Dto.Course;
+using FallLady.Mood.Application.Contract.Dto.Discounts;
 using FallLady.Mood.Application.Contract.Interfaces.Categories;
 using FallLady.Mood.Application.Contract.Interfaces.Course;
+using FallLady.Mood.Application.Contract.Interfaces.Discounts;
 using FallLady.Mood.Application.Contract.Interfaces.Teachers;
 using FallLady.Mood.Controllers.Base;
 using FallLady.Mood.Domain.Enums;
+using FallLady.Mood.Framework.Core;
 using FallLady.Mood.Framework.Core.Enum;
 using FallLady.Mood.Utility.Extentions.Datetime;
 using FallLady.Mood.Utility.ServiceResponse;
@@ -22,12 +25,14 @@ namespace FallLady.Mood.Areas.Admin.Controllers
         private readonly ICourseService _courseService;
         private readonly ITeacherService _teacherService;
         private readonly ICategoryService  _categoryService;
+        private readonly IDiscountService _discountService;
 
-        public CourseController(ICourseService courseService, ITeacherService teacherService, ICategoryService categoryService)
+        public CourseController(ICourseService courseService, ITeacherService teacherService, ICategoryService categoryService, IDiscountService discountService)
         {
             _courseService = courseService;
             _teacherService = teacherService;
             _categoryService = categoryService;
+            _discountService = discountService;
         }
 
         #endregion
@@ -227,6 +232,48 @@ namespace FallLady.Mood.Areas.Admin.Controllers
             ViewBag.ActivePage = "Course";
 
             var result = await _courseService.Delete(ids[0]).ConfigureAwait(false);
+
+            return Json(result);
+        }
+
+        [HttpGet]
+        [Route("/Course/ApplyDiscount")]
+        public async Task<ActionResult> ApplyDiscount(int courseId)
+        {
+            ViewBag.ActivePage = "Course";
+
+            var model = new ApplyDiscountDto();
+
+            var discounts = await _discountService.LoadDiscounts();
+
+            model.Discounts = ComboToSelectList(discounts.Data.Where(x=> !x.IsExpired).Select(x=> new ComboModel()
+            {
+                Title = x.Code,
+                Value = x.Id
+            }).ToList());
+            model.CourseId = courseId;
+
+            return PartialView("ApplyDiscount",model);
+        }
+
+        [HttpPost]
+        [Route("/Course/ApplyDiscount")]
+        public async Task<ActionResult> ApplyDiscount(ApplyDiscountDto dto)
+        {
+            ViewBag.ActivePage = "Course";
+
+            var result = await _courseService.SetDiscount(dto.CourseId.Value,dto.DiscountId).ConfigureAwait(false);
+
+            return Json(result);
+        }
+
+        [HttpPost]
+        [Route("/Course/RemoveDiscount")]
+        public async Task<ActionResult> RemoveDiscount(int courseId)
+        {
+            ViewBag.ActivePage = "Course";
+
+            var result = await _courseService.RemoveDiscount(courseId).ConfigureAwait(false);
 
             return Json(result);
         }

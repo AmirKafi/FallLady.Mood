@@ -46,8 +46,11 @@ namespace FallLady.Mood.Application.Services.Orders
                     orders = _repository.GetQuerable()
                                         .Include(x => x.Course)
                                         .ThenInclude(x=> x.Teacher)
+                                        .Include(x=> x.Course)
+                                        .ThenInclude(x=> x.Discount)
                                         .Include(x => x.User)
-                                        .Where(x => x.UserId == userId && !x.IsPayed)
+                                        .Include(x=> x.Transaction)
+                                        .Where(x => x.UserId == userId && x.Transaction == null)
                                         .ToList();
 
                     result.SetData(orders.ToDto());
@@ -60,6 +63,22 @@ namespace FallLady.Mood.Application.Services.Orders
             return result;
         }
 
+        public async Task RefreshOrders(string userId)
+        {
+            var orders =await _repository.GetQuerable()
+                                        .Include(x => x.Course)
+                                        .ThenInclude(x => x.Teacher)
+                                        .Include(x => x.Course)
+                                        .ThenInclude(x => x.Discount)
+                                        .Include(x => x.User)
+                                        .Include(x => x.Transaction)
+                                        .Where(x => x.UserId == userId && x.Transaction == null)
+                                        .ToListAsync();
+            _cache.Remove("UserOrders");
+            _cache.CreateEntry("UserOrders");
+            _cache.Set("UserOrders", orders.ToDto());
+        }
+
         public async Task<ServiceResponse<bool>> AddOrder(OrderCreateDto dto)
         {
             var result = new ServiceResponse<bool>();
@@ -67,11 +86,11 @@ namespace FallLady.Mood.Application.Services.Orders
             try
             {
                 var orders = _repository.GetQuerable()
-                                        .Where(x => x.UserId == dto.UserId && !x.IsPayed)
+                                        .Where(x => x.UserId == dto.UserId && x.Transaction == null)
                                         .ToList();
 
                 var model = dto.ToModel();
-                if (orders.Any(x => x.UserId == dto.UserId && x.CourseId == dto.CourseId && !x.IsPayed))
+                if (orders.Any(x => x.UserId == dto.UserId && x.CourseId == dto.CourseId && x.Transaction == null))
                 {
                     model = orders.First(x => x.UserId == dto.UserId && x.CourseId == dto.CourseId);
                     model.AddToOrderQty();
@@ -83,8 +102,11 @@ namespace FallLady.Mood.Application.Services.Orders
                 orders = _repository.GetQuerable()
                                         .Include(x => x.Course)
                                         .ThenInclude(x => x.Teacher)
+                                        .Include(x => x.Course)
+                                        .ThenInclude(x => x.Discount)
                                         .Include(x => x.User)
-                                        .Where(x => x.UserId == dto.UserId && !x.IsPayed)
+                                        .Include(x => x.Transaction)
+                                        .Where(x => x.UserId == dto.UserId && x.Transaction == null)
                                         .ToList();
 
                 _cache.Remove("UserOrders");
@@ -121,8 +143,12 @@ namespace FallLady.Mood.Application.Services.Orders
 
                 var orders = _repository.GetQuerable()
                                         .Include(x => x.Course)
+                                        .ThenInclude(x=> x.Teacher)
+                                        .Include(x => x.Course)
+                                        .ThenInclude(x => x.Discount)
                                         .Include(x => x.User)
-                                        .Where(x => x.UserId == order.UserId && !x.IsPayed)
+                                        .Include(x => x.Transaction)
+                                        .Where(x => x.UserId == order.UserId && x.Transaction == null)
                                         .ToList();
 
                 _cache.Remove("UserOrders");
@@ -144,7 +170,7 @@ namespace FallLady.Mood.Application.Services.Orders
 
             try
             {
-                var orders = _repository.GetQuerable().Where(x=> x.UserId == userId && !x.IsPayed).ToList();
+                var orders = _repository.GetQuerable().Where(x=> x.UserId == userId && x.Transaction == null).ToList();
 
                 foreach (var item in orders)
                 {

@@ -1,4 +1,5 @@
 ﻿using FallLady.Mood.Application.Contract.Dto.Course;
+using FallLady.Mood.Framework.Core;
 using FallLady.Mood.Utility.ServiceResponse;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,13 @@ namespace FallLady.Mood.Application.Contract.Interfaces.Course
     {
         Task<ServiceResponse<List<CourseListDto>>> LoadCourses(CourseDto dto);
         Task<ServiceResponse<List<CourseListDto>>> LoadCourses(string? title = null);
+        Task<ServiceResponse<List<ComboModel>>> LoadCoursesAsCombo();
         Task<ServiceResponse<bool>> AddCourse(CourseCreateDto dto);
         Task<ServiceResponse<CourseUpdateDto>> GetCourse(int courseId);
         Task<ServiceResponse<CourseDetailsDto>> GetCourseDetails(int courseId);
         Task<ServiceResponse<bool>> UpdateCourse(CourseUpdateDto dto);
         Task<ServiceResponse<bool>> Delete(int courseId);
+        Task<ServiceResponse<bool>> SetDiscount(int courseId,int discountId);
+        Task<ServiceResponse<bool>> RemoveDiscount(int courseId);
     }
 }

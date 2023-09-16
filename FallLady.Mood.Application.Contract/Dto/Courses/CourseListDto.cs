@@ -30,6 +30,9 @@ namespace FallLady.Mood.Application.Contract.Dto.Course
         public string TeacherFileName { get; set; }
         public string TeacherFilePath { get; set; }
 
+        public decimal? DiscountPrice { get; set; }
+        public decimal? DiscountPrecentage { get; set; }
+
         public List<WeekDaysEnum> _eventDays { get; set; }
 
         public string FilePath { get; set; }

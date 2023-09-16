@@ -151,22 +151,10 @@ window.orderAjaxRequest = function (params) {
             };
             window.$table.bootstrapTable('load', objects);
 
-            let totalPrice = 0.0, discountPrice = 0.0, payablePrice = 0.0,taxPrice = 0.0;
-
-            discountPrice = parseFloat($(".order-list #DiscountPrice").html());
-
-            _.each(data.data, function (item) {
-                totalPrice += item.totalPrice;
-            });
-            taxPrice = (totalPrice - discountPrice) * (9 / 100);
-            console.log((totalPrice - discountPrice) * (0.09));
-            console.log(taxPrice)
-            payablePrice = (totalPrice - discountPrice) + taxPrice;
-
-            $(".order-list #DiscountPrice").html(window.separateThreeDigit(discountPrice.toFixed(0)))
-            $(".order-list #TotalPrice").html(window.separateThreeDigit(totalPrice.toFixed(0)));
-            $(".order-list #PayablePrice").html(window.separateThreeDigit(payablePrice.toFixed(0)));
-            $(".order-list #TaxPrice").html(window.separateThreeDigit(taxPrice.toFixed(0)));
+            $(".order-list #DiscountPrice").html(0);
+            $(".order-list #TotalPrice").html(0);
+            $(".order-list #PayablePrice").html(0);
+            $(".order-list #TaxPrice").html(0);
 
 
         }).fail(function (msg) {
@@ -174,6 +162,59 @@ window.orderAjaxRequest = function (params) {
         }).always(function () { });
     }, 313);
 };
+
+$(document).on("check.bs.table", "#CartTable", function (rows) {
+    window.calculatePrice()
+});
+$(document).on("uncheck-all.bs.table", "#CartTable", function (rows) {
+    window.calculatePrice()
+});
+$(document).on("check-all.bs.table", "#CartTable", function (rows) {
+    window.calculatePrice()
+});
+$(document).on("uncheck.bs.table", "#CartTable", function (rows) {
+    window.calculatePrice()
+});
+
+$(document).on("click", ".apply-discount", function (e) {
+    var $btn;
+    $btn = $(this);
+    var discountCode = $("#DiscountCode").val();
+    if (discountCode === "" || discountCode === null) {
+        toastr["warning"]("لطفا کد تخفیف را وارد کنید");
+        return;
+    }
+    $btn.prop("disabled", true);
+    $.ajax({
+        url: $btn.data("url"),
+        method: "POST",
+        data: {
+            code: discountCode,
+            courseId: null
+        }
+    }).done(function (data, textStatus, jqXHR) {
+        var _ref3;
+        autoDestroyToastr();
+        if (data.resultStatus !== 1 && data.resultStatus !== -2) {
+            toastr["error"](data.message);
+            return;
+        }
+        $("#DiscountPrice").html(parseFloat($("#PayablePrice").html().replace(",", "")).toFixed(0) * (data.data.precentage / 100));
+        $("#DiscountCode").val("");
+        toastr["success"](resource.message.success);
+        window.calculatePrice(parseFloat($("#DiscountPrice").html()).toFixed(0));
+    }).fail(function (msg) {
+        autoDestroyToastr();
+        content = msg.status === 403 ? msg.statusText : "Error";
+        if (content === "Error") {
+            toastr["error"]("متاسفانه عملیات با خطا مواجه شد");
+            return;
+        }
+    }).always(function () {
+        $btn.prop("disabled", false);
+        manuallyDestroyToastr();
+    });
+});
 
 $(document).on("click", ".removeAllOrders", function (e) {
     var $btn;
@@ -207,6 +248,76 @@ $(document).on("click", ".removeAllOrders", function (e) {
         manuallyDestroyToastr();
     });
 });
+
+$(document).on("click", ".pay-cart", function (e) {
+    var $btn;
+    $btn = $(this);
+    var ordersId = window.getIdSelections();
+    if ((ordersId != null ? ordersId.length : void 0) === 0) {
+        toastr["warning"]("برای پرداخت آیتم های مورد نظر خود را انتخاب کنید");
+        return false;
+    }
+
+    $btn.prop("disabled", true);
+    $.ajax({
+        url: $btn.data("url"),
+        method: "POST",
+        data: {
+
+        }
+    }).done(function (data, textStatus, jqXHR) {
+        var _ref3;
+        autoDestroyToastr();
+        if (data.resultStatus !== 1 && data.resultStatus !== -2) {
+            toastr["error"]("متاسفانه عملیات با خطا مواجه شد");
+            return;
+        }
+        toastr["success"](resource.message.success);
+        window.$table.bootstrapTable("refresh", {
+            silent: true,
+            pageNumber: 1
+        });
+    }).fail(function (msg) {
+        autoDestroyToastr();
+        content = msg.status === 403 ? msg.statusText : "Error";
+        if (content === "Error") {
+            toastr["error"]("متاسفانه عملیات با خطا مواجه شد");
+            return;
+        }
+    }).always(function () {
+        $btn.prop("disabled", false);
+        manuallyDestroyToastr();
+    });
+});
+
+window.calculatePrice = function (discountPrice = 0.0) {
+    let totalPrice = 0.0, payablePrice = 0.0, taxPrice = 0.0;
+    discountPrice = parseFloat(discountPrice);
+
+    var selectedOrders = window.$table.bootstrapTable('getSelections');
+
+    _.each(selectedOrders, function (item) {
+        totalPrice += item.totalPrice;
+    });
+    taxPrice = (totalPrice) * (9 / 100);
+    payablePrice = (totalPrice - discountPrice) + taxPrice;
+
+    $(".order-list #DiscountPrice").html(window.separateThreeDigit(discountPrice.toFixed(0)))
+    $(".order-list #TotalPrice").html(window.separateThreeDigit(totalPrice.toFixed(0)));
+    $(".order-list #PayablePrice").html(window.separateThreeDigit(payablePrice.toFixed(0)));
+    $(".order-list #TaxPrice").html(window.separateThreeDigit(taxPrice.toFixed(0)));
+}
+
+window.orderPriceFormatter = function (price,row) {
+    var res;
+    if (row.discountPrice !== null) {
+        res = "" + window.separateThreeDigit((parseFloat(row.price).toFixed(0) - parseFloat(row.discountPrice).toFixed(0))) + "  " +
+            "<span class='old-prc'>" + window.separateThreeDigit(row.price) + "</span>";
+    } else {
+        res =  window.separateThreeDigit(row.price)
+    }
+    return res;
+}
 
 //#endregion
 

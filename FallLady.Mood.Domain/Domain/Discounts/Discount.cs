@@ -20,14 +20,12 @@ namespace FallLady.Mood.Domain.Domain.Discounts
                             int precentage,
                             string? description,
                             string? specifiedUserId,
-                            int? specifiedCourseId,
                             DateOnly? expireDate)
         {
             this.Code = code;
             this.Description = description;
             this.Precentage = precentage;
             this.SpecifiedUserId = specifiedUserId;
-            this.SpecifiedCourseId = specifiedCourseId;
             this.ExpireDate = expireDate.AsDateTime();
             this.Expired = false;
         }
@@ -39,8 +37,7 @@ namespace FallLady.Mood.Domain.Domain.Discounts
         public string? SpecifiedUserId { get; private set; }
         public User? SpecifiedUser { get; private set; }
 
-        public int? SpecifiedCourseId { get; private set; }
-        public Course? SpecifiedCourse { get; private set; }
+        public ICollection<Course>? SpecifiedCourses { get; private set; }
 
         public DateTime? ExpireDate { get; private set; }
         public bool Expired { get; private set; }

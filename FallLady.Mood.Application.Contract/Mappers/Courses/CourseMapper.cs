@@ -1,6 +1,7 @@
 ﻿using FallLady.Mood.Application.Contract.Dto.Course;
 using FallLady.Mood.Domain.Domain.Courses;
 using FallLady.Mood.Domain.Domain.Tags;
+using FallLady.Mood.Domain.Domain.Users;
 using FallLady.Mood.Framework.Core;
 using FallLady.Mood.Framework.Core.Enum;
 using FallLady.Mood.Utility.Extentions;
@@ -30,7 +31,7 @@ namespace FallLady.Mood.Application.Contract.Mappers.Courses
                               dto.EventDays,
                               dto.TeacherId,
                               dto.CategoryId,
-                              dto.Tags.Select(x=> new Tag(x,TagTypesEnum.Course)).ToList());
+                              dto.Tags.Select(x => new Tag(x, TagTypesEnum.Course)).ToList());
         }
 
         public static List<CourseListDto> ToDto(this IEnumerable<Course>? model)
@@ -55,7 +56,9 @@ namespace FallLady.Mood.Application.Contract.Mappers.Courses
                 CategoryTitle = x.Category is null ? "" : x.Category.Title,
                 TeacherFileName = x.Teacher.FileName is null ? "TeacherDefault.jpg" : x.Teacher.FileName,
                 CreatedOn = x.CreatedOn,
-                Tags = x.Tags is null ? new List<string>() : x.Tags.Select(x=> x.Title).ToList()
+                Tags = x.Tags is null ? new List<string>() : x.Tags.Select(x => x.Title).ToList(),
+                DiscountPrice = x.Discount is null ? null : (x.Price) * (Convert.ToDecimal(x.Discount.Precentage) / 100),
+                DiscountPrecentage = x.Discount is null ? null : x.Discount.Precentage
             }).ToList();
         }
 
@@ -102,8 +105,22 @@ namespace FallLady.Mood.Application.Contract.Mappers.Courses
                 TeacherFileName = model.Teacher.FileName,
                 CategoryTitle = model.Category is null ? "" : model.Category.Title,
                 TeacherName = model.Teacher.FullName,
-                CreatedOn = model.CreatedOn
+                CreatedOn = model.CreatedOn,
+                DiscountPrice = model.Discount is null ? null : (model.Price) * (Convert.ToDecimal(model.Discount.Precentage) / 100),
+                DiscountPrecentage = model.Discount is null ? null : model.Discount.Precentage
             };
+        }
+
+        public static List<ComboModel> ToCombo(this List<Course>? model)
+        {
+            if (model is null)
+                return new List<ComboModel>();
+            else
+                return model.Select(x => new ComboModel()
+                {
+                    Value = x.Id,
+                    Title = x.Title
+                }).ToList();
         }
     }
 }

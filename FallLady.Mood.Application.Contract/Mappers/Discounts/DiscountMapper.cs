@@ -1,5 +1,6 @@
 ﻿using FallLady.Mood.Application.Contract.Dto.Discounts;
 using FallLady.Mood.Domain.Domain.Discounts;
+using FallLady.Mood.Framework.Core;
 using FallLady.Mood.Utility.Extentions.Datetime;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,6 @@ namespace FallLady.Mood.Application.Contract.Mappers.Discounts
                                 dto.Precentage,
                                 dto.Description,
                                 dto.SpecifiedUserId,
-                                dto.SpecifiedCourseId,
                                 dto.ExpireDate);
         }
 
@@ -28,13 +28,39 @@ namespace FallLady.Mood.Application.Contract.Mappers.Discounts
             {
                 Id = x.Id,
                 Precentage = x.Precentage,
-                Code= x.Code,
-                CreatedOn= x.CreatedOn,
+                Code = x.Code,
+                CreatedOn = x.CreatedOn,
                 Description = x.Description,
-                ExpireDate= x.ExpireDate.AsDateOnly(),
+                ExpireDate = x.ExpireDate.AsDateOnly(),
                 Expired = x.Expired,
-                SpecifiedUserFullName = x.SpecifiedUser is null ? null : x.SpecifiedUser.FirstName + " " + x.SpecifiedUser.LastName,
-                SpecifiedCourseTitle = x.SpecifiedCourse is null ? null : x.SpecifiedCourse.Title
+                SpecifiedUserId = x.SpecifiedUserId,
+                SpecifiedUserFullName = x.SpecifiedUser is null ? null : x.SpecifiedUser.FirstName + " " + x.SpecifiedUser.LastName
+            }).ToList();
+        }
+        public static DiscountDetailDto ToDto(this Discount? model)
+        {
+
+            return new DiscountDetailDto()
+            {
+                Id = model.Id,
+                Precentage = model.Precentage,
+                Code = model.Code,
+                Description = model.Description,
+                ExpireDate = model.ExpireDate.AsDateOnly(),
+                Expired = model.Expired,
+                SpecifiedUserFullName = model.SpecifiedUser is null ? null : model.SpecifiedUser.FirstName + " " + model.SpecifiedUser.LastName,
+            };
+        }
+
+        public static List<ComboModel> ToCombo(this IEnumerable<Discount>? model)
+        {
+            if (model is null)
+                return new List<ComboModel>();
+
+            return model.Select(x=> new ComboModel()
+            {
+                Title = x.Code,
+                Value = x.Id
             }).ToList();
         }
     }

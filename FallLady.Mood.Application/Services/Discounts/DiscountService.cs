@@ -2,8 +2,10 @@
 using FallLady.Mood.Application.Contract.Interfaces.Discounts;
 using FallLady.Mood.Application.Contract.Mappers.Discounts;
 using FallLady.Mood.Domain.Domain.Discounts;
+using FallLady.Mood.Framework.Core;
 using FallLady.Mood.Utility.Extentions.Datetime;
 using FallLady.Mood.Utility.ServiceResponse;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,12 +43,53 @@ namespace FallLady.Mood.Application.Services.Discounts
             return result;
         }
 
+        public async Task<ServiceResponse<List<DiscountListDto>>> LoadDiscounts()
+        {
+            var result = new ServiceResponse<List<DiscountListDto>>();
+
+            try
+            {
+                var data = await _repository.GetQuerable().ToListAsync();
+
+                result.SetData(data.ToDto());
+            }
+            catch (Exception ex)
+            {
+                result.SetException(ex);
+            }
+
+            return result;
+        }
+
+        public async Task<ServiceResponse<List<ComboModel>>> LoadDiscountsAsCombo()
+        {
+            var result = new ServiceResponse<List<ComboModel>>();
+
+            try
+            {
+                var data =await _repository.GetQuerable().ToListAsync();
+
+                result.SetData(data.ToCombo());
+            }
+            catch (Exception ex)
+            {
+                result.SetException(ex);
+            }
+
+            return result;
+        }
+
         public async Task<ServiceResponse<bool>> AddDiscount(DiscountCreateDto dto)
         {
             var result = new ServiceResponse<bool>();
 
             try
             {
+                var exist = _repository.GetQuerable().Any(x => dto.Code == dto.Code);
+
+                if (exist)
+                    throw new Exception("کد تخفیف وارد شده تکراری می باشد");
+
                 await _repository.Add(dto.ToModel());
 
                 result.SetData(true);
@@ -81,31 +124,23 @@ namespace FallLady.Mood.Application.Services.Discounts
             return result;
         }
 
-        public async Task<ServiceResponse<bool>> CheckDiscountValidation(string code,string? userId,int? courseId)
+        public async Task<ServiceResponse<DiscountDetailDto>> GetValidDiscount(string code, string? userId)
         {
-            var result = new ServiceResponse<bool>();
+            var result = new ServiceResponse<DiscountDetailDto>();
 
             try
             {
-                var data = _repository.GetQuerable().Where(x => x.Code == code && !x.Expired).FirstOrDefault();
-
-
-                result.SetData(true);
-
+                var data = _repository.GetQuerable().Where(x => x.Code == code && (x.SpecifiedUserId == null || x.SpecifiedUserId == userId)).FirstOrDefault();
                 if (data is null)
-                    result.SetData(false);
+                    result.SetException("کد تخفیف مورد نظر یافت نشد");
                 else
                 {
-                    if (data.ExpireDate.AsDateOnly() < DateTime.Now.AsDateOnly())
-                        result.SetData(false);
-                    else
-                    {
-                        if (data.SpecifiedUserId != null && data.SpecifiedUserId != userId)
-                            result.SetData(false);
-                        if (data.SpecifiedCourseId != null && data.SpecifiedCourseId != courseId)
-                            result.SetData(false);
-                    }
+                    var res = data.ToDto();
 
+                    if (res.IsExpired)
+                        result.SetException("کد تخفیف مورد نظر منقضی شده");
+                    else
+                        result.SetData(res);
                 }
             }
             catch (Exception ex)

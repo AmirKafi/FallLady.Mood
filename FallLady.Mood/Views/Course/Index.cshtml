@@ -54,7 +54,21 @@
                     <div class="education_block_grid style_2">
                         <div class="education_block_thumb n-shadow">
                             <a href="/CourseDetails?courseId=@item.Id"><img src="@item.FilePath" class="img-fluid" alt=""></a>
-                            <div class="cources_price">@item.Price.Separate3Digits() تومان</div>
+                            @if(item.DiscountPrice != null)
+                            {
+                                <div class="cources_price">
+                                    <span class="old-prc">@item.Price.Separate3Digits()</span>
+                                    @((item.Price - item.DiscountPrice.Value).Separate3Digits())
+                                    تومان
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="cources_price">
+                                    @item.Price.Separate3Digits()
+                                    تومان
+                                </div>                                
+                            }
                         </div>
 
                         <div class="education_block_body">
@@ -63,7 +77,7 @@
 
                         <div class="cources_info_style3">
                             <ul>
-                                <li><i class="ti-eye ml-2"></i>6852 بازدید</li>
+                                @* <li><i class="ti-eye ml-2"></i>6852 بازدید</li> *@
                             </ul>
                         </div>
 

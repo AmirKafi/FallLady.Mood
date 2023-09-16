@@ -18,6 +18,7 @@ namespace FallLady.Persistance.Repositories.Course
                                    .Include(x=> x.EventDays)
                                    .Include(x=> x.Category)
                                    .Include(x=> x.Tags)
+                                   .Include(x=> x.Discount)
                                    .Skip(take * skip)
                                    .Take(take)
                                    .AsNoTracking()
@@ -31,6 +32,7 @@ namespace FallLady.Persistance.Repositories.Course
                                    .Include(x => x.EventDays)
                                    .Include(x => x.Category)
                                    .Include(x => x.Tags)
+                                   .Include(x => x.Discount)
                                    .FirstOrDefaultAsync(x=> x.Id == id);
             return result;
         }

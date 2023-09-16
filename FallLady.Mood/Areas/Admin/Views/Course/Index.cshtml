@@ -29,6 +29,8 @@
                            data-naseri-additional-params="window.courseAdditionalParams"
                            data-ajax="window.ajaxRequest"
                            data-response-handler="window.responseHandler"
+                           data-apply-discount-url="@Url.Action("ApplyDiscount","Course")"
+                           data-remove-discount-url="@Url.Action("RemoveDiscount","Course")"
                            data-url="@Url.Action("LoadCourses","Course")">
                         <thead>
                             <tr>
@@ -42,6 +44,8 @@
                                 <th data-field="description" data-width="1000">توضیحات</th>
                                 <th data-field="createdOnFa" data-width="1000">تاریخ ثبت</th>
                                 <th data-field="filePath" data-width="1000" data-formatter="window.showImageFormatter" data-events="window.showImageEvents">تصویر</th>
+                                <th data-field="discountPrice" data-width="1000" data-formatter="window.separateThreeDigit">مقدار تخفیف</th>
+                                <th data-field="id" data-width="1000" data-formatter="window.courseDiscountFormatter" data-events="window.courseDiscountEvents">تخفیف</th>
                             </tr>
                         </thead>
                     </table>

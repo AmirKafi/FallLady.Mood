@@ -13,6 +13,7 @@ namespace FallLady.Mood.Application.Contract.Dto.Orders
         public int Qty { get; set; }
         public decimal Price { get; set; }
         public decimal TotalPrice { get; set; }
+        public decimal? DiscountPrice { get; set; }
         public string PicturePath { get; set; }
     }
 }

@@ -28,6 +28,9 @@ namespace FallLady.Mood.Application.Contract.Dto.Course
         public string TeacherFileName { get; set; }
         public string TeacherFilePath { get; set; }
 
+        public decimal? DiscountPrice { get; set; }
+        public decimal? DiscountPrecentage { get; set; }
+
         public string EventDays { get; set; }
 
         public string FilePath { get; set; }
@@ -39,5 +42,6 @@ namespace FallLady.Mood.Application.Contract.Dto.Course
         public string CreatedOnFa => CreatedOn.ToFa();
 
         public bool IsCurrentUserFavourite { get; set; }
+
     }
 }

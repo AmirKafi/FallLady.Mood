@@ -16,7 +16,6 @@ namespace FallLady.Mood.Application.Contract.Mappers.Orders
         {
             return new Order(dto.OrderType,
                              dto.CourseId,
-                             dto.IsPayed,
                              dto.Qty,
                              dto.Price,
                              dto.UserId);
@@ -28,7 +27,7 @@ namespace FallLady.Mood.Application.Contract.Mappers.Orders
             {
                 Id = x.Id,
                 CreatedOn = x.CreatedOn,
-                IsPayed = x.IsPayed,
+                IsPayed = x.Transaction is null ? false : true,
                 OrderType = x.OrderType,
                 Price = x.Price,
                 UserId = x.UserId,

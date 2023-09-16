@@ -2,7 +2,9 @@
 using FallLady.Mood.Application.Contract.Interfaces.Course;
 using FallLady.Mood.Application.Contract.Mappers.Courses;
 using FallLady.Mood.Domain.Domain.Courses;
+using FallLady.Mood.Domain.Domain.Discounts;
 using FallLady.Mood.Domain.Domain.Tags;
+using FallLady.Mood.Framework.Core;
 using FallLady.Mood.Framework.Core.Enum;
 using FallLady.Mood.Utility.ServiceResponse;
 using FallLady.Persistance.Repositories.Course;
@@ -56,10 +58,30 @@ namespace FallLady.Mood.Application.Services.Courses
                                    .Include(x => x.Teacher)
                                    .Include(x => x.EventDays)
                                    .Include(x => x.Category)
+                                   .Include(x=> x.Discount)
                                    .AsNoTracking()
                                    .Where(x=> (title == null || x.Title.Contains(title)))
                                    .ToList();
                 result.SetData(data.ToDto());
+            }
+            catch (Exception ex)
+            {
+                result.SetException(ex.Message);
+            }
+
+            return result;
+        }
+
+        public async Task<ServiceResponse<List<ComboModel>>> LoadCoursesAsCombo()
+        {
+            var result = new ServiceResponse<List<ComboModel>>();
+            try
+            {
+                var data =await _repository.GetQuerable()
+                                   .AsNoTracking()
+                                   .ToListAsync();
+
+                result.SetData(data.ToCombo());
             }
             catch (Exception ex)
             {
@@ -160,6 +182,54 @@ namespace FallLady.Mood.Application.Services.Courses
             {
                 var course = await _repository.GetById(courseId);
                 await _repository.Delete(course);
+
+                result.SetData(true);
+            }
+            catch (Exception ex)
+            {
+                result.SetException(ex.Message);
+            }
+
+            return result;
+        }
+
+        public async Task<ServiceResponse<bool>> SetDiscount(int courseId, int discountId)
+        {
+            var result = new ServiceResponse<bool>();
+            try
+            {
+                var course = await _repository.GetById(courseId);
+
+                if (course is null)
+                    result.SetException("دوره مورد نظر یافت نشد");
+
+                course.SetDiscount(discountId);
+
+                await _repository.Update(course);
+
+                result.SetData(true);
+            }
+            catch (Exception ex)
+            {
+                result.SetException(ex.Message);
+            }
+
+            return result;
+        }
+
+        public async Task<ServiceResponse<bool>> RemoveDiscount(int courseId)
+        {
+            var result = new ServiceResponse<bool>();
+            try
+            {
+                var course = await _repository.GetById(courseId);
+
+                if (course is null)
+                    result.SetException("دوره مورد نظر یافت نشد");
+
+                course.RemoveDiscount();
+
+                await _repository.Update(course);
 
                 result.SetData(true);
             }

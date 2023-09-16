@@ -1,5 +1,6 @@
 ﻿using FallLady.Mood.Domain.Domain.Categories;
 using FallLady.Mood.Domain.Domain.Courses.Exceptions;
+using FallLady.Mood.Domain.Domain.Discounts;
 using FallLady.Mood.Domain.Domain.Tags;
 using FallLady.Mood.Domain.Domain.Teachers;
 using FallLady.Mood.Domain.Enums;
@@ -87,6 +88,9 @@ namespace FallLady.Mood.Domain.Domain.Courses
         public int CategoryId { get; private set; }
         public Category Category { get; private set; }
 
+        public int? DiscountId { get; set; }
+        public Discount Discount { get; set; }
+
         #endregion
 
         #region Methods
@@ -138,6 +142,16 @@ namespace FallLady.Mood.Domain.Domain.Courses
             return this;
         }
 
+        public Course SetDiscount(int discount)
+        {
+            this.DiscountId = discount;
+            return this;
+        }
+        public Course RemoveDiscount()
+        {
+            this.DiscountId = null;
+            return this;
+        }
         #endregion
     }
 }

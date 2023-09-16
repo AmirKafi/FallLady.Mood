@@ -14,5 +14,6 @@ namespace FallLady.Mood.Application.Contract.Interfaces.Orders
         Task<ServiceResponse<bool>> AddOrder(OrderCreateDto dto);
         Task<ServiceResponse<bool>> RemoveOrder(int orderId);
         Task<ServiceResponse<bool>> RemoveAllOrders(string userId);
+        Task RefreshOrders(string userId);
     }
 }

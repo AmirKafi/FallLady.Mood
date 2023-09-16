@@ -6,6 +6,7 @@ using FallLady.Mood.Domain.Domain.Discounts;
 using FallLady.Mood.Domain.Domain.Favourites;
 using FallLady.Mood.Domain.Domain.Tags;
 using FallLady.Mood.Domain.Domain.Teachers;
+using FallLady.Mood.Domain.Domain.Transactions;
 using FallLady.Mood.Domain.Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -53,5 +54,6 @@ namespace FallLady.Persistance
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Favourite> Favourites { get; set; }
         public DbSet<Discount> Discounts { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
     }
 }

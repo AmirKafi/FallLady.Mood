@@ -69,6 +69,22 @@ namespace FallLady.Mood.Application.Services.Users
             return result;
         }
 
+        public async Task<ServiceResponse<List<ComboModel>>> LoadUsers()
+        {
+            var result = new ServiceResponse<List<ComboModel>>();
+            try
+            {
+                var data = await _userManager.Users.ToListAsync();
+                result.SetData(data.ToCombo());
+            }
+            catch (Exception ex)
+            {
+                result.SetException(ex.Message);
+            }
+
+            return result;
+        }
+
         public async Task<ServiceResponse<IdentityResult>> AddUser(UserCreateDto dto)
         {
             var result = new ServiceResponse<IdentityResult>();

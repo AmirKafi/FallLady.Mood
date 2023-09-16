@@ -53,7 +53,18 @@
                     <div class="ed_view_box style_3 border py-3">
                         <div class="ed_view_price pr-4">
                             <span>قیمت</span>
-                            <h2 class="theme-cl mb-0">@Model.Price.Separate3Digits() تومان</h2>
+                            @if(Model.DiscountPrice != null)
+                            {
+                                <h2 class="theme-cl mb-0">@((Model.Price - Model.DiscountPrice.Value).Separate3Digits()) تومان</h2>
+                                <div class="offer-box">
+                                    <span class="old-prc">@Model.Price.Separate3Digits() تومان</span>
+                                    <span class="offer-box">@Model.DiscountPrecentage% تخفیف</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <h2 class="theme-cl mb-0">@Model.Price.Separate3Digits() تومان</h2>                                
+                            }
                         </div>
 
                         <div class="p-4">

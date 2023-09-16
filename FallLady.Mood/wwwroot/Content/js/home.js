@@ -18,6 +18,134 @@ $(document).on("change", "select#CourseType", function (e) {
     }
 });
 
+window.courseDiscountFormatter = function (courseId, row) {
+    if (row.discountPrice === null)
+        return "<button class='btn btn-sm btn-success m-1 apply-course-discount' data-id='" + row.id + "'><span class='glyphicon glyphicon-plus-sign'></span> اختصاص تخفیف</button>";
+    else
+        return "<button class='btn btn-sm btn-danger m-1 remove-course-discount' data-id='" + row.id + "'><span class='glyphicon glyphicon-trash'></span> حذف تخفیف</button> ";
+}
+
+window.courseDiscountEvents = {
+    'click button.apply-course-discount': function (row) {
+        var $createItem, url;
+        $createItem = $(this);
+        url = $('table[data-toggle=table]').data("applyDiscountUrl");
+
+        $.ajax({
+            url: url,
+            type: "GET",
+            cache: false,
+            data: {
+                courseId: $createItem.data("id")
+            }
+        }).done(function (data, textStatus, jqXHR) {
+
+            var _ref1;
+            if ((data != null ? data.length : void 0) === 0) {
+                toastr["error"]((_ref1 = data.message) != null ? _ref1 : resource.exception.addError);
+                return;
+            }
+            setTimeout(function () {
+                var name, title, _ref1, _ref2, imageFiles;
+                $createItem.dialog({
+                    title: "اختصاص تخفیف",
+                    mode: "small",
+                    destroyAfterClose: true,
+                    content: content,
+                    onSaveClick: function (e) {
+                        var $btnSave, form;
+                        $btnSave = $(e);
+
+                        form = $btnSave.parent().prev().find("form");
+                        if (form.valid()) {
+                            $btnSave.prop("disabled", true);
+                            $.ajax({
+                                url: form.attr("action"),
+                                method: "POST",
+                                data: new FormData(form.get(0)),
+                                processData: false,
+                                contentType: false,
+                                cache: false
+                            }).done(function (data, textStatus, jqXHR) {
+                                var _ref3;
+                                autoDestroyToastr();
+                                if (data.resultStatus !== 1 && data.resultStatus !== -2) {
+                                    toastr["error"]((_ref3 = data.message) != null ? _ref3 : resource.exception.saveError);
+                                    return;
+                                }
+                                toastr["success"](resource.message.saveSuccess);
+                                $createItem.data("dialog").hide($createItem.data("dialogId"));
+                                window.$table.bootstrapTable("refresh", {
+                                    silent: true,
+                                    pageNumber: 1
+                                });
+                            }).fail(function (msg) {
+                                autoDestroyToastr();
+                                content = msg.status === 403 ? msg.statusText : "Error";
+                                if (content === "Error") {
+                                    toastr["error"](resource.exception.addError);
+                                    return;
+                                }
+                                if (content === "Forbidden") {
+                                    toastr["error"](resource.exception.addForbidden);
+                                    return;
+                                }
+                            }).always(function () {
+                                $btnSave.prop("disabled", false);
+                                manuallyDestroyToastr();
+                            });
+                        } else {
+                            window.gotoErrorModal();
+                        }
+                    },
+                    onBeforeOpen: function () {
+                        var persianCalendar;
+                        $('form').validateBootstrap(true);
+                        window.inputmasks();
+
+                       
+                        $(".dialog-body select").selectpicker({
+                            container: "body"
+                        });
+                        
+                    }
+                });
+            }, 700);
+            content = data;
+        }).fail(function (msg) {
+            content = msg.status === 403 ? "Forbidden" : "Error";
+        }).always(function () {
+
+        });
+    },
+    'click button.remove-course-discount': function (row) {
+        var $this, url;
+        $this = $(this);
+        url = $('table[data-toggle=table]').data("removeDiscountUrl");
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            cache: false,
+            data: {
+                courseId: $this.data("id")
+            }
+        }).done(function (data, textStatus, jqXHR) {
+            if ((data != null ? data.length : void 0) === 0) {
+                toastr["error"]((_ref1 = data.message) != null ? _ref1 : resource.exception.editError);
+                return;
+            }
+
+            toastr["success"]("عملیات با موفقیت انجام شد");
+            $('table[data-toggle=table]').bootstrapTable("refresh", {
+                silent: true,
+                pageNumber: 1
+            });
+        }).fail(function (msg) {
+            toastr["error"](msg.status === 403 ? resource.exception.forbidden : resource.exception.serverError);
+        });
+    }
+}
 //#endregion
 
 //#region Teacher
@@ -86,6 +214,91 @@ window.promoteToAdminEvents = {
 }
 
 //#endregion
+
+//#region Discount
+
+window.discountAdditionalParams = function () {
+    return {
+
+    }
+}
+
+window.discountExpirationFormatter = function (expire, row) {
+    if (expire === true)
+        return "<button class='btn btn-sm btn-success m-1 renew-discount' data-id='" + row.id + "'><span class='glyphicon glyphicon-plus'></span> تمدید</button>";
+    else
+        return "<button class='btn btn-sm btn-danger m-1 expire-discount' data-id='" + row.id + "'><span class='glyphicon glyphicon-trash'></span> منقضی</button> ";
+}
+
+window.discountExpirationEvents = {
+    'click button.renew-discount': function (row) {
+        var $this, url;
+        $this = $(this);
+        url = $('table[data-toggle=table]').data("expirationUrl");
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            cache: false,
+            data: {
+                discountId: $this.data("id"),
+                expire: false
+            }
+        }).done(function (data, textStatus, jqXHR) {
+            if ((data != null ? data.length : void 0) === 0) {
+                toastr["error"]((_ref1 = data.message) != null ? _ref1 : resource.exception.editError);
+                return;
+            }
+
+            toastr["success"]("عملیات با موفقیت انجام شد");
+            $('table[data-toggle=table]').bootstrapTable("refresh", {
+                silent: true,
+                pageNumber: 1
+            });
+        }).fail(function (msg) {
+            toastr["error"](msg.status === 403 ? resource.exception.forbidden : resource.exception.serverError);
+        });
+    },
+    'click button.expire-discount': function (row) {
+        var $this, url;
+        $this = $(this);
+        url = $('table[data-toggle=table]').data("expirationUrl");
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            cache: false,
+            data: {
+                discountId: $this.data("id"),
+                expire: true
+            }
+        }).done(function (data, textStatus, jqXHR) {
+            if ((data != null ? data.length : void 0) === 0) {
+                toastr["error"]((_ref1 = data.message) != null ? _ref1 : resource.exception.editError);
+                return;
+            }
+
+            toastr["success"]("عملیات با موفقیت انجام شد");
+            $('table[data-toggle=table]').bootstrapTable("refresh", {
+                silent: true,
+                pageNumber: 1
+            });
+        }).fail(function (msg) {
+            toastr["error"](msg.status === 403 ? resource.exception.forbidden : resource.exception.serverError);
+        });
+    }
+}
+$(document).on("click", "#IsSpecifiedByUser", function (e) {
+
+    if ($(this).prop("checked") === true)
+        $(".discount-create .specifiedByUser").css("display", "block");
+    else
+        $(".discount-create .specifiedByUser").css("display", "none");
+
+});
+//#endregion
+
+
 //#region Message
 
 window.messageReadFormatter = function (messageId, row) {
@@ -239,22 +452,10 @@ window.orderAjaxRequest = function (params) {
             };
             window.$table.bootstrapTable('load', objects);
 
-            let totalPrice = 0.0, discountPrice = 0.0, payablePrice = 0.0,taxPrice = 0.0;
-
-            discountPrice = parseFloat($(".order-list #DiscountPrice").html());
-
-            _.each(data.data, function (item) {
-                totalPrice += item.totalPrice;
-            });
-            taxPrice = (totalPrice - discountPrice) * (9 / 100);
-            console.log((totalPrice - discountPrice) * (0.09));
-            console.log(taxPrice)
-            payablePrice = (totalPrice - discountPrice) + taxPrice;
-
-            $(".order-list #DiscountPrice").html(window.separateThreeDigit(discountPrice.toFixed(0)))
-            $(".order-list #TotalPrice").html(window.separateThreeDigit(totalPrice.toFixed(0)));
-            $(".order-list #PayablePrice").html(window.separateThreeDigit(payablePrice.toFixed(0)));
-            $(".order-list #TaxPrice").html(window.separateThreeDigit(taxPrice.toFixed(0)));
+            $(".order-list #DiscountPrice").html(0);
+            $(".order-list #TotalPrice").html(0);
+            $(".order-list #PayablePrice").html(0);
+            $(".order-list #TaxPrice").html(0);
 
 
         }).fail(function (msg) {
@@ -262,6 +463,59 @@ window.orderAjaxRequest = function (params) {
         }).always(function () { });
     }, 313);
 };
+
+$(document).on("check.bs.table", "#CartTable", function (rows) {
+    window.calculatePrice()
+});
+$(document).on("uncheck-all.bs.table", "#CartTable", function (rows) {
+    window.calculatePrice()
+});
+$(document).on("check-all.bs.table", "#CartTable", function (rows) {
+    window.calculatePrice()
+});
+$(document).on("uncheck.bs.table", "#CartTable", function (rows) {
+    window.calculatePrice()
+});
+
+$(document).on("click", ".apply-discount", function (e) {
+    var $btn;
+    $btn = $(this);
+    var discountCode = $("#DiscountCode").val();
+    if (discountCode === "" || discountCode === null) {
+        toastr["warning"]("لطفا کد تخفیف را وارد کنید");
+        return;
+    }
+    $btn.prop("disabled", true);
+    $.ajax({
+        url: $btn.data("url"),
+        method: "POST",
+        data: {
+            code: discountCode,
+            courseId: null
+        }
+    }).done(function (data, textStatus, jqXHR) {
+        var _ref3;
+        autoDestroyToastr();
+        if (data.resultStatus !== 1 && data.resultStatus !== -2) {
+            toastr["error"](data.message);
+            return;
+        }
+        $("#DiscountPrice").html(parseFloat($("#PayablePrice").html().replace(",", "")).toFixed(0) * (data.data.precentage / 100));
+        $("#DiscountCode").val("");
+        toastr["success"](resource.message.success);
+        window.calculatePrice(parseFloat($("#DiscountPrice").html()).toFixed(0));
+    }).fail(function (msg) {
+        autoDestroyToastr();
+        content = msg.status === 403 ? msg.statusText : "Error";
+        if (content === "Error") {
+            toastr["error"]("متاسفانه عملیات با خطا مواجه شد");
+            return;
+        }
+    }).always(function () {
+        $btn.prop("disabled", false);
+        manuallyDestroyToastr();
+    });
+});
 
 $(document).on("click", ".removeAllOrders", function (e) {
     var $btn;
@@ -295,6 +549,76 @@ $(document).on("click", ".removeAllOrders", function (e) {
         manuallyDestroyToastr();
     });
 });
+
+$(document).on("click", ".pay-cart", function (e) {
+    var $btn;
+    $btn = $(this);
+    var ordersId = window.getIdSelections();
+    if ((ordersId != null ? ordersId.length : void 0) === 0) {
+        toastr["warning"]("برای پرداخت آیتم های مورد نظر خود را انتخاب کنید");
+        return false;
+    }
+
+    $btn.prop("disabled", true);
+    $.ajax({
+        url: $btn.data("url"),
+        method: "POST",
+        data: {
+
+        }
+    }).done(function (data, textStatus, jqXHR) {
+        var _ref3;
+        autoDestroyToastr();
+        if (data.resultStatus !== 1 && data.resultStatus !== -2) {
+            toastr["error"]("متاسفانه عملیات با خطا مواجه شد");
+            return;
+        }
+        toastr["success"](resource.message.success);
+        window.$table.bootstrapTable("refresh", {
+            silent: true,
+            pageNumber: 1
+        });
+    }).fail(function (msg) {
+        autoDestroyToastr();
+        content = msg.status === 403 ? msg.statusText : "Error";
+        if (content === "Error") {
+            toastr["error"]("متاسفانه عملیات با خطا مواجه شد");
+            return;
+        }
+    }).always(function () {
+        $btn.prop("disabled", false);
+        manuallyDestroyToastr();
+    });
+});
+
+window.calculatePrice = function (discountPrice = 0.0) {
+    let totalPrice = 0.0, payablePrice = 0.0, taxPrice = 0.0;
+    discountPrice = parseFloat(discountPrice);
+
+    var selectedOrders = window.$table.bootstrapTable('getSelections');
+
+    _.each(selectedOrders, function (item) {
+        totalPrice += item.totalPrice;
+    });
+    taxPrice = (totalPrice) * (9 / 100);
+    payablePrice = (totalPrice - discountPrice) + taxPrice;
+
+    $(".order-list #DiscountPrice").html(window.separateThreeDigit(discountPrice.toFixed(0)))
+    $(".order-list #TotalPrice").html(window.separateThreeDigit(totalPrice.toFixed(0)));
+    $(".order-list #PayablePrice").html(window.separateThreeDigit(payablePrice.toFixed(0)));
+    $(".order-list #TaxPrice").html(window.separateThreeDigit(taxPrice.toFixed(0)));
+}
+
+window.orderPriceFormatter = function (price,row) {
+    var res;
+    if (row.discountPrice !== null) {
+        res = "" + window.separateThreeDigit((parseFloat(row.price).toFixed(0) - parseFloat(row.discountPrice).toFixed(0))) + "  " +
+            "<span class='old-prc'>" + window.separateThreeDigit(row.price) + "</span>";
+    } else {
+        res =  window.separateThreeDigit(row.price)
+    }
+    return res;
+}
 
 //#endregion
 

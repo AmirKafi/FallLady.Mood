@@ -57,7 +57,8 @@ namespace FallLady.Mood.Controllers
                 Price = x.Price,
                 Qty = x.Qty,
                 Title = x.OrderType == FormEnum.Course ? x.Course.Title : "",
-                TotalPrice = x.TotalPrice,
+                DiscountPrice = x.OrderType == FormEnum.Course ? x.Course.DiscountPrice : null,
+                TotalPrice = x.OrderType == FormEnum.Course ? (x.Course.DiscountPrice is null ? x.TotalPrice : x.TotalPrice - (x.Course.DiscountPrice.Value * x.Qty)) : 0,
                 PicturePath = x.OrderType == FormEnum.Course ? GetFileUrl(x.Course.FileName,FileFoldersEnum.Course) : ""
             }).ToList());
 
@@ -75,7 +76,7 @@ namespace FallLady.Mood.Controllers
             {
                 dto.OrderType = orderType;
 
-                var course = await _courseService.GetCourse(orderItemId);
+                var course = await _courseService.GetCourseDetails(orderItemId);
                 dto.CourseId = orderItemId;
                 dto.Price = course.Data.Price;
                 dto.Qty = 1;
@@ -106,13 +107,13 @@ namespace FallLady.Mood.Controllers
             return Json(result);
         }
 
-        [Route("/CheckDiscountValidation")]
+        [Route("/GetValidDiscount")]
         [HttpPost]
-        public async Task<ActionResult> CheckDiscountValidation(string code,int? courseId)
+        public async Task<ActionResult> GetValidDiscount(string code)
         {
             var userId = await _userService.GetUserId(User).ConfigureAwait(false);
             
-            var result = await _discountService.CheckDiscountValidation(code,userId.Data,courseId);
+            var result = await _discountService.GetValidDiscount(code,userId.Data);
 
             return Json(result);
         }

@@ -1,5 +1,6 @@
 ﻿using FallLady.Mood.Application.Contract.Dto.Users;
 using FallLady.Mood.Domain.Domain.Users;
+using FallLady.Mood.Framework.Core;
 using FallLady.Mood.Framework.Core.Enum;
 using FallLady.Mood.Utility.Extentions;
 using System;
@@ -39,7 +40,7 @@ namespace FallLady.Mood.Application.Contract.Mappers.Users
                 UserName = x.UserName,
                 Role = x.Role,
                 IsActive = x.IsActive,
-                CreatedOn= x.CreatedOn
+                CreatedOn = x.CreatedOn
             }).ToList();
         }
 
@@ -56,6 +57,18 @@ namespace FallLady.Mood.Application.Contract.Mappers.Users
                 Role = model.Role,
                 IsActive = model.IsActive
             };
+        }
+
+        public static List<ComboModel> ToCombo(this List<User>? model)
+        {
+            if (model is null)
+                return new List<ComboModel>();
+            else
+                return model.Select(x => new ComboModel()
+                {
+                    Value = x.Id,
+                    Title = x.FirstName + " " + x.LastName
+                }).ToList();
         }
     }
 }
