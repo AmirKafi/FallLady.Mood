@@ -199,10 +199,15 @@ $(document).on("click", ".apply-discount", function (e) {
             toastr["error"](data.message);
             return;
         }
-        $("#DiscountPrice").html(parseFloat($("#PayablePrice").html().replace(",", "")).toFixed(0) * (data.data.precentage / 100));
+        var payablePrice = $("#PayablePriceInt").val();
+
+        console.log(payablePrice);
+
+        $("#DiscountPrice").html(parseFloat(payablePrice) * (data.data.precentage / 100));
         $("#DiscountCode").val("");
+        $("#DiscountId").val(data.data.id);
         toastr["success"](resource.message.success);
-        window.calculatePrice(parseFloat($("#DiscountPrice").html()).toFixed(0));
+        window.calculatePrice(parseFloat($("#DiscountPrice").html()));
     }).fail(function (msg) {
         autoDestroyToastr();
         content = msg.status === 403 ? msg.statusText : "Error";
@@ -257,13 +262,15 @@ $(document).on("click", ".pay-cart", function (e) {
         toastr["warning"]("برای پرداخت آیتم های مورد نظر خود را انتخاب کنید");
         return false;
     }
-
     $btn.prop("disabled", true);
     $.ajax({
         url: $btn.data("url"),
         method: "POST",
         data: {
-
+            ordersId: ordersId,
+            totalPrice: parseFloat($("#TotalPriceInt").val()),
+            discountPrice: parseFloat($("#DiscountPriceInt").val()),
+            discountId:$("#DiscountId").val()
         }
     }).done(function (data, textStatus, jqXHR) {
         var _ref3;
@@ -306,6 +313,12 @@ window.calculatePrice = function (discountPrice = 0.0) {
     $(".order-list #TotalPrice").html(window.separateThreeDigit(totalPrice.toFixed(0)));
     $(".order-list #PayablePrice").html(window.separateThreeDigit(payablePrice.toFixed(0)));
     $(".order-list #TaxPrice").html(window.separateThreeDigit(taxPrice.toFixed(0)));
+
+
+    $(".order-list #DiscountPriceInt").val(discountPrice.toFixed(0))
+    $(".order-list #TotalPriceInt").val(totalPrice.toFixed(0));
+    $(".order-list #PayablePriceInt").val(payablePrice.toFixed(0));
+    $(".order-list #TaxPriceInt").val(taxPrice.toFixed(0));
 }
 
 window.orderPriceFormatter = function (price,row) {

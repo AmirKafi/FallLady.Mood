@@ -9,7 +9,7 @@ namespace FallLady.Mood.Application.Contract.Dto.Orders
         public string UserId { get; set; }
         public bool IsPayed { get; set; }
         public int Qty { get; set; }
-        public decimal Price { get; set; }
-        public decimal TotalPrice { get; set; }
+        public Int64 Price { get; set; }
+        public Int64 TotalPrice { get; set; }
     }
 }

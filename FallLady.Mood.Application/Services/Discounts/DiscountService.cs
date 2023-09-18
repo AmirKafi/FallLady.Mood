@@ -49,7 +49,7 @@ namespace FallLady.Mood.Application.Services.Discounts
 
             try
             {
-                var data = await _repository.GetQuerable().ToListAsync();
+                var data = await _repository.GetQuerable().AsNoTracking().ToListAsync();
 
                 result.SetData(data.ToDto());
             }
@@ -67,7 +67,7 @@ namespace FallLady.Mood.Application.Services.Discounts
 
             try
             {
-                var data =await _repository.GetQuerable().ToListAsync();
+                var data =await _repository.GetQuerable().AsNoTracking().ToListAsync();
 
                 result.SetData(data.ToCombo());
             }
@@ -85,7 +85,7 @@ namespace FallLady.Mood.Application.Services.Discounts
 
             try
             {
-                var exist = _repository.GetQuerable().Any(x => dto.Code == dto.Code);
+                var exist = _repository.GetQuerable().AsNoTracking().Any(x => dto.Code == dto.Code);
 
                 if (exist)
                     throw new Exception("کد تخفیف وارد شده تکراری می باشد");
@@ -108,7 +108,7 @@ namespace FallLady.Mood.Application.Services.Discounts
 
             try
             {
-                var data = _repository.GetQuerable().Where(x => x.Id == discountId).FirstOrDefault();
+                var data = _repository.GetQuerable().AsNoTracking().Where(x => x.Id == discountId).FirstOrDefault();
 
                 data.UpdateExpiration(expire);
 
@@ -130,7 +130,7 @@ namespace FallLady.Mood.Application.Services.Discounts
 
             try
             {
-                var data = _repository.GetQuerable().Where(x => x.Code == code && (x.SpecifiedUserId == null || x.SpecifiedUserId == userId)).FirstOrDefault();
+                var data = _repository.GetQuerable().AsNoTracking().Where(x => x.Code == code && (x.SpecifiedUserId == null || x.SpecifiedUserId == userId)).FirstOrDefault();
                 if (data is null)
                     result.SetException("کد تخفیف مورد نظر یافت نشد");
                 else

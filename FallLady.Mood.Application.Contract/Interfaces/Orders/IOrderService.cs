@@ -11,9 +11,11 @@ namespace FallLady.Mood.Application.Contract.Interfaces.Orders
     public interface IOrderService
     {
         Task<ServiceResponse<List<OrderListDto>>> LoadOrders(string userId);
+        Task<ServiceResponse<List<OrderListDto>>> LoadPaidOrders(string userId);
         Task<ServiceResponse<bool>> AddOrder(OrderCreateDto dto);
         Task<ServiceResponse<bool>> RemoveOrder(int orderId);
         Task<ServiceResponse<bool>> RemoveAllOrders(string userId);
         Task RefreshOrders(string userId);
+        Task<ServiceResponse<bool>> Pay(List<int> ordersId,int transactionId);
     }
 }

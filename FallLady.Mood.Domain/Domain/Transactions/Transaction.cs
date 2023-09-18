@@ -11,7 +11,7 @@ namespace FallLady.Mood.Domain.Domain.Transactions
 {
     public class Transaction:EntityId<int>
     {
-        public Transaction(decimal totalPrice,string paymentCode,string paymentResult,string paymentResultDescription,int? discountId)
+        public Transaction(Int64 totalPrice,string paymentCode,string paymentResult,string paymentResultDescription,int? discountId)
         {
             this.TotalPrice = totalPrice;
             this.PaymentCode = paymentCode;
@@ -20,9 +20,9 @@ namespace FallLady.Mood.Domain.Domain.Transactions
             this.DiscountId = discountId;
         }
 
-        public decimal TotalPrice { get; set; }
-        public decimal DiscountPrice => this.Discount is null ? 0 : TotalPrice * (this.Discount.Precentage / 100);
-        public decimal PayablePrice => this.TotalPrice - this.DiscountPrice;
+        public Int64 TotalPrice { get; set; }
+        public Int64 DiscountPrice => this.Discount is null ? 0 : TotalPrice * (this.Discount.Precentage / 100);
+        public Int64 PayablePrice => this.TotalPrice - this.DiscountPrice;
 
         public string PaymentCode { get; set; }
         public string PaymentResult { get; set; }
@@ -31,12 +31,5 @@ namespace FallLady.Mood.Domain.Domain.Transactions
         public Discount? Discount { get; set; }
         public int? DiscountId { get; set; }
 
-        public virtual ICollection<Order> PayedOrders { get; set; }
-
-        public Transaction SetOrders(List<Order> payedOrders)
-        {
-            this.PayedOrders = payedOrders;
-            return this;
-        }
     }
 }

@@ -57,7 +57,7 @@ namespace FallLady.Mood.Application.Contract.Mappers.Courses
                 TeacherFileName = x.Teacher.FileName is null ? "TeacherDefault.jpg" : x.Teacher.FileName,
                 CreatedOn = x.CreatedOn,
                 Tags = x.Tags is null ? new List<string>() : x.Tags.Select(x => x.Title).ToList(),
-                DiscountPrice = x.Discount is null ? null : (x.Price) * (Convert.ToDecimal(x.Discount.Precentage) / 100),
+                DiscountPrice = x.Discount is null ? null : (Int64)((x.Price) * (Convert.ToDecimal(x.Discount.Precentage) / 100)),
                 DiscountPrecentage = x.Discount is null ? null : x.Discount.Precentage
             }).ToList();
         }
@@ -100,13 +100,13 @@ namespace FallLady.Mood.Application.Contract.Mappers.Courses
                 ToTime = TimeOnly.FromDateTime(model.ToDate ?? default),
                 FromDate = DateOnly.FromDateTime(model.FromDate ?? default),
                 ToDate = DateOnly.FromDateTime(model.ToDate ?? default),
-                EventDays = string.Join(',', model.EventDays.Select(x => ((WeekDaysEnum)x.WeekDayId).GetDisplayName()).ToList()),
+                EventDays = string.Join(" , ", model.EventDays.Select(x => ((WeekDaysEnum)x.WeekDayId).GetDisplayName()).ToList()),
                 Tags = model.Tags is null ? new List<string>() : model.Tags.Select(x => x.Title).ToList(),
                 TeacherFileName = model.Teacher.FileName,
                 CategoryTitle = model.Category is null ? "" : model.Category.Title,
                 TeacherName = model.Teacher.FullName,
                 CreatedOn = model.CreatedOn,
-                DiscountPrice = model.Discount is null ? null : (model.Price) * (Convert.ToDecimal(model.Discount.Precentage) / 100),
+                DiscountPrice = model.Discount is null ? null : (Int64)((model.Price) * (Convert.ToDecimal(model.Discount.Precentage) / 100)),
                 DiscountPrecentage = model.Discount is null ? null : model.Discount.Precentage
             };
         }

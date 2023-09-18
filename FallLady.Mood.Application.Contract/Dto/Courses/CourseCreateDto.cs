@@ -19,7 +19,7 @@ namespace FallLady.Mood.Application.Contract.Dto.Course
 
         [DisplayName("مبلغ")]
         [Required(ErrorMessage = "این فیلد اجباری می باشد")]
-        public decimal? Price { get; set; }
+        public Int64? Price { get; set; }
 
         [DisplayName("توضیحات")]
         [Required(ErrorMessage = "این فیلد اجباری می باشد")]

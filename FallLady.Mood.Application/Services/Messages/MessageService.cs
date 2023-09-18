@@ -30,7 +30,7 @@ namespace FallLady.Mood.Application.Services.Messages
             var result = new ServiceResponse<List<MessageListDto>>();
             try
             {
-                var data = _repository.GetQuerable()
+                var data = _repository.GetQuerable().AsNoTracking()
                                       .Include(x=> x.Sender)
                                       .Include(x=> x.Reader)
                                       .AsNoTracking()

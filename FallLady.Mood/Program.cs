@@ -5,12 +5,16 @@ using FallLady.Mood;
 using FallLady.Mood.Application.Contract.Interfaces.Blogs;
 using FallLady.Mood.Application.Contract.Interfaces.Categories;
 using FallLady.Mood.Application.Contract.Interfaces.Course;
+using FallLady.Mood.Application.Contract.Interfaces.Orders;
 using FallLady.Mood.Application.Contract.Interfaces.Teachers;
+using FallLady.Mood.Application.Contract.Interfaces.Transactions;
 using FallLady.Mood.Application.Contract.Interfaces.Users;
 using FallLady.Mood.Application.Services.Blogs;
 using FallLady.Mood.Application.Services.Categories;
 using FallLady.Mood.Application.Services.Courses;
+using FallLady.Mood.Application.Services.Orders;
 using FallLady.Mood.Application.Services.Teacher;
+using FallLady.Mood.Application.Services.Transactions;
 using FallLady.Mood.Application.Services.Users;
 using FallLady.Mood.Domain.Domain.Users;
 using FallLady.Mood.Framework.Core;
@@ -41,6 +45,8 @@ builder.Services.AddScoped<ITeacherService,TeacherSerivce>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IBlogService, BlogService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<ITransactionService, TransactionService>();
 
 builder.Services.AddAuthorization(options =>
 {

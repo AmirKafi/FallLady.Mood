@@ -13,9 +13,7 @@ namespace FallLady.Persistance.Configurations
     {
         public void Configure(EntityTypeBuilder<Transaction> builder)
         {
-            builder.HasMany(x => x.PayedOrders)
-                   .WithOne(x => x.Transaction)
-                   .HasForeignKey(x => x.TransactionId);
+
         }
     }
 }

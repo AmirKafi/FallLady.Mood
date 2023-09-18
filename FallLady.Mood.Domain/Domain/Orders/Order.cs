@@ -15,7 +15,7 @@ namespace FallLady.Mood.Domain.Domain.Orders
     public class Order : EntityId<int>
     {
 
-        public Order(FormEnum orderType, int? courseId, int qty, decimal price, string userId)
+        public Order(FormEnum orderType, int? courseId, int qty, Int64 price, string userId)
         {
             OrderType = orderType;
             CourseId = courseId;
@@ -29,13 +29,14 @@ namespace FallLady.Mood.Domain.Domain.Orders
 
         public Course? Course { get; private set; }
         public int? CourseId { get; private set; }
+        public string? LicenseKey { get; set; }
 
         public User User { get; private set; }
         public string? UserId { get; private set; }
 
         public int Qty { get; private set; }
-        public decimal Price { get; private set; }
-        public decimal TotalPrice { get; private set; }
+        public Int64 Price { get; private set; }
+        public Int64 TotalPrice { get; private set; }
 
         public int? TransactionId { get; private set; }
         public Transaction? Transaction { get; private set; }
@@ -52,6 +53,20 @@ namespace FallLady.Mood.Domain.Domain.Orders
         {
             Qty -= 1;
             TotalPrice = Price * Qty;
+
+            return this;
+        }
+
+        public Order Pay(int transactionId,string licenseKey)
+        {
+            this.TransactionId = transactionId;
+            this.LicenseKey = licenseKey;
+
+            return this;
+        }
+        public Order Pay(int transactionId)
+        {
+            this.TransactionId = transactionId;
 
             return this;
         }

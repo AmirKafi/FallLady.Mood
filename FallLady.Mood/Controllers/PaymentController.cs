@@ -32,23 +32,28 @@ namespace FallLady.Mood.Controllers
 
         [HttpPost]
         [Route("/Pay")]
-        public async Task<ActionResult> Pay(List<int> ordersId,decimal totalPrice,decimal discountPrice)
+        public async Task<ActionResult> Pay(List<int> ordersId, Int64 totalPrice, Int64 discountPrice,int? discountId)
         {
             var userId = await _userService.GetUserId(User);
             var isDevMode = _configuration.GetValue<bool>("DeveloperMode");
-            var result = new ServiceResponse<bool>();
+            var result = new ServiceResponse<int>();
             var model = new TransactionCreateDto();
 
-            if(isDevMode)
+            if (isDevMode)
             {
                 model.OrdersId = ordersId;
-                model.TotalPrice = totalPrice;
+                model.TotalPrice = totalPrice + (Int64)((decimal)totalPrice * (decimal)0.09);
                 model.DiscountPrice = discountPrice;
                 model.PaymentCode = "Test";
                 model.PaymentResult = "200";
                 model.PaymentResultDescription = "Test";
+                model.DiscountId = discountId;
 
-               result =  await _service.Pay(model);
+                result = await _service.Pay(model);
+                if (result.ResultStatus == ResultStatus.Successful)
+                {
+                    await _orderService.Pay(ordersId,result.Data);
+                }
             }
 
             if (result.ResultStatus == ResultStatus.Successful)

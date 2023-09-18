@@ -104,9 +104,14 @@
                                 <span id="PayablePrice">0</span> تومان
                             </div>
                         </div>
-                        <button type="button" class="btn checkout_btn pay-cart" disabled>پرداخت</button>
+                        <button type="button" class="btn checkout_btn pay-cart" data-url="@Url.Action("Pay","Payment")">پرداخت</button>
                     </div>
                 </div>
+                <input readonly hidden id="TotalPriceInt" />
+                <input readonly hidden id="TaxPriceInt" />
+                <input readonly hidden id="DiscountPriceInt" />
+                <input readonly hidden id="PayablePriceInt" />
+                <input readonly hidden id="DiscountId" />
             </div>
         </div>
 

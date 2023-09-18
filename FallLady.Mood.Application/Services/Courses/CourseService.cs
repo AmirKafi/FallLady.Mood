@@ -54,7 +54,7 @@ namespace FallLady.Mood.Application.Services.Courses
             var result = new ServiceResponse<List<CourseListDto>>();
             try
             {
-                var data =  _repository.GetQuerable()
+                var data =  _repository.GetQuerable().AsNoTracking()
                                    .Include(x => x.Teacher)
                                    .Include(x => x.EventDays)
                                    .Include(x => x.Category)
@@ -77,7 +77,7 @@ namespace FallLady.Mood.Application.Services.Courses
             var result = new ServiceResponse<List<ComboModel>>();
             try
             {
-                var data =await _repository.GetQuerable()
+                var data =await _repository.GetQuerable().AsNoTracking()
                                    .AsNoTracking()
                                    .ToListAsync();
 
@@ -240,5 +240,6 @@ namespace FallLady.Mood.Application.Services.Courses
 
             return result;
         }
+
     }
 }

@@ -10,6 +10,6 @@ namespace FallLady.Mood.Application.Contract.Interfaces.Transactions
 {
     public interface ITransactionService
     {
-        public Task<ServiceResponse<bool>> Pay(TransactionCreateDto dto);
+        public Task<ServiceResponse<int>> Pay(TransactionCreateDto dto);
     }
 }

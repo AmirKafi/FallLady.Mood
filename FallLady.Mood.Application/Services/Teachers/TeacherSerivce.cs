@@ -6,6 +6,7 @@ using FallLady.Mood.Domain.Domain.Teachers;
 using FallLady.Mood.Framework.Core;
 using FallLady.Mood.Framework.Core.Enum;
 using FallLady.Mood.Utility.ServiceResponse;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,9 +49,9 @@ namespace FallLady.Mood.Application.Services.Teacher
             var result = new ServiceResponse<List<TeacherListDto>>();
             try
             {
-                var courses = _courseRepository.GetQuerable();
+                var courses = _courseRepository.GetQuerable().AsNoTracking();
                 var data = _repository
-                    .GetQuerable()
+                    .GetQuerable().AsNoTracking()
                     .Where(x => (fullName == null || x.FullName.Contains(fullName)))
                     .Select(x=> new TeacherListDto()
                     {
@@ -146,7 +147,7 @@ namespace FallLady.Mood.Application.Services.Teacher
             var result = new ServiceResponse<List<ComboModel>>();
             try
             {
-                var teacher = _repository.GetQuerable();
+                var teacher = _repository.GetQuerable().AsNoTracking();
                 var teachers = teacher.Select(x=> x.ToComboModel()).ToList();
 
                 result.SetData(teachers);

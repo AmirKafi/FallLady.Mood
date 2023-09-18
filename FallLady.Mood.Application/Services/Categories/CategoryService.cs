@@ -48,8 +48,8 @@ namespace FallLady.Mood.Application.Services.Categories
             var result = new ServiceResponse<List<CategoryListDto>>();
             try
             {
-                var courses = _courseRepository.GetQuerable().ToList();
-                var data =_repository.GetQuerable().Select(x=> new CategoryListDto()
+                var courses = _courseRepository.GetQuerable().AsNoTracking().ToList();
+                var data =_repository.GetQuerable().AsNoTracking().Select(x=> new CategoryListDto()
                 {
                     Id = x.Id,
                     Title = x.Title
@@ -72,7 +72,8 @@ namespace FallLady.Mood.Application.Services.Categories
             var result = new ServiceResponse<bool>();
             try
             {
-                await _repository.Add(dto.ToModel());
+                var model = dto.ToModel();
+                await _repository.Add(model);
                 result.SetData(true);
             }
             catch (Exception ex)
@@ -142,7 +143,7 @@ namespace FallLady.Mood.Application.Services.Categories
             var result = new ServiceResponse<List<ComboModel>>();
             try
             {
-                var category = _repository.GetQuerable();
+                var category = _repository.GetQuerable().AsNoTracking();
                 var categories = category.Select(x => x.ToComboModel()).ToList();
 
                 result.SetData(categories);

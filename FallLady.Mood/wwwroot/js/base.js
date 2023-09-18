@@ -40,7 +40,6 @@ window.bootbox = function (size) {
     });
 };
 
-
 $(document).on("keyup", "input[type=text].price", function () {
     $(this).val(window.separateThreeDigit($(this).val()));
 });

@@ -11,9 +11,9 @@ namespace FallLady.Mood.Application.Contract.Dto.Orders
         public int OrderId { get; set; }
         public string Title { get; set; }
         public int Qty { get; set; }
-        public decimal Price { get; set; }
-        public decimal TotalPrice { get; set; }
-        public decimal? DiscountPrice { get; set; }
+        public Int64 Price { get; set; }
+        public Int64 TotalPrice { get; set; }
+        public Int64? DiscountPrice { get; set; }
         public string PicturePath { get; set; }
     }
 }

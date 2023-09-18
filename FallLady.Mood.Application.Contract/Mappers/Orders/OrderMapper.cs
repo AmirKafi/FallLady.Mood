@@ -34,7 +34,8 @@ namespace FallLady.Mood.Application.Contract.Mappers.Orders
                 Qty = x.Qty,
                 TotalPrice = x.TotalPrice,
                 UserFullName = x.User.FirstName + " " + x.User.LastName,
-                Course = x.Course is null ? new CourseDetailsDto() : x.Course.ToDetailDto()
+                Course = x.Course is null ? new CourseDetailsDto() : x.Course.ToDetailDto(),
+                LicenseKey = x.LicenseKey
             }).ToList();
         }
     }

@@ -31,7 +31,7 @@ namespace FallLady.Mood.Application.Services.Blogs
             var result = new ServiceResponse<List<BlogListDto>>();
             try
             {
-                var data = _repository.GetQuerable()
+                var data = _repository.GetQuerable().AsNoTracking()
                                       .Include(x => x.Author)
                                       .Skip(dto.limit * dto.offset)
                                       .Take(dto.limit);
@@ -50,7 +50,7 @@ namespace FallLady.Mood.Application.Services.Blogs
             var result = new ServiceResponse<List<BlogListDto>>();
             try
             {
-                var data = _repository.GetQuerable()
+                var data = _repository.GetQuerable().AsNoTracking()
                                       .Include(x => x.Author)
                                       .Where(x => (title == null || x.Title.Contains(title)));
                 result.SetData(data.ToDto());

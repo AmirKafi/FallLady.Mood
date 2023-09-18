@@ -30,7 +30,7 @@ namespace FallLady.Mood.Application.Services.Configs
 
             try
             {
-                var config = _configRepository.GetQuerable()
+                var config = _configRepository.GetQuerable().AsNoTracking()
                                               .FirstOrDefault();
                 result.SetData(config.ToDto());
             }
@@ -48,7 +48,7 @@ namespace FallLady.Mood.Application.Services.Configs
 
             try
             {
-                var config = _configRepository.GetQuerable();
+                var config = _configRepository.GetQuerable().AsNoTracking();
 
                 if (config.Count() != 0)
                 {

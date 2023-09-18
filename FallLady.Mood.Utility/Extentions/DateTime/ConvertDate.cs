@@ -393,9 +393,9 @@ namespace FallLady.Mood.Utility.Extentions.Datetime
                         return $"{sd.LongDate} ساعت {sd.LongTime}";
 
                     case "g": //Short date + short time //93/07/27 01:14:24
-                        return $"{sd.ShortDate} {sd.ShortTime}";
+                        return $"{sd.ShortTime} {sd.Saal}/{sd.Mah:00}/{sd.RoozeMah:00} ";
                     case "G": //Short date + long time
-                        return $"{sd.ShortDate} {sd.LongTime}";
+                        return $"{sd.LongTime} {sd.Saal}/{sd.Mah:00}/{sd.RoozeMah:00} ";
 
                     case "m":
                         return $"{sd.RoozeMah} {sd.MahName}";

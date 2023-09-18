@@ -9,9 +9,9 @@ namespace FallLady.Mood.Application.Contract.Dto.Transactions
 {
     public class TransactionCreateDto
     {
-        public decimal TotalPrice { get; set; }
-        public decimal DiscountPrice { get; set; }
-        public decimal PayablePrice => this.TotalPrice - this.DiscountPrice;
+        public Int64 TotalPrice { get; set; }
+        public Int64 DiscountPrice { get; set; }
+        public Int64 PayablePrice => this.TotalPrice - this.DiscountPrice;
 
         public string PaymentCode { get; set; }
         public string PaymentResult { get; set; }

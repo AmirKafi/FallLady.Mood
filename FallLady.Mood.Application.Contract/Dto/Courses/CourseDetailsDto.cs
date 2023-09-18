@@ -10,7 +10,7 @@ namespace FallLady.Mood.Application.Contract.Dto.Course
         public string Title { get; set; }
         public CourseTypeEnum CourseType { get; set; }
         public string? CourseTypeTitle => CourseType.GetDisplayName();
-        public decimal Price { get; set; }
+        public Int64 Price { get; set; }
         public string Description { get; set; }
 
         public TimeOnly? FromTime { get; set; }
@@ -28,8 +28,8 @@ namespace FallLady.Mood.Application.Contract.Dto.Course
         public string TeacherFileName { get; set; }
         public string TeacherFilePath { get; set; }
 
-        public decimal? DiscountPrice { get; set; }
-        public decimal? DiscountPrecentage { get; set; }
+        public Int64? DiscountPrice { get; set; }
+        public Int64? DiscountPrecentage { get; set; }
 
         public string EventDays { get; set; }
 

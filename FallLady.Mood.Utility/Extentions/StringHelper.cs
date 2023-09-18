@@ -10,7 +10,9 @@ namespace FallLady.Mood.Utility.Extentions
 {
     public static class StringHelper
     {
-        public static string Separate3Digits(this decimal value)
+        private static Random random = new Random();
+
+        public static string Separate3Digits(this Int64 value)
         {
 
             return value.ToString("N0", new NumberFormatInfo()
@@ -18,6 +20,13 @@ namespace FallLady.Mood.Utility.Extentions
                 NumberGroupSizes = new[] { 3 },
                 NumberGroupSeparator = ","
             });
+        }
+
+        public static string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }

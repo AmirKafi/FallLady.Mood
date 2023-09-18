@@ -31,10 +31,12 @@ namespace FallLady.Persistance
         {
 
         }
-        
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=FallLady.Mood;Integrated Security=True;MultipleActiveResultSets=true;TrustServerCertificate=true;");
+            #if DEBUG
+            optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=Limak.Academy;Integrated Security=True;MultipleActiveResultSets=true;TrustServerCertificate=true;");
+            #endif
             //optionsBuilder.UseSqlServer("Server=.;Initial Catalog=FallLady.Mood;Persist Security Info=True;MultipleActiveResultSets=true;User ID=sa;Password=ASD110asd;TrustServerCertificate=Yes");
             base.OnConfiguring(optionsBuilder);
             optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
