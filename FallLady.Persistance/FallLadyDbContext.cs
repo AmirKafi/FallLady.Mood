@@ -34,10 +34,7 @@ namespace FallLady.Persistance
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            #if DEBUG
-            optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=Limak.Academy;Integrated Security=True;MultipleActiveResultSets=true;TrustServerCertificate=true;");
-            #endif
-            //optionsBuilder.UseSqlServer("Server=.;Initial Catalog=FallLady.Mood;Persist Security Info=True;MultipleActiveResultSets=true;User ID=sa;Password=ASD110asd;TrustServerCertificate=Yes");
+            optionsBuilder.UseSqlServer("Data Source=45.138.135.5;Initial Catalog=limakaca_DB;Persist Security Info=True;MultipleActiveResultSets=true;User ID=limakaca_DB;Password=AmirKafi8306!;TrustServerCertificate=true");
             base.OnConfiguring(optionsBuilder);
             optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 

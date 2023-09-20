@@ -10,5 +10,6 @@ namespace FallLady.Mood.Framework.Core
     {
         public bool DeveloperMode { get; set; }
         public string SpotPlayerApiKey { get; set; }
+        public string ConnectionString { get; set; }
     }
 }
