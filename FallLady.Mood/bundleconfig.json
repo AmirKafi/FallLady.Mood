@@ -130,8 +130,10 @@
   {
     "outputFileName": "wwwroot/Content/css/template.css",
     "inputFiles": [
-      "wwwroot/TemplateAssets/css/styles.css",
-      "wwwroot/TemplateAssets/css/color.css"
+      "wwwroot/TemplateAssets/css/all.min.css",
+      "wwwroot/TemplateAssets/vendor/leaflet/leaflet.css",
+      "wwwroot/TemplateAssets/css/vendors.css",
+      "wwwroot/TemplateAssets/css/main.css"
     ],
     "minify": {
       "enabled": true,
@@ -141,11 +143,9 @@
   {
     "outputFileName": "wwwroot/Content/js/template.js",
     "inputFiles": [
-      "wwwroot/TemplateAssets/js/slick.js",
-      "wwwroot/TemplateAssets/js/select2.min.js",
-      "wwwroot/TemplateAssets/js/jquery.counterup.min.js",
-      "wwwroot/TemplateAssets/js/counterup.min.js",
-      "wwwroot/TemplateAssets/js/custom.js"
+      "wwwroot/TemplateAssets/vendor/leaflet/leaflet.js",
+      "wwwroot/TemplateAssets/js/vendors.js",
+      "wwwroot/TemplateAssets/js/main.js"
     ],
     "minify": {
       "enabled": true,

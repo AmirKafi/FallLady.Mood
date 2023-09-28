@@ -3,23 +3,67 @@
 *@
 @{
 }
+<div class="header-menu js-mobile-menu-toggle ">
+    <div class="header-menu__content">
+        <div class="mobile-bg js-mobile-bg"></div>
 
-<ul class="nav-menu">
+        <div class="d-none xl:d-flex items-center px-20 py-20 border-bottom-light">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a asp-action="Index" asp-controller="Home" asp-area="Admin" class="text-dark-1" style="margin-left:30px">
+                    <img src="~/Content/svgs/profile.svg" class="menu-icon" />
+                    <span class="theme-cl">@User.Claims.First(x=> x.Type == "UserFullName").Value.ToString() خوش آمدید</span>
+                </a>
 
-    <li>
-        <a href="/">
-            <img src="~/Content/svgs/home.svg" class="menu-icon" />
-            صفحه اصلی
-        </a>
-    </li>
-    <li>
-        <a href="#">دوره ها<span class="submenu-indicator"></span></a>
-        <ul class="nav-dropdown nav-submenu">
-            <li><a href="/OnlineCourses">مجازی</a></li>
-            <li><a href="/OfflineCourses">حضوری</a></li>
-        </ul>
-    </li>
-    <li><a href="/Blogs">مطالب</a></li>
-    <li><a href="/ContactUs">تماس با ما</a></li>
+                if (User.HasClaim("UserRole", "Admin"))
+                {
+                    <a asp-action="Index" asp-controller="Home" asp-area="Admin" class="text-dark-1">
+                        <img src="~/Content/svgs/cogwheel.svg" class="menu-icon" />
+                        ورود به پنل ادمین
+                    </a>
+                }
 
-</ul>
+            }
+            else
+            {
+                <a href="javascript:void(0)" data-url="@Url.Action("Login","Account")" data-dialog-mode="medium" class="text-dark-1 modalRaw">ورود</a>
+                <a href="javascript:void(0)" data-url="@Url.Action("Register","Account")" data-dialog-mode="large" class="text-dark-1 modalRaw">ثبت نام</a>
+            }
+        </div>
+
+        <div class="menu js-navList">
+            <ul class="menu__nav text-white -is-active">
+                <li class="menu-item-has-children">
+                    <a data-barba href="#">
+                        دوره ها <i class="icon-chevron-left text-11 mr-10"></i>
+                    </a>
+
+                    <ul class="subnav">
+                        <li class="menu__backButton js-nav-list-back">
+                            <a href="#"><i class="icon-chevron-right text-13 ml-10"></i> دوره ها</a>
+                        </li>
+
+                        <li><a href="/OnlineCourses">مجازی</a></li>
+
+                        <li><a href="/OfflineCourses">حضوری</a></li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a data-barba href="/Blogs">مطالب</a>
+                </li>
+                <li>
+                    <a data-barba href="/ContactUs">تماس با ما</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="header-menu-close" data-el-toggle=".js-mobile-menu-toggle">
+        <div class="size-40 d-flex items-center justify-center rounded-full bg-white">
+            <div class="icon-close text-dark-1 text-16"></div>
+        </div>
+    </div>
+
+    <div class="header-menu-bg"></div>
+</div>

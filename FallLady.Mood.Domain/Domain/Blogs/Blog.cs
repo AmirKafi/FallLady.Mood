@@ -18,15 +18,18 @@ namespace FallLady.Mood.Domain.Domain.Blogs
         public Blog(string title,
                     string textBody,
                     string picture, 
-                    string authorId)
+                    string authorId,
+                    string shortDescription)
         {
             this.Title = title;
             this.TextBody = textBody;
             this.Picture = picture;
             this.AuthorId = authorId;
+            ShortDescription = shortDescription;
         }
 
         public string Title { get; set; }
+        public string ShortDescription { get; set; }
         public string TextBody { get; set; }
         public string Picture { get; set; }
         public string AuthorId { get; set; }
@@ -35,11 +38,13 @@ namespace FallLady.Mood.Domain.Domain.Blogs
 
         public Blog Update(string title,
                            string textBody,
-                           string picture)
+                           string picture,
+                           string shortDescription)
         {
             this.Title = title;
             this.TextBody = textBody;
             this.Picture = picture;
+            this.ShortDescription = shortDescription;
 
             return this;
         }

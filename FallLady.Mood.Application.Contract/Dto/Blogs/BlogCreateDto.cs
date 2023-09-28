@@ -13,6 +13,10 @@ namespace FallLady.Mood.Application.Contract.Dto.Blogs
         [Required(ErrorMessage = "این فیلد اجباری می باشد")]
         public string TextBody { get; set; }
 
+        [Display(Name = "توضیح مختصر")]
+        [Required(ErrorMessage = "این فیلد اجباری می باشد")]
+        public string ShortDescription { get; set; }
+
         public string AuthorId { get; set; }
 
         [Display(Name = "تصویر")]

@@ -8,5 +8,7 @@
 
         public string Picture { get; set; }
         public string PicturePath { get; set; }
+
+        public string ShortDescription { get; set; }
     }
 }

@@ -4,45 +4,78 @@
 }
 @model List<FallLady.Mood.Application.Contract.Dto.Blogs.BlogListDto >
 
-<section class="page-title">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-md-12">
-                <div class="breadcrumbs-wrap">
-                    <h1 class="breadcrumb-title">مطالب</h1>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">لیست مطالب</a></li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<section class="pt-0">
-    <div class="container">
-        <div class="row">
-
-            @foreach (var item in Model)
-            {
-                <div class="col-lg-4 col-md-4 col-sm-12">
-                    <div class="articles_grid_style">
-                        <div class="articles_grid_thumb">
-                            <a href="/BlogDetails?blogId=@item.Id"><img src="@item.PicturePath" class="img-fluid" alt=""></a>
+<div class="content-wrapper  js-content-wrapper">
+    <section data-anim="fade" class="breadcrumbs is-in-view">
+        <div class="container">
+            <div class="row">
+                <div class="col-auto">
+                    <div class="breadcrumbs__content">
+                        <div class="breadcrumbs__item ">
+                            <a href="#">صفحه اصلی</a>
                         </div>
 
-                        <div class="articles_grid_caption">
-                            <h4>@item.Title</h4>
-                            <div class="articles_grid_author">
-                                <p> نویسنده: </p>
-                                <p><a href="#">@item.AuthorName</a></p>
-                            </div>
+                        <div class="breadcrumbs__item ">
+                            <a href="#">لیست وبلاگ</a>
                         </div>
                     </div>
                 </div>
-            }
-
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    <section class="page-header -type-1">
+        <div class="container">
+            <div class="page-header__content">
+                <div class="row justify-center text-center">
+                    <div class="col-auto">
+                        <div data-anim="slide-up delay-1" class="is-in-view">
+
+                            <h1 class="page-header__title">لیست وبلاگ</h1>
+
+                        </div>
+
+                        <div data-anim="slide-up delay-2" class="is-in-view">
+
+                            <p class="page-header__text">ما ماموریت داریم دوره‌های جذاب و مدیریت‌شده را با قیمتی مناسب ارائه دهیم.</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="layout-pt-md layout-pb-lg">
+        <div data-anim-wrap="" class="container animated">
+            <div class="row y-gap-30 justify-center">
+
+                @foreach (var item in Model)
+                {
+                    <div data-anim="slide-up delay-1" class="col-lg-10 col-md-11 is-in-view">
+                        <div class="blogCard -type-3">
+                            <div class="row y-gap-30 items-center">
+                                <div class="col-lg-6">
+                                    <div class="blogCard__image">
+                                        <img class="rounded-8" src="@item.PicturePath" alt="image">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="blogCard__content pl-60 lg:pl-40 md:pl-0">
+                                        <h4 class="blogCard__title text-18 lh-15 text-dark-4 fw-500 mt-15">@item.Title</h4>
+                                        <p>@item.ShortDescription</p>
+                                        <div class="blogCard__button d-inline-block mt-20">
+                                            <a href="/BlogDetails?blogId=@item.Id" class="button -sm -purple-3 text-purple-1">
+                                                ادامه مطلب
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+</div>

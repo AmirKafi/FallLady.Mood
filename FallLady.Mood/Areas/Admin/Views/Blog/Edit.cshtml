@@ -22,8 +22,17 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
+                            <label asp-for="ShortDescription" class="form-label"></label><b class="text-danger">*</b>
+                            <textarea type="text" asp-for="ShortDescription" class="form-control"></textarea>
+                            <span class="field-validation-valid text-danger" asp-validation-for="ShortDescription"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
                             <label asp-for="TextBody" class="form-label"></label><b class="text-danger">*</b>
-                            <textarea type="text" asp-for="TextBody" class="form-control"></textarea>
+                            <textarea type="text" asp-for="TextBody" class="form-control ckeditor"></textarea>
                             <span class="field-validation-valid text-danger" asp-validation-for="TextBody"></span>
                         </div>
                     </div>

@@ -16,7 +16,8 @@ namespace FallLady.Mood.Application.Contract.Mappers.Blogs
             return new Blog(dto.Title,
                             dto.TextBody,
                             dto.Picture,
-                            dto.AuthorId);
+                            dto.AuthorId,
+                            dto.ShortDescription);
         }
 
         public static List<BlogListDto> ToDto(this IEnumerable<Blog>? model)
@@ -32,6 +33,7 @@ namespace FallLady.Mood.Application.Contract.Mappers.Blogs
                 Picture= x.Picture,
                 CreatedOn = x.CreatedOn,
                 AuthorName = x.Author.FirstName + " " + x.Author.LastName,
+                ShortDescription = x.ShortDescription
             }).ToList();
         }
 
@@ -42,7 +44,8 @@ namespace FallLady.Mood.Application.Contract.Mappers.Blogs
                 Id = model.Id,
                 Title = model.Title,
                 TextBody = model.TextBody,
-                Picture = model.Picture
+                Picture = model.Picture,
+                ShortDescription= model.ShortDescription
             };
         }
 
@@ -54,7 +57,9 @@ namespace FallLady.Mood.Application.Contract.Mappers.Blogs
                 Title = model.Title,
                 TextBody = model.TextBody,
                 Picture = model.Picture,
-                AuthorName = model.Author.FirstName + " " + model.Author.LastName
+                AuthorName = model.Author.FirstName + " " + model.Author.LastName,
+                CreatedOn = model.CreatedOn,
+                ShortDescription = model.ShortDescription
             };
         }
     }

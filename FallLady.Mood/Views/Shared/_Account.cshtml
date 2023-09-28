@@ -3,68 +3,118 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
-@{
-    <ul class="nav-menu nav-menu-social align-to-left">
-        @if (User.Identity.IsAuthenticated)
-        {
 
-            <li>
-                <a asp-action="Index" asp-area="Admin" class="btn">
-                    <img src="~/Content/svgs/profile.svg" class="menu-icon" />
-                    <span class="theme-cl">@User.Claims.First(x=> x.Type == "UserFullName").Value.ToString()</span> خوش آمدید
-                </a>
-                <ul class="nav-dropdown nav-submenu">
-                    <li>
-                        <a asp-action="Index" asp-area="" asp-controller="UserProfile" class="btn">
-                            <img src="~/Content/svgs/accessibility-1.svg" class="menu-icon" />
-                            پنل کاربری
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-action="Index" asp-area="" asp-controller="Order" class="btn">
-                            <img src="~/Content/svgs/basket.svg" class="menu-icon" />
-                            سبد خرید
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)" data-url="@Url.Action("ChangePassword","Account")" class="btn changePassword">
-                            <i class="ti-lock"></i>
-                            تغییر کلمه عبور
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)" data-url="@Url.Action("SignOut","Account")" class="btn signOut">
-                            <img src="~/Content/svgs/logout.svg" class="menu-icon" />
-                            خروج
-                        </a>
-                    </li>
-                </ul>
-            </li>
+<div class="col-auto">
+    <div class="header-right d-flex items-center">
+        <div class="header-right__icons text-white d-flex items-center">
 
-            if (User.HasClaim("UserRole", "Admin"))
+            <div class="relative mr-30 xl:mr-20">
+                <button class="d-flex items-center text-white" data-el-toggle=".js-cart-toggle">
+                    <i class="text-20 icon icon-basket"></i>
+                </button>
+
+                <div class="toggle-element js-cart-toggle">
+                    <div class="header-cart bg-white -dark-bg-dark-1 rounded-8">
+                        <div class="px-30 pt-30 pb-10">
+
+                            <div class="row justify-between x-gap-40 pb-20">
+                                <div class="col">
+                                    <div class="row x-gap-10 y-gap-10">
+                                        <div class="col-auto">
+                                            <img src="~/TemplateAssets/img/menus/cart/1.png" alt="image">
+                                        </div>
+
+                                        <div class="col">
+                                            <div class="text-dark-1 lh-15">دوره نهایی نقاشی از مبتدی تا پیشرفته...</div>
+
+                                            <div class="d-flex items-center mt-10">
+                                                <div class="lh-12 fw-500 line-through text-light-1 ml-10">179</div>
+                                                <div class="text-15 lh-12 fw-500 text-dark-1">79000 تومان</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-auto">
+                                    <button><img src="~/TemplateAssets/img/menus/close.svg" alt="icon"></button>
+                                </div>
+                            </div>
+
+                            <div class="row justify-between x-gap-40 pb-20">
+                                <div class="col">
+                                    <div class="row x-gap-10 y-gap-10">
+                                        <div class="col-auto">
+                                            <img src="~/TemplateAssets/img/menus/cart/2.png" alt="image">
+                                        </div>
+
+                                        <div class="col">
+                                            <div class="text-dark-1 lh-15">آموزش ساخت وب سایت خبری با React Node</div>
+
+                                            <div class="d-flex items-center mt-10">
+                                                <div class="lh-12 fw-500 line-through text-light-1 ml-10">179</div>
+                                                <div class="text-15 lh-12 fw-500 text-dark-1">79000 تومان</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-auto">
+                                    <button><img src="~/TemplateAssets/img/menus/close.svg" alt="icon"></button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="px-30 pt-20 pb-30 border-top-light">
+                            <div class="d-flex justify-between">
+                                <div class="text-18 lh-12 text-dark-1 fw-500">جمع کل:</div>
+                                <div class="text-18 lh-12 text-dark-1 fw-500">659000 تومان</div>
+                            </div>
+
+                            <div class="row x-gap-20 y-gap-10 pt-30">
+                                <div class="col-sm-6">
+                                    <button class="button py-20 -dark-1 text-white -dark-button-white col-12">مشاهده سبد</button>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button class="button py-20 -purple-1 text-white col-12">تسویه حساب</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="d-none xl:d-block mr-20">
+                <button class="text-white items-center" data-el-toggle=".js-mobile-menu-toggle">
+                    <i class="text-11 icon icon-mobile-menu"></i>
+                </button>
+            </div>
+
+        </div>
+
+        <div class="header-right__buttons d-flex items-center mr-30 md:d-none">
+            @if (User.Identity.IsAuthenticated)
             {
-                <li>
-                    <a asp-action="Index" asp-controller="Home" asp-area="Admin" class="btn">
+                <a asp-action="Index" asp-controller="Home" asp-area="Admin" class="button -sm -green-1 text-dark-1" style="margin-left:30px">
+                    <img src="~/Content/svgs/profile.svg" class="menu-icon" />
+                    <span class="theme-cl">@User.Claims.First(x=> x.Type == "UserFullName").Value.ToString() خوش آمدید</span>
+                </a>
+
+                if (User.HasClaim("UserRole", "Admin"))
+                {
+                    <a asp-action="Index" asp-controller="Home" asp-area="Admin" class="button -sm -purple-1 text-white">
                         <img src="~/Content/svgs/cogwheel.svg" class="menu-icon" />
                         ورود به پنل ادمین
                     </a>
-                </li>
+                }
+
             }
-        }
-        else
-        {
-            <li>
-                <a href="javascript:void(0)" data-url="@Url.Action("Login","Account")" data-dialog-mode="medium" class="btn modalRaw">
-                    <img src="~/Content/svgs/login.svg" class="menu-icon" />
-                    ورود
-                </a>
-            </li>
-            <li>
-                <a href="javascript:void(0)" data-url="@Url.Action("Register","Account")" data-dialog-mode="large" class="btn modalRaw">
-                    <img src="~/Content/svgs/register.svg" class="menu-icon" />
-                    ثبت نام
-                </a>
-            </li>
-        }
-    </ul>
-}
+            else
+            {
+                <a href="javascript:void(0)" data-url="@Url.Action("Login","Account")" data-dialog-mode="medium" class="button -sm -green-1 text-dark-1 modalRaw">ورود</a>
+                <a href="javascript:void(0)" data-url="@Url.Action("Register","Account")" data-dialog-mode="large" class="button -sm -white text-dark-1 mr-30 modalRaw">ثبت نام</a>
+            }
+        </div>
+    </div>
+</div>

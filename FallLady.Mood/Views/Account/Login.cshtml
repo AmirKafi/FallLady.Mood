@@ -4,39 +4,31 @@
 }
 
 
-<div id="main-wrapper">
+<!-- ========================== SignUp Elements ============================= -->
 
-    <!-- ========================== SignUp Elements ============================= -->
-    <section class="log-space">
-        <div class="container">
-            <div class="row justify-content-center">
-                <img src="~/Content/Images/login.png" style="max-width:25vh;max-height:25vh" />
-                <div class="col-lg-12 col-md-12 position-static p-4">
-                    <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
-                        <div class="log_wraps">
-                            <a href="index.html" class="log-logo_head"><img src="/assets/img/logo.png" class="img-fluid" width="80" alt="" /></a>
-                            <div class="log__heads" style="margin:auto">
-                                <h4 class="logs_title">ورود به <span class="theme-cl">حساب کاربری</span></h4>
-                            </div>
-
-                            <div class="form-group">
-                                <label asp-for="UserName" class="form-label"></label>
-                                <input asp-for="UserName" type="text" class="form-control letterOnly">
-                            </div>
-
-                            <div class="form-group">
-                                <label asp-for="Password"></label>
-                                <input asp-for="Password" type="password" class="form-control password">
-                            </div>
-
-                            <a href="javascript:void(0)" data-url="@Url.Action("Login","Account")" class="btn btn-theme btn-rounded btn-login">ورود</a>
-                        </div>
-                    </form>
-                </div>
+<div class="container">
+    <div class="row justify-center items-center">
+        <img src="~/Content/Images/login.png" style="max-width:25vh;max-height:25vh" />
+        <div class="col-xl-12 col-lg-12">
+            <div class="px-50 py-50 md:px-25 md:py-25 bg-white shadow-1 rounded-16">
+                <h3 class="text-30 lh-13">ورود</h3>
+                <form class="contact-form respondForm__form row y-gap-20 pt-30" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                    <div class="col-12">
+                        <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">نام کاربری</label>
+                        <input type="text" name="UserName" placeholder="admin">
+                    </div>
+                    <div class="col-12">
+                        <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">رمز عبور</label>
+                        <input type="password" name="Password" placeholder="********">
+                    </div>
+                    <div class="col-12">
+                        <button href="javascript:void(0)" data-url="@Url.Action("Login","Account")" class="button -md -green-1 text-dark-1 fw-500 w-1/1 btn-login">
+                            ورود
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
-    </section>
-    <!-- ========================== Login Elements ============================= -->
+    </div>
 </div>
-
-
+<!-- ========================== Login Elements ============================= -->

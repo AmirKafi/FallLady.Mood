@@ -1,127 +1,170 @@
-﻿@using FallLady.Mood.Application.Contract.Dto.Messages;
-@{
-    ViewBag.Title = "تماس با ما";
-}
-@model FallLady.Mood.Application.Contract.Dto.Configs.ConfigDto
+﻿@model FallLady.Mood.Application.Contract.Dto.Configs.ConfigDto
+<main class="main-content">
 
-<section class="page-title">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-md-12">
+    <div class="content-wrapper  js-content-wrapper">
 
-                <div class="breadcrumbs-wrap">
-                    <h1 class="breadcrumb-title">تماس با ما</h1>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="/">خانه</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">تماس با ما</li>
-                        </ol>
-                    </nav>
+        <section class="">
+            <div id="map" class="map leaflet-container leaflet-touch leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" tabindex="0" style="position: relative; outline: none;"><div class="leaflet-pane leaflet-map-pane" style="transform: translate3d(337px, 303px, 0px);"><div class="leaflet-pane leaflet-tile-pane"><div class="leaflet-layer " style="z-index: 1; opacity: 1;"><div class="leaflet-tile-container leaflet-zoom-animated" style="z-index: 18; transform: translate3d(-444px, -295px, 0px) scale(1);"><img alt="" role="presentation" src="https://a.tile.openstreetmap.org/17/84255/51588.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1077px, 425px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://b.tile.openstreetmap.org/17/84256/51588.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1333px, 425px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://c.tile.openstreetmap.org/17/84255/51587.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1077px, 169px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://a.tile.openstreetmap.org/17/84256/51587.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1333px, 169px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://b.tile.openstreetmap.org/17/84255/51589.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1077px, 681px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://c.tile.openstreetmap.org/17/84256/51589.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1333px, 681px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://c.tile.openstreetmap.org/17/84254/51588.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(821px, 425px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://c.tile.openstreetmap.org/17/84257/51588.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1589px, 425px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://b.tile.openstreetmap.org/17/84254/51587.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(821px, 169px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://b.tile.openstreetmap.org/17/84257/51587.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1589px, 169px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://a.tile.openstreetmap.org/17/84254/51589.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(821px, 681px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://a.tile.openstreetmap.org/17/84257/51589.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1589px, 681px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://b.tile.openstreetmap.org/17/84253/51588.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(565px, 425px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://a.tile.openstreetmap.org/17/84258/51588.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1845px, 425px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://a.tile.openstreetmap.org/17/84253/51587.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(565px, 169px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://c.tile.openstreetmap.org/17/84258/51587.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1845px, 169px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://c.tile.openstreetmap.org/17/84253/51589.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(565px, 681px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://b.tile.openstreetmap.org/17/84258/51589.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1845px, 681px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://a.tile.openstreetmap.org/17/84252/51588.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(309px, 425px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://b.tile.openstreetmap.org/17/84259/51588.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(2101px, 425px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://c.tile.openstreetmap.org/17/84252/51587.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(309px, 169px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://a.tile.openstreetmap.org/17/84259/51587.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(2101px, 169px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://b.tile.openstreetmap.org/17/84252/51589.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(309px, 681px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://c.tile.openstreetmap.org/17/84259/51589.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(2101px, 681px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://a.tile.openstreetmap.org/17/84254/51586.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(821px, -87px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://b.tile.openstreetmap.org/17/84255/51586.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1077px, -87px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://c.tile.openstreetmap.org/17/84253/51586.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(565px, -87px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://c.tile.openstreetmap.org/17/84256/51586.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1333px, -87px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://b.tile.openstreetmap.org/17/84252/51586.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(309px, -87px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://a.tile.openstreetmap.org/17/84257/51586.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1589px, -87px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://b.tile.openstreetmap.org/17/84251/51587.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(53px, 169px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://a.tile.openstreetmap.org/17/84251/51586.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(53px, -87px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://b.tile.openstreetmap.org/17/84258/51586.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1845px, -87px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://c.tile.openstreetmap.org/17/84251/51588.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(53px, 425px, 0px); opacity: 1;"></div><div class="leaflet-tile-container leaflet-zoom-animated" style="z-index: 16; transform: translate3d(-1723px, -1194px, 0px) scale(4);"></div></div></div><div class="leaflet-pane leaflet-shadow-pane"><img src="file:///F:/Templates/Educrat/Theme/vendor/leaflet/images/marker-shadow.png" class="leaflet-marker-shadow leaflet-zoom-animated" alt="" style="margin-left: -12px; margin-top: -41px; width: 41px; height: 41px; transform: translate3d(507px, -40px, 0px);"></div><div class="leaflet-pane leaflet-overlay-pane"></div><div class="leaflet-pane leaflet-marker-pane"><img src="file:///F:/Templates/Educrat/Theme/vendor/leaflet/images/marker-icon.png" class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" alt="" tabindex="0" style="margin-left: -12px; margin-top: -41px; width: 25px; height: 41px; transform: translate3d(507px, -40px, 0px); z-index: -40;"></div><div class="leaflet-pane leaflet-tooltip-pane"></div><div class="leaflet-pane leaflet-popup-pane"></div><div class="leaflet-proxy leaflet-zoom-animated" style="transform: translate3d(2.15693e+07px, 1.32064e+07px, 0px) scale(65536);"></div></div><div class="leaflet-control-container"><div class="leaflet-top leaflet-left"><div class="leaflet-control-zoom leaflet-bar leaflet-control"><a class="leaflet-control-zoom-in" href="#" title="Zoom in" role="button" aria-label="Zoom in">+</a><a class="leaflet-control-zoom-out" href="#" title="Zoom out" role="button" aria-label="Zoom out">−</a></div></div><div class="leaflet-top leaflet-right"></div><div class="leaflet-bottom leaflet-left"></div><div class="leaflet-bottom leaflet-right"><div class="leaflet-control-attribution leaflet-control"><a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> | © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</div></div></div></div>
+        </section>
+
+        <section class="layout-pt-md layout-pb-lg">
+            <div data-anim-wrap="" class="container">
+                <div class="row y-gap-50 justify-between">
+                    <div class="col-lg-4">
+                        <h3 class="text-24 fw-500 ff-estedad">با ما در ارتباط باشید</h3>
+                        <p class="mt-25">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+
+                        <div class="y-gap-30 pt-60 lg:pt-40">
+
+                            <div class="d-flex items-center">
+                                <div class="d-flex justify-center items-center size-60 rounded-full bg-light-7">
+                                    <img src="~/TemplateAssets/img/contact-1/1.svg" alt="icon">
+                                </div>
+                                <div class="mr-20">@Model.Address</div>
+                            </div>
+
+                            <div class="d-flex items-center">
+                                <div class="d-flex justify-center items-center size-60 rounded-full bg-light-7">
+                                    <img src="~/TemplateAssets/img/contact-1/2.svg" alt="icon">
+                                </div>
+                                <div class="mr-20">@Model.ContactNumber</div>
+                            </div>
+
+                            <div class="d-flex items-center">
+                                <div class="d-flex justify-center items-center size-60 rounded-full bg-light-7">
+                                    <img src="~/TemplateAssets/img/contact-1/3.svg" alt="icon">
+                                </div>
+                                <div class="mr-20">@Model.Email</div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-7">
+                        <h3 class="text-24 fw-500 ff-estedad">ارسال پیام</h3>
+                        <p class="mt-25">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ<br> و با استفاده از طراحان گرافیک است.</p>
+
+                        <form class="contact-form row y-gap-30 pt-60 lg:pt-40" action="@Url.Action("SendMessage")">
+                            <div class="col-md-12">
+                                <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">عنوان</label>
+                                <input type="text" name="title" placeholder="عنوان پیام">
+                            </div>
+                            <div class="col-12">
+                                <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">پیام</label>
+                                <textarea name="comment" placeholder="متن پیام" rows="8"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <button class="button -md -purple-1 text-white btn-sendMessage">
+                                    ارسال
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-
             </div>
-        </div>
+        </section>
+
+        <section class="layout-pt-lg layout-pb-lg bg-light-4">
+            <div class="container">
+                <div class="row justify-center text-center">
+                    <div class="col-xl-8 col-lg-9 col-md-11">
+
+                        <div class="sectionTitle ">
+
+                            <h2 class="sectionTitle__title ">سوالات متداول</h2>
+
+                            <p class="sectionTitle__text ">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+
+                        </div>
+
+
+                        <div class="accordion -block text-left pt-60 lg:pt-40 js-accordion">
+
+                            <div class="accordion__item">
+                                <div class="accordion__button">
+                                    <div class="accordion__icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus icon"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus icon"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                    </div>
+                                    <span class="text-16 fw-500 text-dark-1">آیا برای دانشجویان تخفیف قائل می شوید؟</span>
+                                </div>
+
+                                <div class="accordion__content">
+                                    <div class="accordion__content__inner text-right">
+                                        <p>چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion__item">
+                                <div class="accordion__button">
+                                    <div class="accordion__icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus icon"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus icon"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                    </div>
+                                    <span class="text-16 fw-500 text-dark-1">آیا برای تیم های بزرگ قیمت خاصی ارائه می دهید؟</span>
+                                </div>
+
+                                <div class="accordion__content">
+                                    <div class="accordion__content__inner text-right">
+                                        <p>چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion__item">
+                                <div class="accordion__button">
+                                    <div class="accordion__icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus icon"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus icon"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                    </div>
+                                    <span class="text-16 fw-500 text-dark-1">تجربه گذشته معلمان شما چیست؟</span>
+                                </div>
+
+                                <div class="accordion__content">
+                                    <div class="accordion__content__inner text-right">
+                                        <p>چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion__item">
+                                <div class="accordion__button">
+                                    <div class="accordion__icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus icon"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus icon"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                    </div>
+                                    <span class="text-16 fw-500 text-dark-1">سیاست بازپرداخت دوره چیست؟</span>
+                                </div>
+
+                                <div class="accordion__content">
+                                    <div class="accordion__content__inner text-right">
+                                        <p>چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion__item">
+                                <div class="accordion__button">
+                                    <div class="accordion__icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus icon"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus icon"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                    </div>
+                                    <span class="text-16 fw-500 text-dark-1">آیا برای غیر انتفاعی تخفیف می دهید؟</span>
+                                </div>
+
+                                <div class="accordion__content">
+                                    <div class="accordion__content__inner text-right">
+                                        <p>چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </div>
-</section>
-<section class="bg-light">
-
-    <div class="container">
-
-        <!-- row Start -->
-        <div class="row">
-
-            <div class="col-lg-8 col-md-7">
-                <div class="prc_wrap">
-
-                    <div class="prc_wrap_header">
-                        <h4 class="property_block_title">ارسال پیام</h4>
-                    </div>
-
-                    <form method="post" autocomplete="off" action="@Url.Action("SendMessage")">
-                        <div class="prc_wrap-body send-message">
-                            <div class="form-group">
-                                <label>عنوان</label>
-                                <input type="text" name="Title" id="Title" class="form-control simple">
-                            </div>
-
-                            <div class="form-group">
-                                <label>پیام</label>
-                                <textarea class="form-control simple" name="MessageBody" id="MessageBody"></textarea>
-                            </div>
-
-                            <div class="form-group">
-                                <button class="btn btn-theme btn-sendMessage" type="submit">ارسال درخواست</button>
-                            </div>
-                        </div>
-                    </form>
-
-                </div>
-
-            </div>
-
-            <div class="col-lg-4 col-md-5">
-
-                <div class="prc_wrap">
-
-                    <div class="prc_wrap_header">
-                        <h4 class="property_block_title">راه های ارتباطی</h4>
-                    </div>
-
-                    <div class="prc_wrap-body">
-                        <div class="contact-info">
-
-                            <div class="cn-info-detail">
-                                <div class="cn-info-icon">
-                                    <i class="ti-home" style="padding:2px"></i>
-                                </div>
-                                <div class="cn-info-content">
-                                    <h4 class="cn-info-title">آدرس ما</h4>
-                                    @Model.Address
-                                </div>
-                            </div>
-
-                            <div class="cn-info-detail">
-                                <div class="cn-info-icon">
-                                    <i class="ti-email"></i>
-                                </div>
-                                <div class="cn-info-content">
-                                    <h4 class="cn-info-title">پست الکترونیکی</h4>
-                                    @Model.Email
-                                </div>
-                            </div>
-
-                            <div class="cn-info-detail">
-                                <div class="cn-info-icon">
-                                    <i class="ti-mobile"></i>
-                                </div>
-                                <div class="cn-info-content">
-                                    <h4 class="cn-info-title">شماره تماس</h4>
-                                    @Model.ContactNumber
-                                </div>
-                            </div>
-
-                        </div>
-                        <div>
-                            <ul style="display:inline-flex">
-                                <li>
-                                    <a href="@Model.TelegramLink" target="_blank">
-                                        <i class="fab fa-telegram" tabindex="0"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="@Model.InstagramLink" target="_blank">
-                                        <i class="fab fa-instagram" tabindex="0"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <!-- /row -->
-
-        </div>
-
-</section>
-
+</main>

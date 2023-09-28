@@ -4,54 +4,76 @@
 }
 @model List<FallLady.Mood.Application.Contract.Dto.Course.CourseListDto>
 
-@foreach (var item in Model)
-{
-    <!-- Cource Grid 1 -->
-    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
-        <div class="education_block_list_layout style-2">
+<section class="layout-pt-md layout-pb-lg">
+    <div data-anim-wrap class="container">
+        <div class="row justify-center text-center">
+            <div class="col-auto">
 
-            <div class="education_block_thumb n-shadow">
-                <a href="/CourseDetails?courseId=@item.Id"><img src="@item.FilePath" class="img-fluid" alt=""></a>
-            </div>
+                <div class="sectionTitle ">
 
-            <div class="list_layout_ecucation_caption">
+                    <h2 class="sectionTitle__title ">محبوب ترین دوره ها</h2>
 
-                <div class="education_block_body">
-                    <h4 class="bl-title"><a href="/CourseDetails?courseId=@item.Id">@item.Title</a></h4>
-                    <div class="_course_admin_ol12">مدرس: <strong>@item.TeacherName</strong></div>
-
-                    <div class="_course_less_infor">
-                        <ul>
-                            <li><span class="class online"></span>@item.CourseTypeTitle</li>
-                        </ul>
-                    </div>
-
-                    <div class="course_rate_system_wrap">
-                        <div class="_course_category_01"><span class="cat-@rnd.Next(1,11)">@item.CategoryTitle</span></div>
-                    </div>
-                </div>
-
-                <div class="education_block_footer">
-                    @if (item.DiscountPrice != null)
-                    {
-                        <span class="old-prc">@item.Price.Separate3Digits()</span>
-                        <div class="cources_price">
-                            @((item.Price - item.DiscountPrice.Value).Separate3Digits()) تومان
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="cources_price">@item.Price.Separate3Digits() تومان</div>
-                    }
-                    <div class="cources_info_style3">
-                        <a href="/CourseDetails?courseId=@item.Id">
-                            <div class="foot_lecture"><i class="ti-control-skip-forward ml-2"></i>مشاهده</div>
-                        </a>
-                    </div>
                 </div>
 
             </div>
+        </div>
 
+        <div class="tabs -pills pt-50 js-tabs">
+            <div class="tabs__content pt-60 js-tabs-content">
+
+                <div class="tabs__pane -tab-item-1 is-active">
+                    <div class="row y-gap-30 justify-center">
+
+
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-lg-3 col-md-6">
+                                <div data-anim-child="slide-up delay-1">
+
+                                    <a href="courses-single-1.html" class="coursesCard -type-1 ">
+                                        <div class="relative">
+                                            <div class="coursesCard__image overflow-hidden rounded-8">
+                                                <img class="w-1/1" style="aspect-ratio:1/0.7" src="@item.FilePath" alt="image">
+                                                <div class="coursesCard__image_overlay rounded-8"></div>
+                                            </div>
+                                            <div class="d-flex justify-between py-10 px-10 absolute-full-center z-3">
+                                            </div>
+                                        </div>
+
+                                        <div class="h-100 pt-15">
+
+                                            <div class="text-17 lh-15 fw-500 text-dark-1 mt-10">@item.Title</div>
+
+                                            <div class="coursesCard-footer">
+                                                <div class="coursesCard-footer__author">
+                                                    <img src="@item.TeacherFilePath" alt="image">
+                                                    <div>@item.TeacherName</div>
+                                                </div>
+
+                                                <div class="coursesCard-footer__price">
+                                                    @if(item.DiscountPrice > 0)
+                                                    {
+                                                        <div>@item.DiscountPrice</div>
+                                                        <div>@((item.Price - item.DiscountPrice.Value).Separate3Digits()) تومان</div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div></div>
+                                                        <div>@item.Price.Separate3Digits() تومان</div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
-}
+</section>

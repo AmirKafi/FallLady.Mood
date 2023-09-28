@@ -119,7 +119,8 @@ namespace FallLady.Mood.Application.Services.Blogs
                 var blog = await _repository.Get(dto.Id);
                 blog.Update(dto.Title,
                             dto.TextBody,
-                            dto.Picture);
+                            dto.Picture,
+                            dto.ShortDescription);
 
                 await _repository.Update(blog);
 
