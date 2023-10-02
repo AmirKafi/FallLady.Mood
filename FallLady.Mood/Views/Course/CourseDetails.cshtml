@@ -1,4 +1,5 @@
 ﻿@using FallLady.Mood.Utility.Extentions;
+@using FallLady.Mood.Utility.Extentions.Datetime;
 @{
     ViewData["Title"] = Model.Title;
 }
@@ -6,22 +7,21 @@
 
 <div class="content-wrapper  js-content-wrapper">
 
-
     <section data-anim="fade" class="breadcrumbs is-in-view">
         <div class="container">
             <div class="row">
                 <div class="col-auto">
                     <div class="breadcrumbs__content">
 
-                        <div class="breadcrumbs__item ">
+                        <div class="breadcrumbs__item">
                             <a href="#">صفحه اصلی</a>
                         </div>
 
-                        <div class="breadcrumbs__item ">
+                        <div class="breadcrumbs__item">
                             <a href="#">جزئیات دوره</a>
                         </div>
 
-                        <div class="breadcrumbs__item ">
+                        <div class="breadcrumbs__item">
                             <a href="#">@Model.Title</a>
                         </div>
                     </div>
@@ -29,8 +29,7 @@
             </div>
         </div>
     </section>
-
-    <div class="js-pin-container">
+    <div class="js-pin-container course-details">
         <section class="page-header -type-6">
             <div class="page-header__bg bg-purple-1"></div>
             <div class="container">
@@ -41,7 +40,7 @@
                                 @foreach (var item in Model.Tags)
                                 {
                                     <div>
-                                        <div class="badge px-15 py-8 text-11 bg-green-1 text-dark-1 fw-400">@item</div>
+                                        <div class="badge px-15 py-8 text-11 bg-blue-1 text-white fw-400">@item</div>
                                     </div>
                                 }
                             </div>
@@ -50,7 +49,10 @@
                                 <h1 class="text-30 lh-14 text-white pl-60 lg:pl-0 ff-estedad">@Model.Title</h1>
                             </div>
 
+                            <p class="col-xl-9 mt-20 text-white">@Model.ShortDescription</p>
+
                             <div class="d-flex x-gap-30 y-gap-10 items-center flex-wrap pt-20">
+
 
                                 <div class="d-flex items-center text-white">
                                     <div class="icon icon-person-3 text-13"></div>
@@ -59,7 +61,7 @@
 
                                 <div class="d-flex items-center text-white">
                                     <div class="icon icon-wall-clock text-13"></div>
-                                    <div class="text-14 mr-8">آخرین به روز رسانی 1401/11</div>
+                                    <div class="text-14 mr-8">تاریخ انتشار @Model.CreatedOn.ToFa("D")</div>
                                 </div>
 
                             </div>
@@ -71,7 +73,7 @@
                         </div>
 
                         <div data-scrollmagic-pin-spacer="" class="scrollmagic-pin-spacer" style="inset: 0px auto auto 0px; margin: 0px; display: block; position: absolute; box-sizing: content-box; width: 360px; height: 777.391px;">
-                            <div class="courses-single-info js-pin-content" style="position: absolute; margin: auto; inset: 0px auto auto 0px;">
+                            <div class="courses-single-info js-pin-content" style="position: absolute; margin: auto; inset: auto;">
                                 <div class="bg-white shadow-2 rounded-8 border-light py-10 px-10">
                                     <div class="relative">
                                         <img class="w-1/1" src="@Model.FilePath" alt="image">
@@ -83,28 +85,8 @@
                                             <div class="lh-1 line-through">@(Model.DiscountPrice is null ? "" : Model.DiscountPrice.Value.Separate3Digits()) تومان</div>
                                         </div>
 
-                                        <button class="button -md -purple-1 text-white w-1/1">افزودن به سبد</button>
+                                        <button class="button -md -purple-1 text-white w-1/1 btn-addToCart" data-url="@Url.Action("AddOrder","Order")">افزودن به سبد</button>
 
-
-                                        <div class="d-flex justify-center pt-15">
-
-                                            <a href="#" class="d-flex justify-center items-center size-40 rounded-full">
-                                                <i class="fa fa-facebook"></i>
-                                            </a>
-
-                                            <a href="#" class="d-flex justify-center items-center size-40 rounded-full">
-                                                <i class="fa fa-twitter"></i>
-                                            </a>
-
-                                            <a href="#" class="d-flex justify-center items-center size-40 rounded-full">
-                                                <i class="fa fa-instagram"></i>
-                                            </a>
-
-                                            <a href="#" class="d-flex justify-center items-center size-40 rounded-full">
-                                                <i class="fa fa-linkedin"></i>
-                                            </a>
-
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -119,10 +101,17 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8">
+                        <div class="page-nav-menu -line">
+                            <div class="d-flex x-gap-30">
+                                <div><a href="#overview" class="pb-12 page-nav-menu__link js-scroll-to-id is-active">توضیحات</a></div>
+                            </div>
+                        </div>
+
                         <div id="overview" class="pt-60 lg:pt-40 to-over">
                             <h4 class="text-18 fw-500 ff-estedad">توضیحات</h4>
-
-                            @Html.Raw(Model.Description)
+                            <div class="mt-60">
+                                @Html.Raw(Model.Description)
+                            </div>
                         </div>
                     </div>
                 </div>

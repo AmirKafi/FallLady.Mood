@@ -31,7 +31,8 @@ namespace FallLady.Mood.Application.Contract.Mappers.Courses
                               dto.EventDays,
                               dto.TeacherId,
                               dto.CategoryId,
-                              dto.Tags.Select(x => new Tag(x, TagTypesEnum.Course)).ToList());
+                              dto.Tags.Select(x => new Tag(x, TagTypesEnum.Course)).ToList(),
+                              dto.ShortDescription);
         }
 
         public static List<CourseListDto> ToDto(this IEnumerable<Course>? model)
@@ -58,7 +59,8 @@ namespace FallLady.Mood.Application.Contract.Mappers.Courses
                 CreatedOn = x.CreatedOn,
                 Tags = x.Tags is null ? new List<string>() : x.Tags.Select(x => x.Title).ToList(),
                 DiscountPrice = x.Discount is null ? null : (Int64)((x.Price) * (Convert.ToDecimal(x.Discount.Precentage) / 100)),
-                DiscountPrecentage = x.Discount is null ? null : x.Discount.Precentage
+                DiscountPrecentage = x.Discount is null ? null : x.Discount.Precentage,
+                ShortDescription = x.ShortDescription
             }).ToList();
         }
 
@@ -81,7 +83,8 @@ namespace FallLady.Mood.Application.Contract.Mappers.Courses
                 EventDays = model.EventDays.Select(x => (WeekDaysEnum)x.WeekDayId).ToList(),
                 TeacherId = model.TeacherId,
                 CategoryId = model.CategoryId,
-                Tags = model.Tags is null ? new List<string>() : model.Tags.Select(x => x.Title).ToList()
+                Tags = model.Tags is null ? new List<string>() : model.Tags.Select(x => x.Title).ToList(),
+                ShortDescription = model.ShortDescription,
             };
         }
 
@@ -107,7 +110,8 @@ namespace FallLady.Mood.Application.Contract.Mappers.Courses
                 TeacherName = model.Teacher.FullName,
                 CreatedOn = model.CreatedOn,
                 DiscountPrice = model.Discount is null ? null : (Int64)((model.Price) * (Convert.ToDecimal(model.Discount.Precentage) / 100)),
-                DiscountPrecentage = model.Discount is null ? null : model.Discount.Precentage
+                DiscountPrecentage = model.Discount is null ? null : model.Discount.Precentage,
+                ShortDescription = model.ShortDescription,
             };
         }
 

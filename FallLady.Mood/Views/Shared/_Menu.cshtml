@@ -1,8 +1,7 @@
-﻿@*
+﻿@using Microsoft.Extensions.Caching.Memory;
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@{
-}
 <div class="header-menu js-mobile-menu-toggle ">
     <div class="header-menu__content">
         <div class="mobile-bg js-mobile-bg"></div>
@@ -10,9 +9,9 @@
         <div class="d-none xl:d-flex items-center px-20 py-20 border-bottom-light">
             @if (User.Identity.IsAuthenticated)
             {
-                <a asp-action="Index" asp-controller="Home" asp-area="Admin" class="text-dark-1" style="margin-left:30px">
+                <a asp-action="Index" asp-area="" asp-controller="UserProfile" class="text-dark-1" style="margin-left:30px">
                     <img src="~/Content/svgs/profile.svg" class="menu-icon" />
-                    <span class="theme-cl">@User.Claims.First(x=> x.Type == "UserFullName").Value.ToString() خوش آمدید</span>
+                    <span class="theme-cl"> پنل کاربری (@User.Claims.First(x=> x.Type == "UserFullName").Value.ToString()) </span>
                 </a>
 
                 if (User.HasClaim("UserRole", "Admin"))
@@ -33,6 +32,12 @@
 
         <div class="menu js-navList">
             <ul class="menu__nav text-white -is-active">
+                <li>
+                    <a href="/">
+                        <img src="~/Content/svgs/home-3-1.svg" class="menu-icon" style="margin-left:5px"/>
+                        صفحه اصلی
+                    </a>
+                </li>
                 <li class="menu-item-has-children">
                     <a data-barba href="#">
                         دوره ها <i class="icon-chevron-left text-11 mr-10"></i>

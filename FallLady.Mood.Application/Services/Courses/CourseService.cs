@@ -161,7 +161,8 @@ namespace FallLady.Mood.Application.Services.Courses
                               dto.EventDays,
                               dto.TeacherId,
                               dto.CategoryId,
-                              dto.Tags.Select(x=> new Tag(x,TagTypesEnum.Course)).ToList());
+                              dto.Tags.Select(x=> new Tag(x,TagTypesEnum.Course)).ToList(),
+                              dto.ShortDescription);
 
                 await _repository.Update(course);
 

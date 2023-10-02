@@ -25,6 +25,11 @@ namespace FallLady.Mood.Application.Contract.Dto.Course
         [Required(ErrorMessage = "این فیلد اجباری می باشد")]
         public string? Description { get; set; }
 
+
+        [DisplayName("توضیحات کوتاه")]
+        [Required(ErrorMessage = "این فیلد اجباری می باشد")]
+        public string ShortDescription { get; set; }
+
         [DisplayName("کد لایسنس")]
         public string? LicenseKey { get; set; }
 

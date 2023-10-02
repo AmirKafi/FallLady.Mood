@@ -39,7 +39,7 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddSingleton<IConfigurationRoot>(builder.Configuration);
-
+builder.Services.AddMemoryCache();
 builder.Services.AddScoped<ICourseService,CourseService>();
 builder.Services.AddScoped<ITeacherService,TeacherSerivce>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();

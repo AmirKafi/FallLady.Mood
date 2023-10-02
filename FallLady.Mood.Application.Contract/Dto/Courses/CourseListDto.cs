@@ -25,6 +25,7 @@ namespace FallLady.Mood.Application.Contract.Dto.Course
 
         public string? EventAddress { get; set; }
 
+        public string ShortDescription { get; set; }
         public string CategoryTitle { get; set; }
         public string TeacherName { get; set; }
         public string TeacherFileName { get; set; }

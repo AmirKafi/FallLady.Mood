@@ -35,7 +35,8 @@ namespace FallLady.Mood.Domain.Domain.Courses
                       List<WeekDaysEnum> eventDays,
                       int teacherId,
                       int categoryId,
-                      List<Tag> tags)
+                      List<Tag> tags,
+                      string shortDescription)
         {
             Title = title;
             CourseType = courseType;
@@ -63,6 +64,7 @@ namespace FallLady.Mood.Domain.Domain.Courses
             }
             _tags = tags;
             TeacherId = teacherId;
+            ShortDescription = shortDescription;
         }
 
         #region Properties
@@ -70,6 +72,7 @@ namespace FallLady.Mood.Domain.Domain.Courses
         public CourseTypeEnum CourseType { get; private set; }
         public Int64 Price { get; private set; }
         public string Description { get; private set; }
+        public string ShortDescription { get; set; }
         public string? LicenseKey { get; private set; }
         public string FileName { get; private set; }
         public DateTime? FromDate { get; private set; }
@@ -109,7 +112,8 @@ namespace FallLady.Mood.Domain.Domain.Courses
                              List<WeekDaysEnum> eventDays,
                              int teacherId,
                              int categoryId,
-                             List<Tag> tags)
+                             List<Tag> tags,
+                             string shortDescription)
         {
             Title = title;
             CourseType = courseType;
@@ -118,6 +122,7 @@ namespace FallLady.Mood.Domain.Domain.Courses
             FileName = fileName;
             TeacherId = teacherId;
             CategoryId = categoryId;
+            ShortDescription = shortDescription;
 
             _tags.Clear();
             _tags = tags;

@@ -15736,3 +15736,7 @@ table.table td {
 .priceCard__price{
 	font-family: 'Estedad', sans-serif;
 }
+
+.courses-single-info__content.scroll-bar-1.pt-30.pb-20.px-20{
+    height:fit-content;
+}
