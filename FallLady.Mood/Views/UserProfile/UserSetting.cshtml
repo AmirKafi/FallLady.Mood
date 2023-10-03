@@ -1,75 +1,153 @@
 ﻿@model FallLady.Mood.Application.Contract.Dto.Users.UserUpdateDto
 @{
     ViewData["Title"] = "اطلاعات کاربری";
+    Layout = "_UserProfileLayout";
 }
-<section class="pt-5 container-fluid">
-    <div class="container-fluid">
+<div class="row pb-50 mb-10">
+    <div class="col-auto">
 
-        <div class="row">
-
-            <div class="col-lg-3 col-md-3">
-
-                @await Html.PartialAsync("_UserMenu")
-
-            </div>
-            <div class="col-lg-9 col-md-9 col-sm-12 edu_wraper border">
-                <form method="post">
-                    <input asp-for="Id" hidden />
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="FirstName" class="form-label"></label><b class="text-danger">*</b>
-                                <input type="text" class="form-control" asp-for="FirstName">
-                                <span class="field-validation-valid text-danger" asp-validation-for="FirstName"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="LastName" class="form-label"></label><b class="text-danger">*</b>
-                                <input type="text" class="form-control" asp-for="LastName">
-                                <span class="field-validation-valid text-danger" asp-validation-for="LastName"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="PhoneNumber" class="form-label"></label><b class="text-danger">*</b>
-                                <input type="text" class="form-control mobile" asp-for="PhoneNumber">
-                                <span class="field-validation-valid text-danger" asp-validation-for="PhoneNumber"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="Email" class="form-label"></label><b class="text-danger">*</b>
-                                <input type="text" class="form-control email" asp-for="Email">
-                                <span class="field-validation-valid text-danger" asp-validation-for="Email"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="UserName" class="form-label"></label><b class="text-danger">*</b>
-                                <input type="text" class="form-control letterOnly" asp-for="UserName">
-                                <span class="field-validation-valid text-danger" asp-validation-for="UserName"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <a href="javascript:void(0)" data-url="@Url.Action("UserSetting","UserProfile")" class="btn btn-success btn-rounded btn-userSetting">
-                            <i class="ti-check"></i>
-                            ثبت تغییرات
-                        </a>
-                    </div>
-                </form>
-
-            </div>
-
-        </div>
+        <h1 class="text-24 lh-12 fw-700 ff-estedad">تنظیمات</h1>
+        <div class="mt-10">با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
 
     </div>
-</section>
+</div>
+
+
+<div class="row y-gap-30">
+    <div class="col-12">
+        <div class="rounded-16 bg-white -dark-bg-dark-1 shadow-4 h-100">
+            <div class="tabs -active-purple-2 js-tabs pt-0">
+                <div class="tabs__controls d-flex x-gap-30 items-center pt-20 px-30 border-bottom-light js-tabs-controls">
+                    <button class="tabs__button text-light-1 js-tabs-button text-nowrap is-active" data-tab-target=".-tab-item-1" type="button">
+                        ویرایش پروفایل
+                    </button>
+                    <button class="tabs__button text-light-1 js-tabs-button text-nowrap" data-tab-target=".-tab-item-2" type="button">
+                        رمزعبور
+                    </button>
+                </div>
+
+                <div class="tabs__content py-30 px-30 js-tabs-content">
+                    <div class="tabs__pane -tab-item-1 is-active">
+
+                        <div class="border-top-light pt-30 mt-30">
+                            <form action="#" class="contact-form row y-gap-30">
+
+                                <div class="col-md-6">
+
+                                    <label class="text-15 lh-1 fw-500 text-dark-1 mb-10">نام</label>
+
+                                    <input type="text" placeholder="نازنین">
+                                </div>
+
+
+                                <div class="col-md-6">
+
+                                    <label class="text-15 lh-1 fw-500 text-dark-1 mb-10">نام خانوادگی</label>
+
+                                    <input type="text" placeholder="نصیری">
+                                </div>
+
+
+                                <div class="col-md-6">
+
+                                    <label class="text-15 lh-1 fw-500 text-dark-1 mb-10">شماره تماس</label>
+
+                                    <input type="text" placeholder="09308888888">
+                                </div>
+
+
+                                <div class="col-md-6">
+
+                                    <label class="text-15 lh-1 fw-500 text-dark-1 mb-10">تاریخ تولد</label>
+
+                                    <input type="text" placeholder="1372/04/08">
+                                </div>
+
+
+                                <div class="col-md-6">
+
+                                    <label class="text-15 lh-1 fw-500 text-dark-1 mb-10">آدرس اول</label>
+
+                                    <input type="text" placeholder="خیابان ولیعصر کوچه بزرگمهر">
+                                </div>
+
+
+                                <div class="col-md-6">
+
+                                    <label class="text-15 lh-1 fw-500 text-dark-1 mb-10">آدرس دوم</label>
+
+                                    <input type="text" placeholder="میدان فردوسی جنب پمپ بنزین">
+                                </div>
+
+
+                                <div class="col-md-6">
+
+                                    <label class="text-15 lh-1 fw-500 text-dark-1 mb-10">کشور</label>
+
+                                    <input type="text" placeholder="ایران">
+                                </div>
+
+
+                                <div class="col-md-6">
+
+                                    <label class="text-15 lh-1 fw-500 text-dark-1 mb-10">شهرستان</label>
+
+                                    <input type="text" placeholder="تهران">
+                                </div>
+
+
+                                <div class="col-12">
+
+                                    <label class="text-15 lh-1 fw-500 text-dark-1 mb-10">درباره من</label>
+
+                                    <textarea placeholder="توضیحات...." rows="7"></textarea>
+                                </div>
+
+
+                                <div class="col-12">
+                                    <button class="button -md -purple-1 text-white">ذخیره</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="tabs__pane -tab-item-2">
+                        <form action="#" class="contact-form row y-gap-30">
+
+                            <div class="col-md-7">
+
+                                <label class="text-15 lh-1 fw-500 text-dark-1 mb-10">رمز عبور فعلی</label>
+
+                                <input type="text" placeholder="*********">
+                            </div>
+
+
+                            <div class="col-md-7">
+
+                                <label class="text-15 lh-1 fw-500 text-dark-1 mb-10">رمز جدید</label>
+
+                                <input type="text" placeholder="*********">
+                            </div>
+
+
+                            <div class="col-md-7">
+
+                                <label class="text-15 lh-1 fw-500 text-dark-1 mb-10">تایید رمز جدید</label>
+
+                                <input type="text" placeholder="*********">
+                            </div>
+
+                            <div class="col-12">
+                                <button class="button -md -purple-1 text-white">ذخیره</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @section scripts{
     <script>
 
