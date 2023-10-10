@@ -270,7 +270,7 @@ $(document).on("click", ".pay-cart", function (e) {
             ordersId: ordersId,
             totalPrice: parseFloat($("#TotalPriceInt").val()),
             discountPrice: parseFloat($("#DiscountPriceInt").val()),
-            discountId:$("#DiscountId").val()
+            discountId: $("#DiscountId").val()
         }
     }).done(function (data, textStatus, jqXHR) {
         var _ref3;
@@ -321,13 +321,13 @@ window.calculatePrice = function (discountPrice = 0.0) {
     $(".order-list #TaxPriceInt").val(taxPrice.toFixed(0));
 }
 
-window.orderPriceFormatter = function (price,row) {
+window.orderPriceFormatter = function (price, row) {
     var res;
     if (row.discountPrice !== null) {
         res = "" + window.separateThreeDigit((parseFloat(row.price).toFixed(0) - parseFloat(row.discountPrice).toFixed(0))) + "  " +
-            "<span class='old-prc'>" + window.separateThreeDigit(row.price) + "</span>";
+            "<span style='text-decoration:line-through'>" + window.separateThreeDigit(row.price) + "</span>";
     } else {
-        res =  window.separateThreeDigit(row.price)
+        res = window.separateThreeDigit(row.price)
     }
     return res;
 }
@@ -342,3 +342,89 @@ $(document).on("click", ".search-btn", function (e) {
     window.location = "/Search?query=" + text;
 });
 
+
+//#region UserProfile
+$(document).on("click", ".btn-userSetting", function (e) {
+    var $btnSave;
+    $btnSave = $(this);
+    var form = $btnSave.closest("form");
+    if (form.valid()) {
+        $btnSave.prop("disabled", true);
+        $.ajax({
+            url: $btnSave.data("url"),
+            method: "POST",
+            data: new FormData(form.get(0)),
+            processData: false,
+            contentType: false,
+            cache: false
+        }).done(function (data, textStatus, jqXHR) {
+            var _ref3;
+            autoDestroyToastr();
+            if (data.resultStatus !== 1 && data.resultStatus !== -2) {
+                toastr["error"]((_ref3 = data.message) != null ? _ref3 : resource.exception.saveError);
+                return;
+            }
+            toastr["success"](resource.message.saveSuccess);
+
+        }).fail(function (msg) {
+            autoDestroyToastr();
+            content = msg.status === 403 ? msg.statusText : "Error";
+            if (content === "Error") {
+                toastr["error"](resource.exception.addError);
+                return;
+            }
+            if (content === "Forbidden") {
+                toastr["error"](resource.exception.addForbidden);
+                return;
+            }
+        }).always(function () {
+            $btnSave.prop("disabled", false);
+            manuallyDestroyToastr();
+        });
+    } else {
+        window.gotoErrorModal();
+    }
+});
+
+$(document).on("click", ".btn-changePassword", function (e) {
+    var $btnSave;
+    $btnSave = $(this);
+    var form = $btnSave.closest("form");
+    if (form.valid()) {
+        $btnSave.prop("disabled", true);
+        $.ajax({
+            url: $btnSave.data("url"),
+            method: "POST",
+            data: new FormData(form.get(0)),
+            processData: false,
+            contentType: false,
+            cache: false
+        }).done(function (data, textStatus, jqXHR) {
+            var _ref3;
+            autoDestroyToastr();
+            if (data.resultStatus !== 1 && data.resultStatus !== -2) {
+                toastr["error"]((_ref3 = data.message) != null ? _ref3 : resource.exception.saveError);
+                return;
+            }
+            toastr["success"](resource.message.saveSuccess);
+
+        }).fail(function (msg) {
+            autoDestroyToastr();
+            content = msg.status === 403 ? msg.statusText : "Error";
+            if (content === "Error") {
+                toastr["error"](resource.exception.addError);
+                return;
+            }
+            if (content === "Forbidden") {
+                toastr["error"](resource.exception.addForbidden);
+                return;
+            }
+        }).always(function () {
+            $btnSave.prop("disabled", false);
+            manuallyDestroyToastr();
+        });
+    } else {
+        window.gotoErrorModal();
+    }
+});
+//#endregion

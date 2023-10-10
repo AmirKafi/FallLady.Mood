@@ -1,4 +1,5 @@
-﻿@model FallLady.Mood.Application.Contract.Dto.Users.UserUpdateDto
+﻿@using FallLady.Mood.Application.Contract.Dto.Users;
+@model FallLady.Mood.Application.Contract.Dto.Users.UserUpdateDto
 @{
     ViewData["Title"] = "اطلاعات کاربری";
     Layout = "_UserProfileLayout";
@@ -7,7 +8,7 @@
     <div class="col-auto">
 
         <h1 class="text-24 lh-12 fw-700 ff-estedad">تنظیمات</h1>
-        <div class="mt-10">با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
+        <div class="mt-10">در این بخش می توانید اطلاعات پروفایل خود را ویرایش کنید .</div>
 
     </div>
 </div>
@@ -31,12 +32,13 @@
 
                         <div class="border-top-light pt-30 mt-30">
                             <form action="#" class="contact-form row y-gap-30">
+                                <input asp-for="Id" hidden />
 
                                 <div class="col-md-6">
 
                                     <label class="text-15 lh-1 fw-500 text-dark-1 mb-10">نام</label>
 
-                                    <input type="text" placeholder="نازنین">
+                                    <input asp-for="FirstName" type="text">
                                 </div>
 
 
@@ -44,7 +46,7 @@
 
                                     <label class="text-15 lh-1 fw-500 text-dark-1 mb-10">نام خانوادگی</label>
 
-                                    <input type="text" placeholder="نصیری">
+                                    <input asp-for="LastName" type="text">
                                 </div>
 
 
@@ -52,96 +54,36 @@
 
                                     <label class="text-15 lh-1 fw-500 text-dark-1 mb-10">شماره تماس</label>
 
-                                    <input type="text" placeholder="09308888888">
+                                    <input asp-for="PhoneNumber" type="text" class="mobile">
                                 </div>
 
 
                                 <div class="col-md-6">
 
-                                    <label class="text-15 lh-1 fw-500 text-dark-1 mb-10">تاریخ تولد</label>
+                                    <label class="text-15 lh-1 fw-500 text-dark-1 mb-10">ایمیل</label>
 
-                                    <input type="text" placeholder="1372/04/08">
+                                    <input asp-for="Email" type="text" class="email">
                                 </div>
 
 
                                 <div class="col-md-6">
 
-                                    <label class="text-15 lh-1 fw-500 text-dark-1 mb-10">آدرس اول</label>
+                                    <label class="text-15 lh-1 fw-500 text-dark-1 mb-10">نام کاربری</label>
 
-                                    <input type="text" placeholder="خیابان ولیعصر کوچه بزرگمهر">
+                                    <input type="text" asp-for="UserName" class="letterOnly">
                                 </div>
-
-
-                                <div class="col-md-6">
-
-                                    <label class="text-15 lh-1 fw-500 text-dark-1 mb-10">آدرس دوم</label>
-
-                                    <input type="text" placeholder="میدان فردوسی جنب پمپ بنزین">
-                                </div>
-
-
-                                <div class="col-md-6">
-
-                                    <label class="text-15 lh-1 fw-500 text-dark-1 mb-10">کشور</label>
-
-                                    <input type="text" placeholder="ایران">
-                                </div>
-
-
-                                <div class="col-md-6">
-
-                                    <label class="text-15 lh-1 fw-500 text-dark-1 mb-10">شهرستان</label>
-
-                                    <input type="text" placeholder="تهران">
-                                </div>
-
 
                                 <div class="col-12">
-
-                                    <label class="text-15 lh-1 fw-500 text-dark-1 mb-10">درباره من</label>
-
-                                    <textarea placeholder="توضیحات...." rows="7"></textarea>
-                                </div>
-
-
-                                <div class="col-12">
-                                    <button class="button -md -purple-1 text-white">ذخیره</button>
+                                    <a href="javascript:void(0)" data-url="@Url.Action("UserSetting","UserProfile")" class="button -md -purple-1 text-white btn-userSetting">
+                                        <i class="ti-check"></i>
+                                        ثبت تغییرات
+                                    </a>
                                 </div>
                             </form>
                         </div>
                     </div>
 
-                    <div class="tabs__pane -tab-item-2">
-                        <form action="#" class="contact-form row y-gap-30">
-
-                            <div class="col-md-7">
-
-                                <label class="text-15 lh-1 fw-500 text-dark-1 mb-10">رمز عبور فعلی</label>
-
-                                <input type="text" placeholder="*********">
-                            </div>
-
-
-                            <div class="col-md-7">
-
-                                <label class="text-15 lh-1 fw-500 text-dark-1 mb-10">رمز جدید</label>
-
-                                <input type="text" placeholder="*********">
-                            </div>
-
-
-                            <div class="col-md-7">
-
-                                <label class="text-15 lh-1 fw-500 text-dark-1 mb-10">تایید رمز جدید</label>
-
-                                <input type="text" placeholder="*********">
-                            </div>
-
-                            <div class="col-12">
-                                <button class="button -md -purple-1 text-white">ذخیره</button>
-                            </div>
-                        </form>
-                    </div>
+                    @await Html.PartialAsync("_changePassword",new ChangePasswordDto());
 
                 </div>
             </div>
@@ -151,46 +93,6 @@
 @section scripts{
     <script>
 
-        $(document).on("click", ".btn-userSetting", function (e) {
-            var $btnSave;
-            $btnSave = $(this);
-            var form = $btnSave.closest("form");
-            if (form.valid()) {
-                $btnSave.prop("disabled", true);
-                $.ajax({
-                    url: $btnSave.data("url"),
-                    method: "POST",
-                    data: new FormData(form.get(0)),
-                    processData: false,
-                    contentType: false,
-                    cache: false
-                }).done(function (data, textStatus, jqXHR) {
-                    var _ref3;
-                    autoDestroyToastr();
-                    if (data.resultStatus !== 1 && data.resultStatus !== -2) {
-                        toastr["error"]((_ref3 = data.message) != null ? _ref3 : resource.exception.saveError);
-                        return;
-                    }
-                    toastr["success"](resource.message.saveSuccess);
-
-                }).fail(function (msg) {
-                    autoDestroyToastr();
-                    content = msg.status === 403 ? msg.statusText : "Error";
-                    if (content === "Error") {
-                        toastr["error"](resource.exception.addError);
-                        return;
-                    }
-                    if (content === "Forbidden") {
-                        toastr["error"](resource.exception.addForbidden);
-                        return;
-                    }
-                }).always(function () {
-                    $btnSave.prop("disabled", false);
-                    manuallyDestroyToastr();
-                });
-            } else {
-                window.gotoErrorModal();
-            }
-        });
+        
     </script>
 }
