@@ -25,11 +25,6 @@ namespace FallLady.Mood.Controllers
         }
         #endregion
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         [HttpPost]
         [Route("/Pay")]
         public async Task<ActionResult> Pay(List<int> ordersId, Int64 totalPrice, Int64 discountPrice,int? discountId)

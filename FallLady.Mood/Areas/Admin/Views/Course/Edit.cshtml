@@ -148,7 +148,7 @@
                                    class="form-control imageFile"
                                    accept=".jpg"
                                    data-preview-target=".file-preview.exist.logo"
-                                   data-url="@Url.Action("Image","File")"
+                                   @* data-url="@Url.Action("Image","File")" *@
                                    data-folder-name="@FileFoldersEnum.Course.ToString()"
                                    data-file-path="@Model.FilePath"
                                    asp-for="File" />

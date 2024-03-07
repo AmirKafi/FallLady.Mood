@@ -1,6 +1,4 @@
 ﻿<div class="dashboard__sidebar scroll-bar-1">
-
-
     <div class="sidebar -dashboard">
 
         @* <div class="sidebar__item">
@@ -17,7 +15,7 @@
             </a>
         </div>
 
-        <div class="sidebar__item">
+        <div class="sidebar__item @(ViewBag.ActivePage == "UserSetting" ? " -is-active -dark-bg-dark-2" : "")">
             <a asp-action="UserSetting" asp-area="" asp-controller="UserProfile" class="d-flex items-center text-16 lh-1 fw-500 ">
                 <i class="text-20 icon-setting ml-15"></i>
                 اطلاعات کاربری

@@ -41,6 +41,10 @@ namespace FallLady.Persistance.Migrations.FallLadyDb
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ShortDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("TextBody")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -128,6 +132,9 @@ namespace FallLady.Persistance.Migrations.FallLadyDb
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("DiscountId")
+                        .HasColumnType("int");
+
                     b.Property<string>("EventAddress")
                         .HasColumnType("nvarchar(max)");
 
@@ -141,8 +148,12 @@ namespace FallLady.Persistance.Migrations.FallLadyDb
                     b.Property<string>("LicenseKey")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
+                    b.Property<long>("Price")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ShortDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TeacherId")
                         .HasColumnType("int");
@@ -157,6 +168,8 @@ namespace FallLady.Persistance.Migrations.FallLadyDb
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("DiscountId");
 
                     b.HasIndex("TeacherId");
 
@@ -193,6 +206,43 @@ namespace FallLady.Persistance.Migrations.FallLadyDb
                     b.HasIndex("CourseId1");
 
                     b.ToTable("CourseDays");
+                });
+
+            modelBuilder.Entity("FallLady.Mood.Domain.Domain.Discounts.Discount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ExpireDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Expired")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Precentage")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SpecifiedUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SpecifiedUserId");
+
+                    b.ToTable("Discounts");
                 });
 
             modelBuilder.Entity("FallLady.Mood.Domain.Domain.Favourites.Favourite", b =>
@@ -273,6 +323,52 @@ namespace FallLady.Persistance.Migrations.FallLadyDb
                     b.ToTable("Message");
                 });
 
+            modelBuilder.Entity("FallLady.Mood.Domain.Domain.Orders.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LicenseKey")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OrderType")
+                        .HasColumnType("int");
+
+                    b.Property<long>("Price")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Qty")
+                        .HasColumnType("int");
+
+                    b.Property<long>("TotalPrice")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("TransactionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("TransactionId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Order");
+                });
+
             modelBuilder.Entity("FallLady.Mood.Domain.Domain.Tags.Tag", b =>
                 {
                     b.Property<int>("Id")
@@ -328,6 +424,42 @@ namespace FallLady.Persistance.Migrations.FallLadyDb
                     b.HasKey("Id");
 
                     b.ToTable("Teachers");
+                });
+
+            modelBuilder.Entity("FallLady.Mood.Domain.Domain.Transactions.Transaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DiscountId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PaymentCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PaymentResult")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PaymentResultDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("TotalPrice")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DiscountId");
+
+                    b.ToTable("Transactions");
                 });
 
             modelBuilder.Entity("FallLady.Mood.Domain.Domain.Users.User", b =>
@@ -418,6 +550,10 @@ namespace FallLady.Persistance.Migrations.FallLadyDb
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("FallLady.Mood.Domain.Domain.Discounts.Discount", "Discount")
+                        .WithMany("SpecifiedCourses")
+                        .HasForeignKey("DiscountId");
+
                     b.HasOne("FallLady.Mood.Domain.Domain.Teachers.Teacher", "Teacher")
                         .WithMany("Courses")
                         .HasForeignKey("TeacherId")
@@ -425,6 +561,8 @@ namespace FallLady.Persistance.Migrations.FallLadyDb
                         .IsRequired();
 
                     b.Navigation("Category");
+
+                    b.Navigation("Discount");
 
                     b.Navigation("Teacher");
                 });
@@ -442,6 +580,15 @@ namespace FallLady.Persistance.Migrations.FallLadyDb
                         .HasForeignKey("CourseId1");
 
                     b.Navigation("Course");
+                });
+
+            modelBuilder.Entity("FallLady.Mood.Domain.Domain.Discounts.Discount", b =>
+                {
+                    b.HasOne("FallLady.Mood.Domain.Domain.Users.User", "SpecifiedUser")
+                        .WithMany()
+                        .HasForeignKey("SpecifiedUserId");
+
+                    b.Navigation("SpecifiedUser");
                 });
 
             modelBuilder.Entity("FallLady.Mood.Domain.Domain.Favourites.Favourite", b =>
@@ -490,6 +637,27 @@ namespace FallLady.Persistance.Migrations.FallLadyDb
                     b.Navigation("Sender");
                 });
 
+            modelBuilder.Entity("FallLady.Mood.Domain.Domain.Orders.Order", b =>
+                {
+                    b.HasOne("FallLady.Mood.Domain.Domain.Courses.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId");
+
+                    b.HasOne("FallLady.Mood.Domain.Domain.Transactions.Transaction", "Transaction")
+                        .WithMany()
+                        .HasForeignKey("TransactionId");
+
+                    b.HasOne("FallLady.Mood.Domain.Domain.Users.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Transaction");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("FallLady.Mood.Domain.Domain.Tags.Tag", b =>
                 {
                     b.HasOne("FallLady.Mood.Domain.Domain.Courses.Course", "Course")
@@ -505,6 +673,15 @@ namespace FallLady.Persistance.Migrations.FallLadyDb
                     b.Navigation("Course");
                 });
 
+            modelBuilder.Entity("FallLady.Mood.Domain.Domain.Transactions.Transaction", b =>
+                {
+                    b.HasOne("FallLady.Mood.Domain.Domain.Discounts.Discount", "Discount")
+                        .WithMany()
+                        .HasForeignKey("DiscountId");
+
+                    b.Navigation("Discount");
+                });
+
             modelBuilder.Entity("FallLady.Mood.Domain.Domain.Courses.Course", b =>
                 {
                     b.Navigation("EventDays");
@@ -514,6 +691,11 @@ namespace FallLady.Persistance.Migrations.FallLadyDb
                     b.Navigation("_eventDays");
 
                     b.Navigation("_tags");
+                });
+
+            modelBuilder.Entity("FallLady.Mood.Domain.Domain.Discounts.Discount", b =>
+                {
+                    b.Navigation("SpecifiedCourses");
                 });
 
             modelBuilder.Entity("FallLady.Mood.Domain.Domain.Teachers.Teacher", b =>

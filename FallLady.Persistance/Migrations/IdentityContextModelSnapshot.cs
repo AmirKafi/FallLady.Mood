@@ -41,6 +41,10 @@ namespace FallLady.Persistance.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ShortDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("TextBody")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

@@ -21,16 +21,11 @@ namespace FallLady.Mood.Controllers
         }
         #endregion
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         [HttpGet]
         [Route("/Login")]
         public async Task<ActionResult> Login()
         {
-            return PartialView();
+            return PartialView("Login");
         }
 
         [HttpPost]
@@ -45,7 +40,7 @@ namespace FallLady.Mood.Controllers
         [Route("/Register")]
         public async Task<ActionResult> Register()
         {
-            return PartialView();
+            return PartialView("Register");
         }
 
         [HttpPost]
@@ -71,7 +66,7 @@ namespace FallLady.Mood.Controllers
             var model = new ChangePasswordDto();
             model.UserId = userId.Data;
 
-            return PartialView(model);
+            return PartialView("ChangePassword",model);
         }
 
         [HttpPost]

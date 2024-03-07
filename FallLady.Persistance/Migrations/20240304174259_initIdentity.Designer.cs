@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FallLady.Persistance.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20230902104843_initDb")]
-    partial class initDb
+    [Migration("20240304174259_initIdentity")]
+    partial class initIdentity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,6 +41,10 @@ namespace FallLady.Persistance.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Picture")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShortDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
