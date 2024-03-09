@@ -138,42 +138,7 @@
             </svg>
         </section>
 
-        @await Html.PartialAsync("_Courses",Model.Courses)
-
-        <section class="layout-pb-lg bg-purple-1">
-            <div class="container">
-                <div data-anim-wrap class="row y-gap-30 counter__row">
-                    <div class="col-lg-3 col-sm-6">
-                        <div data-anim-child="slide-left delay-1" class="counter -type-1">
-                            <div class="counter__number">350,000+</div>
-                            <div class="counter__title">دانش آموز در سراسر جهان</div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-sm-6">
-                        <div data-anim-child="slide-left delay-2" class="counter -type-1">
-                            <div class="counter__number">496,00+</div>
-                            <div class="counter__title">کل بازدیدهای دوره</div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-sm-6">
-                        <div data-anim-child="slide-left delay-3" class="counter -type-1">
-                            <div class="counter__number">19,000+</div>
-                            <div class="counter__title">دوره های 5 ستاره</div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-sm-6">
-                        <div data-anim-child="slide-left delay-4" class="counter -type-1">
-                            <div class="counter__number">987,000+</div>
-                            <div class="counter__title">انجمن دانشجویی</div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
+        @await Html.PartialAsync("_Courses", Model.Courses)
 
         <section class="layout-pt-lg layout-pb-lg bg-beige-1">
             <div data-anim-wrap class="container">
@@ -222,7 +187,7 @@
 
                     <div class="col-xl-5 col-lg-6 order-1 order-lg-2">
                         <div data-anim-child="slide-up delay-5" class="about-image">
-                            <img src="~/TemplateAssets/img/about/1.png" alt="image">
+                            <img src="~/Content/Images/colllage.jpg" alt="image">
                         </div>
                     </div>
                 </div>
@@ -286,8 +251,5 @@
                 </div>
             </div>
         </section>
-
-        @await Html.PartialAsync("_Blogs",Model.Blogs)
-
     </div>
 </main>
