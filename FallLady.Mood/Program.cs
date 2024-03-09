@@ -36,7 +36,8 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
             b.RegisterModule(new AutofacModule());
         });
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+                .AddRazorRuntimeCompilation();
 
 builder.Services.AddSingleton<IConfigurationRoot>(builder.Configuration);
 builder.Services.AddMemoryCache();

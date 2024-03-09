@@ -88,13 +88,13 @@ namespace FallLady.Mood.Areas.Admin.Controllers
 
             if (!dto.TagsLocal.IsNullOrEmpty())
                 dto.Tags = dto.TagsLocal.Split(',').ToList();
-            
-            // if (dto.File.Length <= 0)
-            // {
-            //     var res = new ServiceResponse<bool>();
-            //     res.SetException("انتخاب تصویر اجباری می باشد");
-            //     return Json(res);
-            // }
+
+            if (dto.File.Length <= 0)
+            {
+                var res = new ServiceResponse<bool>();
+                res.SetException("انتخاب تصویر اجباری می باشد");
+                return Json(res);
+            }
             if (dto.CourseType == CourseTypeEnum.Online)
             {
                 if (dto.LicenseKey.IsNullOrEmpty())

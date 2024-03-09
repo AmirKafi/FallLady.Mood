@@ -52,7 +52,7 @@
                                    class="form-control imageFile"
                                    accept=".jpg"
                                    data-preview-target=".file-preview.exist.logo"
-                                   @* data-url="@Url.Action("Image","File")" *@
+                                   data-url="@Url.Action("Image","File")"
                                    data-folder-name="@FileFoldersEnum.Blog.ToString()"
                                    asp-for="PictureFile" />
                             <span asp-validation-for="PictureFile"></span>

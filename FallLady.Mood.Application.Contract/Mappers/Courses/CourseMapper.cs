@@ -19,7 +19,7 @@ namespace FallLady.Mood.Application.Contract.Mappers.Courses
         {
             return new Course(dto.Title,
                               dto.CourseType.Value,
-                              dto.Price.Value,
+                              dto.Price,
                               dto.Description,
                               dto.LicenseKey,
                               dto.FileName,
@@ -71,7 +71,7 @@ namespace FallLady.Mood.Application.Contract.Mappers.Courses
                 Id = model.Id,
                 Title = model.Title,
                 CourseType = model.CourseType,
-                Price = model.Price,
+                PriceStr = model.Price.Separate3Digits(),
                 Description = model.Description,
                 LicenseKey = model.LicenseKey,
                 FileName = model.FileName,

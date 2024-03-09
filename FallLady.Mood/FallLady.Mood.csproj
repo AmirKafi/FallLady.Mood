@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Home\Search.cshtml" />
     <Content Remove="wwwroot\js\client\pages.js" />
   </ItemGroup>
 
@@ -1266,7 +1267,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\Account\Login.cshtml" />
+	  <EmbeddedResource Include="Views\Home\Index.cshtml" />
+	  <EmbeddedResource Include="Views\Home\Search.cshtml" />
+	  <None Include="Views\Account\Login.cshtml" />
     <None Include="Views\Account\Register.cshtml" />
     <None Include="wwwroot\bower_components\ajax-bootstrap-select\js\ajax-bootstrap-select.min.js" />
     <None Include="wwwroot\bower_components\ajax-bootstrap-select\js\locale\ajax-bootstrap-select.cs-CZ.js" />
@@ -3398,6 +3401,7 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="7.0.16" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.9">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

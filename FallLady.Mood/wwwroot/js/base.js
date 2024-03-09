@@ -50,9 +50,16 @@ window.separateThreeDigit = function (value) {
     if (value === 0)
         return 0;
 
-    return parseFloat(value).toFixed(0).toString()
-        .replace(/\D/g, "")
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    var str = value.toString();
+
+    str = str.replace(/\,/g, '');
+    var objRegex = new RegExp('(-?[0-9]+)([0-9]{3})');
+
+    while (objRegex.test(str)) {
+        str = str.replace(objRegex, '$1,$2');
+    }
+
+    return str;
 }
 
 window.inputmasks = function () {

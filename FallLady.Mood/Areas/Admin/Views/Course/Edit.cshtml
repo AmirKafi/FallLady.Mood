@@ -8,6 +8,7 @@
         <div class="card-body">
             <form autocomplete="off" action="@Url.Action("Edit","Course")">
                 <input asp-for="Id" hidden />
+                <input asp-for="Price" hidden />
 
                 <div class="row">
                     <div class="col-md-4">
@@ -26,9 +27,9 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label asp-for="Price" class="form-label"></label><b class="text-danger">*</b>
-                            <input type="text" class="form-control price" asp-for="Price">
-                            <span class="field-validation-valid text-danger" asp-validation-for="Price"></span>
+                            <label asp-for="PriceStr" class="form-label"></label><b class="text-danger">*</b>
+                            <input type="text" class="form-control price" asp-for="PriceStr">
+                            <span class="field-validation-valid text-danger" asp-validation-for="PriceStr"></span>
                         </div>
                     </div>
                 </div>
@@ -148,7 +149,7 @@
                                    class="form-control imageFile"
                                    accept=".jpg"
                                    data-preview-target=".file-preview.exist.logo"
-                                   @* data-url="@Url.Action("Image","File")" *@
+                                   data-url="@Url.Action("Image","File")"
                                    data-folder-name="@FileFoldersEnum.Course.ToString()"
                                    data-file-path="@Model.FilePath"
                                    asp-for="File" />

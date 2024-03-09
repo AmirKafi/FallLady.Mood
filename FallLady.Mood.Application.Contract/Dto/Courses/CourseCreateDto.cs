@@ -19,7 +19,8 @@ namespace FallLady.Mood.Application.Contract.Dto.Course
 
         [DisplayName("مبلغ")]
         [Required(ErrorMessage = "این فیلد اجباری می باشد")]
-        public Int64? Price { get; set; }
+        public string? PriceStr { get; set; }
+        public Int64 Price => Convert.ToInt64(PriceStr?.Replace(",", ""));
 
         [DisplayName("توضیحات")]
         [Required(ErrorMessage = "این فیلد اجباری می باشد")]
