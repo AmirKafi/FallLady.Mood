@@ -1,4 +1,7 @@
 ﻿@model FallLady.Mood.Application.Contract.Dto.Configs.ConfigDto
+@{
+    ViewData["Title"] = "تماس با ما";
+}
 <main class="main-content">
 
     <div class="content-wrapper  js-content-wrapper">
@@ -12,8 +15,6 @@
                 <div class="row y-gap-50 justify-between">
                     <div class="col-lg-4">
                         <h3 class="text-24 fw-500 ff-estedad">با ما در ارتباط باشید</h3>
-                        <p class="mt-25">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
-
                         <div class="y-gap-30 pt-60 lg:pt-40">
 
                             <div class="d-flex items-center">
@@ -42,8 +43,6 @@
 
                     <div class="col-lg-7">
                         <h3 class="text-24 fw-500 ff-estedad">ارسال پیام</h3>
-                        <p class="mt-25">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ<br> و با استفاده از طراحان گرافیک است.</p>
-
                         <form class="contact-form row y-gap-30 pt-60 lg:pt-40" action="@Url.Action("SendMessage")">
                             <div class="col-md-12">
                                 <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">عنوان</label>

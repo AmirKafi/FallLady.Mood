@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Home\Search.cshtml" />
     <Content Remove="wwwroot\js\client\pages.js" />
   </ItemGroup>
 
@@ -1267,10 +1266,8 @@
   </ItemGroup>
 
   <ItemGroup>
-	  <EmbeddedResource Include="Views\Home\Index.cshtml" />
-	  <EmbeddedResource Include="Views\Home\Search.cshtml" />
-	  <None Include="Views\Account\Login.cshtml" />
-    <None Include="Views\Account\Register.cshtml" />
+	<None Include="Views\Account\Login.cshtml" />
+	  <None Include="Views\Account\Register.cshtml" />
     <None Include="wwwroot\bower_components\ajax-bootstrap-select\js\ajax-bootstrap-select.min.js" />
     <None Include="wwwroot\bower_components\ajax-bootstrap-select\js\locale\ajax-bootstrap-select.cs-CZ.js" />
     <None Include="wwwroot\bower_components\ajax-bootstrap-select\js\locale\ajax-bootstrap-select.cs-CZ.min.js" />

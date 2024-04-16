@@ -13602,3 +13602,7 @@ button.btn.btn-outline-success.m-1 {
     border-radius: .25rem;
     transition: all .15s ease-in-out;
 }
+
+.masthead{
+    border-radius:1rem
+}

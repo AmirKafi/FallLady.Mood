@@ -50,40 +50,9 @@
     <!-- preloader end -->
     @RenderBody()
 
-    
-        <footer class="footer -type-1 bg-dark-1 -green-links">
-            <div class="container">
-                <div class="py-30 border-top-light-15">
-                    <div class="row justify-between items-center y-gap-20">
-                        <div class="col-auto">
-                            <div class="d-flex items-center h-100 text-white">
-                                © 2022 کلیه حقوق این قالب متعلق به امیرکافی می باشد.
-                            </div>
-                        </div>
 
-                        <div class="col-auto">
-                            <div class="d-flex x-gap-20 y-gap-20 items-center flex-wrap">
-                                <div>
-                                    <div class="d-flex x-gap-15 text-white">
-                                        <a href="help-center.html">پشتیبانی</a>
-                                        <a href="terms.html">شرایط</a>
-                                        <a href="terms.html">امنیت</a>
-                                        <a href="terms.html">حریم خصوصی</a>
-                                        <a href="terms.html">ضوابط</a>
-                                    </div>
-                                </div>
 
-                                <div>
-                                    <a href="#" class="button px-30 h-50 -dark-6 rounded-200 text-white">
-                                        <i class="icon-worldwide text-20 ml-15"></i><span class="text-15">فارسی</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
+    @await Html.PartialAsync("_Footer")
 
 
 
