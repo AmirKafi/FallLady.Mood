@@ -181,7 +181,7 @@ namespace FallLady.Mood.Areas.Admin.Controllers
 
             var result = new ServiceResponse<bool>();
 
-
+            dto.TagsLocal.Replace(" , ", ",");
             if (!dto.TagsLocal.IsNullOrEmpty())
                 dto.Tags = dto.TagsLocal.Split(',').ToList();
 

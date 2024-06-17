@@ -434,6 +434,9 @@ namespace FallLady.Persistance.Migrations.FallLadyDb
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool?>("Confirmed")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
@@ -451,6 +454,15 @@ namespace FallLady.Persistance.Migrations.FallLadyDb
                     b.Property<string>("PaymentResultDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PaymentType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ReceiptImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("State")
+                        .HasColumnType("int");
 
                     b.Property<long>("TotalPrice")
                         .HasColumnType("bigint");
@@ -582,6 +594,25 @@ namespace FallLady.Persistance.Migrations.FallLadyDb
                     b.Navigation("Course");
                 });
 
+            modelBuilder.Entity("FallLady.Mood.Domain.Domain.Courses.CourseTags", b =>
+                {
+                    b.HasOne("FallLady.Mood.Domain.Domain.Courses.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FallLady.Mood.Domain.Domain.Tags.Tag", "Tag")
+                        .WithMany()
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Tag");
+                });
+
             modelBuilder.Entity("FallLady.Mood.Domain.Domain.Discounts.Discount", b =>
                 {
                     b.HasOne("FallLady.Mood.Domain.Domain.Users.User", "SpecifiedUser")
@@ -644,7 +675,7 @@ namespace FallLady.Persistance.Migrations.FallLadyDb
                         .HasForeignKey("CourseId");
 
                     b.HasOne("FallLady.Mood.Domain.Domain.Transactions.Transaction", "Transaction")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("TransactionId");
 
                     b.HasOne("FallLady.Mood.Domain.Domain.Users.User", "User")
@@ -701,6 +732,11 @@ namespace FallLady.Persistance.Migrations.FallLadyDb
             modelBuilder.Entity("FallLady.Mood.Domain.Domain.Teachers.Teacher", b =>
                 {
                     b.Navigation("Courses");
+                });
+
+            modelBuilder.Entity("FallLady.Mood.Domain.Domain.Transactions.Transaction", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("FallLady.Mood.Domain.Domain.Users.User", b =>

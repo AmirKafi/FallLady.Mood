@@ -326,7 +326,7 @@
                 additionalParams = this.data("additionalParams");
             }
             if (additionalParams != null) {
-                params = $.extend({}, window.execFunc(additionalParams, window), params);
+                //params = $.extend({}, window.execFunc(additionalParams, window), params);
             }
            
             var inputs = [];
@@ -744,7 +744,7 @@
                 additionalParams = this.data("additionalParams");
             }
             if (additionalParams != null) {
-                params = $.extend({}, window.execFunc(additionalParams, window), params);
+                //params = $.extend({}, window.execFunc(additionalParams, window), params);
             }
             
             var inputs = [];

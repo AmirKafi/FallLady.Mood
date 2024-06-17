@@ -4,6 +4,7 @@ using FallLady.Mood.Domain.Domain.Configs;
 using FallLady.Mood.Domain.Domain.Courses;
 using FallLady.Mood.Domain.Domain.Discounts;
 using FallLady.Mood.Domain.Domain.Favourites;
+using FallLady.Mood.Domain.Domain.Orders;
 using FallLady.Mood.Domain.Domain.Tags;
 using FallLady.Mood.Domain.Domain.Teachers;
 using FallLady.Mood.Domain.Domain.Transactions;
@@ -46,6 +47,7 @@ namespace FallLady.Persistance
         }
 
         public DbSet<Course> Courses { get; set; }
+        public DbSet<CourseTags> CourseTags { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Category> Category { get; set; }
         public DbSet<Blog> Blogs { get; set; }
@@ -54,5 +56,6 @@ namespace FallLady.Persistance
         public DbSet<Favourite> Favourites { get; set; }
         public DbSet<Discount> Discounts { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<Order> Order { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿//#region Message
+﻿var modal = window.modal;
+
+//#region Message
 
 window.messageReadFormatter = function (messageId, row) {
     return "<button class='btn btn-sm btn-info m-1 readMessage' data-id='" + messageId + "'>مشاهده پیام</button> ";
@@ -254,46 +256,186 @@ $(document).on("click", ".removeAllOrders", function (e) {
     });
 });
 
-$(document).on("click", ".pay-cart", function (e) {
-    var $btn;
-    $btn = $(this);
-    var ordersId = window.getIdSelections();
-    if ((ordersId != null ? ordersId.length : void 0) === 0) {
+
+$(document).on("click", ".open-modal-bankTransfer", function () {
+    var $this, deleteDialog, table;
+    $this = $(this);
+
+    var orderIds = window.getIdSelections();
+    if ((orderIds != null ? orderIds.length : void 0) === 0) {
         toastr["warning"]("برای پرداخت آیتم های مورد نظر خود را انتخاب کنید");
         return false;
     }
-    $btn.prop("disabled", true);
+
     $.ajax({
-        url: $btn.data("url"),
-        method: "POST",
+        url: $this.data("url"),
+        type: "GET",
+        cache: false,
         data: {
-            ordersId: ordersId,
-            totalPrice: parseFloat($("#TotalPriceInt").val()),
-            discountPrice: parseFloat($("#DiscountPriceInt").val()),
-            discountId: $("#DiscountId").val()
+            ordersId: orderIds.toString()
         }
     }).done(function (data, textStatus, jqXHR) {
-        var _ref3;
-        autoDestroyToastr();
-        if (data.resultStatus !== 1 && data.resultStatus !== -2) {
-            toastr["error"]("متاسفانه عملیات با خطا مواجه شد");
-            return;
-        }
-        toastr["success"](resource.message.success);
-        window.$table.bootstrapTable("refresh", {
-            silent: true,
-            pageNumber: 1
-        });
+        setTimeout(function () {
+
+            $this.dialog({
+                title: "انتقال کارت به کارت",
+                destroyAfterClose: true,
+                mode: "medium",
+                showBtnSave: true,
+                saveBtnClassName: "button -md -purple-1 text-white col-12 mt-30",
+                saveBtnLabel:"پرداخت",
+                showBtnCancel: false,
+                content: data,
+                onSaveClick: function (e) {
+                    var $btnSave, form;
+                    $btnSave = $(e);
+
+
+                    form = $btnSave.parent().prev().find("form");
+                    if (form.valid()) {
+                        $btnSave.prop("disabled", true);
+                        var formData = new FormData(form.get(0));
+                        $.ajax({
+                            url: form.attr("action"),
+                            method: "POST",
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            cache: false
+                        }).done(function (data, textStatus, jqXHR) {
+                            var _ref3;
+                            autoDestroyToastr();
+                            if (data.resultStatus !== 1 && data.resultStatus !== -2) {
+                                toastr["error"]((_ref3 = data.message) != null ? _ref3 : resource.exception.saveError);
+                                return;
+                            }
+                            toastr["success"](resource.message.saveSuccess);
+                            modal.data("dialog").hide(modal.data("dialogId"));
+                            window.$table.bootstrapTable("refresh", {
+                                silent: true,
+                                pageNumber: 1
+                            });
+                        }).fail(function (msg) {
+                            autoDestroyToastr();
+                            content = msg.status === 403 ? msg.statusText : "Error";
+                            if (content === "Error") {
+                                toastr["error"](resource.exception.addError);
+                                return;
+                            }
+                            if (content === "Forbidden") {
+                                toastr["error"](resource.exception.addForbidden);
+                                return;
+                            }
+                        }).always(function () {
+                            $btnSave.prop("disabled", false);
+                            manuallyDestroyToastr();
+                        });
+                    } else {
+                        window.gotoErrorModal();
+                    }
+                },
+                onBeforeOpen: function () {
+                    var persianCalendar;
+                    $('form').validateBootstrap(true);
+                    window.inputmasks();
+
+                    ClassicEditor
+                        .create(document.querySelector('.ckeditor'), {
+                            language: 'fa',
+                        })
+                        .then(editor => {
+                            window.editor = editor;
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        });
+
+                    $(".dialog-body select").selectpicker({
+                        container: "body"
+                    });
+                    persianCalendar = $.calendars.instance('persian', 'fa');
+                    $(".shamsi").calendarsPicker({
+                        calendar: persianCalendar
+                    }, $.calendarsPicker.regionalOptions['fa']);
+
+                    imageFiles = $("input[type=file].imageFile");
+                    _.each(imageFiles, function (imageFile, index) {
+                        var fileName, imagePreview, imageThumbnails, _ref;
+                        $(imageFile).fileinput({
+                            language: "fa",
+                            showUpload: false,
+                            uploadAsync: true,
+                            allowedFileExtensions: ["jpg", "png", "pdf", "xlsx", "docx"],
+                            fileActionSettings: {
+                                showDrag: false
+                            }
+                        });
+                        fileName = $("#" + ((_ref = $(imageFile).data('fileName')) != null ? _ref : 'FileName')).val();
+                        if (fileName === "undefined" || fileName === void 0 || fileName === "") {
+                            fileName = [];
+                        }
+                        if (fileName.length > 0) {
+                            imagePreview = $("" + ($(imageFile).data('previewTarget')));
+                            imageThumbnails = imagePreview.find(".file-preview-thumbnails");
+                            imagePreview.removeClass("hidden");
+                            imageThumbnails.append("<div class='file-preview-frame krajee-default kv-preview-thumb' data-fileindex='" + index + "' data-template='image'> <div class='kv-file-content'> <img src='" + ($(imageFile).data('url')) + "/" + fileName + "' class='kv-preview-data file-preview-image' style='width:auto;height:160px;' /> </div> <div> <div class='file-footer-buttons'> <button type='button' data-id='" + fileName + "' class='kv-file-remove btn btn-xs btn-default'><i class='glyphicon glyphicon-trash text-danger'></i></button> </div> <div class='clearfix'></div> </div> </div>");
+                            $(document).off("click", "" + ($(imageFile).data('previewTarget')) + " .close.fileinput-remove");
+                            $(document).on("click", "" + ($(imageFile).data('previewTarget')) + " .close.fileinput-remove", function () {
+                                bootbox.confirm("آیا واقعا میخواهید همه فایل ها را حذف کنید؟", function (result) {
+                                    var _ref1;
+                                    if (result === true) {
+                                        $("#" + ((_ref1 = $(imageFile).data('fileName')) != null ? _ref1 : 'FileName')).val("");
+                                        imageThumbnails.empty();
+                                        return imagePreview.addClass("hidden");
+                                    }
+                                });
+                            });
+                            $(document).off("click", "" + ($(imageFile).data('previewTarget')) + " .kv-file-remove");
+                            return $(document).on("click", "" + ($(imageFile).data('previewTarget')) + " .kv-file-remove", function () {
+                                var $this, id;
+                                $this = $(this);
+                                id = $this.attr("data-id");
+                                bootbox.confirm("آیا واقعا میخواهید این فایل را حذف کنید؟", function (result) {
+                                    var _ref1, _ref2;
+                                    if (result === true) {
+                                        $("#" + ((_ref1 = $(imageFile).data('fileName')) != null ? _ref1 : 'FileName')).val("");
+                                        $this.closest(".file-preview-frame").remove();
+                                        if (((_ref2 = imageThumbnails.find(".file-preview-frame")) != null ? _ref2.length : void 0) === 0) {
+                                            return imagePreview.addClass("hidden");
+                                        }
+                                    }
+                                });
+                            });
+                        }
+                    });
+
+                    _.each($(".dialog-body select.shortcut"), function (item, index) {
+                        var wrapper;
+                        if ($(item).closest(".input-group").length > 0) {
+                            return;
+                        }
+                        wrapper = $("<div class='input-group ig_" + index + "'/>");
+                        $(item).parent().wrap(wrapper);
+                        wrapper = $(".dialog-body .ig_" + index);
+                        if ($(item).data("refreshUrl") != null) {
+                            wrapper.append("<span class='input-group-btn'> <button class='btn btn-default refresh' type='button' style=' border: 2px solid #E020FF; border-radius: 7px; background: transparent; color: #E020FF;' data-url='" + ($(item).data('refreshUrl')) + "' data-parent='" + ($(item).data('parent')) + "'><i class='glyphicon glyphicon-refresh icon-refresh'></i></button> </span>");
+                        }
+                        if ($(item).data("newUrl") != null) {
+                            wrapper.append("<span class='input-group-btn'> <a href='javascript:void(0)' data-dialog-title='" + ($(item).data('dialogTitle')) + "' data-url='" + ($(item).data('newUrl')) + "' class='btn btn-default btn-shortcut createItem'><i class='material-icons'>add</i></a> </span>");
+                        }
+                    });
+                    $('table[data-toggle=table2]').bootstrapTable();
+                    $('table[data-toggle=table3]').bootstrapTable();
+                    $('table[data-toggle=table4]').bootstrapTable();
+                    $('table[data-toggle=table5]').bootstrapTable();
+                    $('table[data-toggle=table6]').bootstrapTable();
+
+                }
+            });
+        },
+            700);
     }).fail(function (msg) {
-        autoDestroyToastr();
-        content = msg.status === 403 ? msg.statusText : "Error";
-        if (content === "Error") {
-            toastr["error"]("متاسفانه عملیات با خطا مواجه شد");
-            return;
-        }
-    }).always(function () {
-        $btn.prop("disabled", false);
-        manuallyDestroyToastr();
+        toastr["error"](msg.status === 403 ? resource.exception.forbidden : resource.exception.serverError);
     });
 });
 

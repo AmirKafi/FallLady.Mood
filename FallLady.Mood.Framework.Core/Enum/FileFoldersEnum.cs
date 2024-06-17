@@ -10,7 +10,8 @@ namespace FallLady.Mood.Framework.Core.Enum
     {
         Course = 1,
         Teacher ,
-        Blog
+        Blog,
+        Transaction
 
     }
 }

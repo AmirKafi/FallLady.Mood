@@ -103,11 +103,11 @@ window.courseDiscountEvents = {
                         $('form').validateBootstrap(true);
                         window.inputmasks();
 
-                       
+
                         $(".dialog-body select").selectpicker({
                             container: "body"
                         });
-                        
+
                     }
                 });
             }, 700);
@@ -271,6 +271,96 @@ window.discountExpirationEvents = {
             data: {
                 discountId: $this.data("id"),
                 expire: true
+            }
+        }).done(function (data, textStatus, jqXHR) {
+            if ((data != null ? data.length : void 0) === 0) {
+                toastr["error"]((_ref1 = data.message) != null ? _ref1 : resource.exception.editError);
+                return;
+            }
+
+            toastr["success"]("عملیات با موفقیت انجام شد");
+            $('table[data-toggle=table]').bootstrapTable("refresh", {
+                silent: true,
+                pageNumber: 1
+            });
+        }).fail(function (msg) {
+            toastr["error"](msg.status === 403 ? resource.exception.forbidden : resource.exception.serverError);
+        });
+    }
+}
+$(document).on("click", "#IsSpecifiedByUser", function (e) {
+
+    if ($(this).prop("checked") === true)
+        $(".discount-create .specifiedByUser").css("display", "block");
+    else
+        $(".discount-create .specifiedByUser").css("display", "none");
+
+});
+//#endregion
+
+//#region Transaction
+
+window.transactionAdditionalParams = function () {
+    return {
+
+    }
+}
+
+window.transactionConfirmationFormatter = function (paymentState,row) {
+    var res = "";
+    console.log(row);
+    if (paymentState === 3) // PaymentSucceeded
+        res = "پرداخت تکمیل شده";
+    else if (paymentState === 5) // PaymentnotConfirmed
+        res = "عدم تایید پرداخت";
+    else {
+        res = "<button class='btn btn-sm btn-success m-1 confirm-payment' data-id='" + row.id + "'><span class='glyphicon glyphicon-check'></span> تایید</button>";
+        res += "<button class='btn btn-sm btn-danger m-1 unConfirm-payment' data-id='" + row.id + "'><span class='glyphicon glyphicon-cross'></span> عدم تایید</button> ";
+    }
+    return res;
+}
+
+window.transactionConfirmationEvents = {
+    'click button.confirm-payment': function (row) {
+        var $this, url;
+        $this = $(this);
+        url = $('table[data-toggle=table]').data("confirmationUrl");
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            cache: false,
+            data: {
+                transactionId: $this.data("id"),
+                confirm: true
+            }
+        }).done(function (data, textStatus, jqXHR) {
+            if ((data != null ? data.length : void 0) === 0) {
+                toastr["error"]((_ref1 = data.message) != null ? _ref1 : resource.exception.editError);
+                return;
+            }
+
+            toastr["success"]("عملیات با موفقیت انجام شد");
+            $('table[data-toggle=table]').bootstrapTable("refresh", {
+                silent: true,
+                pageNumber: 1
+            });
+        }).fail(function (msg) {
+            toastr["error"](msg.status === 403 ? resource.exception.forbidden : resource.exception.serverError);
+        });
+    },
+    'click button.unConfirm-payment': function (row) {
+        var $this, url;
+        $this = $(this);
+        url = $('table[data-toggle=table]').data("confirmationUrl");
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            cache: false,
+            data: {
+                transactionId: $this.data("id"),
+                confirm: false
             }
         }).done(function (data, textStatus, jqXHR) {
             if ((data != null ? data.length : void 0) === 0) {

@@ -32,6 +32,15 @@ manuallyDestroyToastr = function (tapToDismiss) {
     toastr.options.timeOut = "0";
     return toastr.options.extendedTimeOut = "0";
 };
+function CopyToClipboard(copyText) {
+
+    // Select the text field
+    navigator.clipboard.writeText(copyText).then(function () {
+        toastr["success"]("متن مورد نظر با موفقیت کپی شد");
+    }, function (err) {
+        console.error('Async: Could not copy text: ', err);
+    });
+}
 
 window.bootbox = function (size) {
     bootbox.setDefaults({

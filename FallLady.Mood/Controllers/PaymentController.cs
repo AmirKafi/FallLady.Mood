@@ -3,6 +3,7 @@ using FallLady.Mood.Application.Contract.Interfaces.Orders;
 using FallLady.Mood.Application.Contract.Interfaces.Transactions;
 using FallLady.Mood.Application.Contract.Interfaces.Users;
 using FallLady.Mood.Controllers.Base;
+using FallLady.Mood.Framework.Core.Enum;
 using FallLady.Mood.Utility.ServiceResponse;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,30 +26,75 @@ namespace FallLady.Mood.Controllers
         }
         #endregion
 
+        [HttpGet]
+        [Route("/BankTransfer")]
+        public async Task<ActionResult> BankTransfer(string ordersId)
+        {
+            var dto = new TransactionCreateDto();
+
+            var result = new ServiceResponse<int>();
+
+            List<int> orders = new List<int>();
+
+            foreach (var item in ordersId.Split(',').ToList())
+            {
+                orders.Add(Convert.ToInt32(item));
+            }
+            dto.OrdersStr = ordersId;
+            dto.OrdersId = orders;
+
+            var userId = await _userService.GetUserId(User);
+            var order = await _orderService.LoadOrders(userId.Data).ConfigureAwait(false);
+
+            dto.DiscountPrice = order.Data.Sum(x => x.OrderType == FormEnum.Course ? (x.Course.DiscountPrice.HasValue ? x.Course.DiscountPrice.Value : 0) : 0);
+            dto.TotalPrice = order.Data.Sum(x=> x.Course is null ? 0 : x.Course.Price * x.Qty);
+
+            dto.PaymentType = PaymentTypesEnum.BankTransfer;
+
+            return PartialView(dto);
+        }
+
         [HttpPost]
         [Route("/Pay")]
-        public async Task<ActionResult> Pay(List<int> ordersId, Int64 totalPrice, Int64 discountPrice,int? discountId)
+        public async Task<ActionResult> Pay(TransactionCreateDto dto)
         {
             var userId = await _userService.GetUserId(User);
-            var isDevMode = _configuration.GetValue<bool>("DeveloperMode");
             var result = new ServiceResponse<int>();
-            var model = new TransactionCreateDto();
 
-            if (isDevMode)
+            List<int> orders = new List<int>();
+
+            foreach (var item in dto.OrdersStr.Split(',').ToList())
             {
-                model.OrdersId = ordersId;
-                model.TotalPrice = totalPrice + (Int64)((decimal)totalPrice * (decimal)0.09);
-                model.DiscountPrice = discountPrice;
-                model.PaymentCode = "Test";
-                model.PaymentResult = "200";
-                model.PaymentResultDescription = "Test";
-                model.DiscountId = discountId;
+                orders.Add(Convert.ToInt32(item));
+            }
+            dto.OrdersId = orders;
 
-                result = await _service.Pay(model);
-                if (result.ResultStatus == ResultStatus.Successful)
+            if (dto.PaymentType == PaymentTypesEnum.BankTransfer)
+            {
+                dto.PaymentCode = "0";
+                dto.PaymentResult = "200";
+                dto.PaymentResultDescription = "پرداخت از طریق کارت به کارت و فیش بانکی";
+                dto.PaymentState = PaymentStatesEnum.WaitingForConfirmation;
+
+                if (dto.ReceiptImageFile != null)
                 {
-                    await _orderService.Pay(ordersId,result.Data);
+                    var fileName = SaveFile(dto.ReceiptImageFile, FileFoldersEnum.Transaction);
+                    dto.ReceiptImage = fileName.Data;
                 }
+                else
+                {
+                    var res = new ServiceResponse<bool>();
+                    res.SetException("آپلود رسید اجباری می باشد");
+                    return Json(res);
+                }
+            }
+
+
+            result = await _service.Pay(dto);
+            if (result.ResultStatus == ResultStatus.Successful)
+            {
+
+                await _orderService.Pay(dto.OrdersId, result.Data);
             }
 
             if (result.ResultStatus == ResultStatus.Successful)

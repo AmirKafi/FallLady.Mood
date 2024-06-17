@@ -1,0 +1,64 @@
+﻿@using FallLady.Mood.Framework.Core.Enum
+@model FallLady.Mood.Application.Contract.Dto.Transactions.TransactionCreateDto
+
+
+<div class="bank-transfer-info rounded-8 border-light">
+    <div class="d-flex items-center justify-between pl-30 pr-20">
+        مبلغ مورد نظر را به حساب زیر واریز کنید در ادامه رسید خود را به صورت عکس آپلود کنید و روی دکمه "پرداخت با فیش بانکی" کلیک کنید.
+
+    </div>
+
+    <div class="d-flex items-center justify-between pl-30 pr-20 py-15">
+        بعد از تایید شدن رسید از طرف ادمین وبسایت به صورت خودکار سفارش شما تکمیل خواهد شد
+    </div>
+
+    <div class="d-flex justify-between px-20 item border-top-dark">
+        <div class="py-15 fw-500 text-dark-1">شماره کارت</div>
+        <div class="py-15 fw-500 text-dark-1"><strong><span id="CardNumber">5041721025060949</span></strong></div>
+        <div class="py-15 fw-500 text-dark-1"><a href="#" onclick="CopyToClipboard(5041721025060949)"><span class="glyphicon glyphicon-copy"></span></a></div>
+    </div>
+@* 
+    <div class="d-flex justify-between px-20 item border-top-dark">
+        <div class="py-15 fw-500 text-dark-1">شماره حساب</div>
+        <div class="py-15 fw-500 text-dark-1"><strong><span id="AccountNumber">611828005467785501</span></strong></div>
+        <div class="py-15 fw-500 text-dark-1"><a href="#" onclick="CopyToClipboard(611828005467785501)"><span class="glyphicon glyphicon-copy"></span></a></div>
+    </div>
+ *@
+    <div class="d-flex justify-between px-20 item border-top-dark">
+        <div class="py-15 fw-500 text-dark-1">به نام</div>
+        <div class="py-15 fw-500 text-dark-1"><strong><span id="AccountName">زهره احمدیان احمدآبادی</span></strong></div>
+    </div>
+</div>
+
+<br />
+<form autocomplete="off" action="@Url.Action("Pay", "Payment")">
+    <input asp-for="TotalPrice" hidden />
+    <input asp-for="DiscountPrice" hidden />
+    <input asp-for="DiscountId" hidden />
+    <input asp-for="OrdersId" hidden />
+    <input asp-for="OrdersStr" hidden />
+    <input asp-for="PaymentType" hidden />
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="file-preview exist hidden logo" hidden>
+                <div class="close fileinput-remove">&times;</div>
+                <div class="file-preview-thumbnails">
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <input hidden asp-for="ReceiptImage" />
+            <label asp-for="ReceiptImage" class="form-label"></label>
+            <input type="file"
+                   class="form-control imageFile"
+                   accept=".jpg"
+                   data-preview-target=".file-preview.exist.logo"
+                   data-url="@Url.Action("Image","File")"
+                   data-folder-name="@FileFoldersEnum.Transaction.ToString()"
+                   asp-for="ReceiptImageFile" />
+            <span asp-validation-for="ReceiptImageFile"></span>
+        </div>
+    </div>
+
+</form>
+

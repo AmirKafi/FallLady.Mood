@@ -1,5 +1,6 @@
 ﻿
 //#region Recourse
+
 resource = {
     message: {
         success: "ذخیره با موفقیت انجام شد",
@@ -124,6 +125,7 @@ $(document).on("click", ".btn.createItem[data-url]", function (e) {
     content = "";
     $createItem.tooltip("hide");
     url = $createItem.data("url");
+
     $.ajax({
         url: url,
         type: "GET",

@@ -679,3 +679,15 @@ button.btn.btn-outline-success.m-1 {
 .masthead{
     border-radius:1rem
 }
+
+.bank-transfer-info {
+    padding: 2rem;
+    background-color: var(--color-purple-2);
+    /* margin-top: 0px; */
+}
+
+
+
+
+
+

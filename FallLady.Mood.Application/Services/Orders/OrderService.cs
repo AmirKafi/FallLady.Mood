@@ -96,7 +96,7 @@ namespace FallLady.Mood.Application.Services.Orders
                                         .ThenInclude(x => x.Discount)
                                         .Include(x => x.User)
                                         .Include(x => x.Transaction)
-                                        .Where(x => x.UserId == userId && x.Transaction != null)
+                                        .Where(x => x.UserId == userId && (x.Transaction == null ? false : x.Transaction.State == Framework.Core.Enum.PaymentStatesEnum.PaymentSucceeded))
                                         .ToList();
 
                     result.SetData(orders.ToDto());

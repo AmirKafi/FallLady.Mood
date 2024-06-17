@@ -147,6 +147,8 @@ namespace FallLady.Mood.Application.Services.Courses
             {
                 var course = await _repository.Get(dto.Id);
                 if (dto.EventDays is null) dto.EventDays = new List<WeekDaysEnum>();
+                _repository.DeleteCourseTags(course);
+
                 course.Update(dto.Title, 
                               dto.CourseType,
                               dto.Price,
@@ -182,6 +184,13 @@ namespace FallLady.Mood.Application.Services.Courses
             try
             {
                 var course = await _repository.GetById(courseId);
+                if (course is null)
+                    throw new Exception("دوره مورد نظر یافت نشد!");
+
+                var order = await _repository.CheckIfCourseIsUsedInOrders(course).ConfigureAwait(false);
+                if (order)
+                    throw new Exception("به دلیل داشتن خرید این دوره امکان حذف وجود ندارد");
+
                 await _repository.Delete(course);
 
                 result.SetData(true);

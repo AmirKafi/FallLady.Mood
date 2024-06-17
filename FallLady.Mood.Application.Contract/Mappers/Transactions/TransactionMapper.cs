@@ -16,7 +16,32 @@ namespace FallLady.Mood.Application.Contract.Mappers.Transactions
                                    dto.PaymentCode,
                                    dto.PaymentResult,
                                    dto.PaymentResultDescription,
-                                   dto.DiscountId);
+                                   dto.DiscountId,
+                                   dto.PaymentType,
+                                   dto.PaymentState,
+                                   dto.ReceiptImage);
+        }
+
+        public static List<TransactionListDto> ToDto(this IEnumerable<Transaction>? lst)
+        {
+            if (lst is null)
+                return new List<TransactionListDto>();
+            else
+                return lst.Select(x => new TransactionListDto()
+                {
+                    Id = x.Id,
+                    CreatedOn = x.CreatedOn,
+                    TotalPrice = x.TotalPrice,
+                    FileName = x.ReceiptImage,
+                    DiscountPrice = x.DiscountPrice,
+                    PaymentCode = x.PaymentCode,
+                    PaymentResult = x.PaymentResult,
+                    PaymentResultDescription = x.PaymentResultDescription,
+                    PaymentState = x.State,
+                    PaymentType = x.PaymentType,
+                    OrdersId = x.Orders.Select(x => x.Id).ToList(),
+                    OrdersTitle = string.Join(',', x.Orders.Select(y => y.Course?.Title).ToList())
+                }).ToList();
         }
     }
 }

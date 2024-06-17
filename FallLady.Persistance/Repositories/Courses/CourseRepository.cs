@@ -1,5 +1,6 @@
 ﻿using FallLady.Mood.Application.Contract.Dto.Course;
 using FallLady.Mood.Domain.Domain.Courses;
+using FallLady.Mood.Domain.Domain.Tags;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -28,12 +29,38 @@ namespace FallLady.Persistance.Repositories.Course
         public Task<FallLady.Mood.Domain.Domain.Courses.Course> Get(int id)
         {
             var result = _dbContext.Courses
+                                   .AsNoTracking()
                                    .Include(x => x.Teacher)
                                    .Include(x => x.EventDays)
                                    .Include(x => x.Category)
                                    .Include(x => x.Tags)
                                    .Include(x => x.Discount)
                                    .FirstOrDefaultAsync(x=> x.Id == id);
+            return result;
+        }
+        public void DeleteCourseTags(FallLady.Mood.Domain.Domain.Courses.Course entity)
+        {
+
+            _dbContext.Tags.RemoveRange(entity.Tags);
+            _dbContext.SaveChanges();
+        }
+
+        public async Task Update(FallLady.Mood.Domain.Domain.Courses.Course entity)
+        {
+            _dbContext.Update(entity);
+
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<bool> CheckIfCourseIsUsedInOrders(Mood.Domain.Domain.Courses.Course course)
+        {
+            bool result = false;
+
+            result = await _dbContext.Order
+                                     .AsNoTracking()
+                                     .Include(x=> x.Course)
+                                     .AnyAsync(x=> x.Course == null ? false : x.Course.Id == course.Id);
+
             return result;
         }
     }
