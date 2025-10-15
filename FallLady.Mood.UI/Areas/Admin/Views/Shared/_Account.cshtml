@@ -1,0 +1,27 @@
+﻿<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+    <div class="container-fluid py-1 px-3">
+        <div class="collapse navbar-collapse mt-sm-0 mt-2 px-0" id="navbar">
+            <ul class="navbar-nav me-auto ms-0 justify-content-end">
+                <li class="nav-item dropdown ps-2 d-flex align-items-center">
+                    <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="~/Content/Image/login-user.png" class="user-image rounded-circle" alt="User Image">
+                        @User.Identity.Name
+                    </a>
+
+                    @*<ul class="dropdown-menu  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                        <li class="mb-2">
+                            <form id="singoutForm" method="POST" action="@Url.Action( MVC.Account.SignOut() )">
+                                @Html.AntiForgeryToken()
+                            </form>
+                            <a class="dropdown-item border-radius-md logOff">
+                                <div class="d-flex py-1">
+                                    خروج از سیستم
+                                </div>
+                            </a>
+                        </li>
+                    </ul>*@
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

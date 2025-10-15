@@ -1,0 +1,33 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using FallLady.Mood.Data.Domain
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@{
+    <ul class="nav-menu nav-menu-social align-to-left">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <li>
+                <a>@UserManager.GetUserName(User)</a>
+            </li>
+            <li class="login_click">
+                <a asp-action="Logout" asp-controller="Account">خروج از سیستم</a>
+            </li>
+            if (User.IsInRole("Admin"))
+            {
+                <li class="login_click">
+                    <a asp-area="Admin" asp-controller="Home" asp-action="Index">ورود به پنل ادمین</a>
+                </li>
+            }
+        }
+        else
+        {
+            <li class="login_click bg-red">
+                <a class="btn btn-sm btn-signIn" data-url="@Url.Action("Login","Account")">ورود</a>
+            </li>
+            <li class="login_click">
+                <a asp-action="Register" asp-controller="Account">ثبت نام</a>
+            </li>
+        }
+    </ul>
+}

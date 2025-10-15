@@ -1,0 +1,22 @@
+﻿@model FallLady.Mood.Application.Contract.Dto.Teacher.TeacherCreateDto
+@{
+    ViewBag.Title = "ثبت مدرس";
+}
+<div class="teacher-create">
+    <div class="card">
+        <div class="card-body">
+            <form autocomplete="off" action="@Url.Action("Create","Teacher")">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="FullName" class="form-label"></label><b class="text-danger">*</b>
+                            <input type="text" class="form-control" asp-for="FullName">
+                            <span class="field-validation-valid text-danger" asp-validation-for="FullName"></span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

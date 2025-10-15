@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/Admin/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="/Content/Image/FallLady-logo.png">
+    <title>
+        پنل ادمین بانوی پاییز
+    </title>
+    <link href="~/Content/css/base.css" rel="stylesheet">
+    <link href="~/Content/css/adminTemplate.css" rel="stylesheet">
+    <link href="~/css/toastr.css" rel="stylesheet">
+</head>
+
+<body class="g-sidenav-show rtl bg-gray-100">
+
+    @await Html.PartialAsync("_Menu")
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg overflow-x-hidden">
+        <!-- Navbar -->
+        @await Html.PartialAsync("_Account")
+        <!-- End Navbar -->
+        <div class="hico-header-background"></div>
+        <div class="container-fluid py-4">
+            <div class="row">
+                @RenderBody()
+            </div>
+        </div>
+    </main>
+    <script src="~/Content/js/base.js"></script>
+    <script src="~/Content/js/home.js"></script>
+
+</body>
+</html>
